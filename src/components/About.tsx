@@ -24,8 +24,8 @@ export default function About() {
       colSpan: "md:col-span-1",
       header: (
         <div className="flex flex-1 w-full h-full min-h-[120px] rounded-xl bg-zinc-900 border border-white/5 items-center justify-center overflow-hidden relative group">
-          {/* Stylized Map Background */}
-          <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1524492412937-b28074a5d7da?q=80&w=2071&auto=format&fit=crop')] bg-cover bg-center opacity-20 mix-blend-luminosity group-hover:opacity-40 group-hover:scale-105 transition-all duration-700"></div>
+          {/* Stylized Campus Background */}
+          <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center opacity-20 mix-blend-luminosity group-hover:opacity-40 group-hover:scale-105 transition-all duration-700"></div>
           
           {/* Radar / Pulsing Pin effect */}
           <div className="relative z-10 flex items-center justify-center">

@@ -1,3 +1,3 @@
 git add .
-git commit -m "feat: completely redesign About section with robust custom CSS grid and Spotlight effects"
+git commit -m "feat: custom glowing code bracket SVG favicon and updated campus background"
 git push origin main
