@@ -1,0 +1,232 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: #000000;
+  --color-foreground: #ffffff;
+  --color-primary: #f59e0b;
+  --color-primary-foreground: #000000;
+  --color-secondary: #18181b;
+  --color-secondary-foreground: #ffffff;
+  --color-muted: #18181b;
+  --color-muted-foreground: #a1a1aa;
+  --color-accent: #f59e0b;
+  --color-accent-foreground: #000000;
+  --color-destructive: #ef4444;
+  --color-destructive-foreground: #ffffff;
+  --color-border: #27272a;
+  --color-input: #27272a;
+  --color-ring: #f59e0b;
+  --radius: 0.5rem;
+
+  --animate-shimmer: shimmer 2s linear infinite;
+  --animate-marquee: marquee var(--duration) linear infinite;
+  --animate-marquee-vertical: marquee-vertical var(--duration) linear infinite;
+  
+  @keyframes shimmer {
+    from {
+      background-position: 200% 0;
+    }
+    to {
+      background-position: -200% 0;
+    }
+  }
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(calc(-100% - var(--gap))); }
+  }
+
+  @keyframes marquee-vertical {
+    from { transform: translateY(0); }
+    to { transform: translateY(calc(-100% - var(--gap))); }
+  }
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  cursor: none;
+  overflow-x: hidden;
+}
+
+a, button {
+  cursor: none;
+}
+
+* {
+  border-color: var(--color-border);
+}
+
+/* Hide Spline "Built with Spline" logo/watermark */
+.spline-logo,
+[class*="spline"] a[href*="spline"],
+footer a[href*="spline.design"],
+[aria-label*="Spline"],
+[aria-label*="spline"],
+a[href*="spline.design/community"],
+a[href*="spline.design"],
+[class*="watermark"],
+[class*="Watermark"],
+[class*="logo-wrap"],
+[class*="built-with"],
+[class*="branding"],
+a[href*="spline.design"]:not(canvas a) {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  position: absolute !important;
+  width: 0 !important;
+  height: 0 !important;
+  overflow: hidden !important;
+}
+
+/* Spline viewer shadow DOM watermark hiding */
+spline-viewer::part(logo),
+spline-viewer::part(navigation),
+spline-viewer a,
+spline-viewer iframe,
+spline-viewer div[style*="position: absolute"][style*="bottom"],
+spline-viewer div[style*="position: absolute"][style*="z-index"] {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+/* React Spline component watermark hiding */
+div:has(> canvas) > a[href*="spline"],
+div:has(> canvas) > div > a[href*="spline"],
+div[class*="scene"] > a[href*="spline"],
+div[style*="position: relative"] > a[href*="spline"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+/* Lenis overrides */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #000;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #f59e0b;
+  border-radius: 3px;
+}
+
+/* Selection color */
+::selection {
+  background: rgba(245, 158, 11, 0.3);
+  color: #ffffff;
+}
+
+/* Noise texture overlay */
+.noise-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9990;
+  pointer-events: none;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+}
+
+/* Section gradient dividers */
+.section-divider {
+  position: relative;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(245, 158, 11, 0.3) 20%,
+    rgba(245, 158, 11, 0.5) 50%,
+    rgba(245, 158, 11, 0.3) 80%,
+    transparent 100%
+  );
+}
+
+.section-divider::before {
+  content: "";
+  position: absolute;
+  inset: -20px 0;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(245, 158, 11, 0.02) 50%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
+
+/* Glassmorphism card hover glow */
+.glass-card {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-card:hover {
+  border-color: rgba(245, 158, 11, 0.3);
+  box-shadow: 0 0 30px rgba(245, 158, 11, 0.1);
+}
+
+/* Gradient text helper */
+.gradient-text {
+  background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 50%, #f59e0b 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Section backgrounds */
+.section-dark {
+  background: linear-gradient(180deg, #000000 0%, #09090b 100%);
+}
+
+.section-darker {
+  background: linear-gradient(180deg, #09090b 0%, #000000 100%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  body {
+    cursor: auto;
+  }
+
+  a, button {
+    cursor: auto;
+  }
+}
+
+@media (hover: none) and (pointer: coarse) {
+  body, a, button {
+    cursor: auto;
+  }
+}
