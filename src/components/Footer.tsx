@@ -1,4 +1,4 @@
-import { Globe, Briefcase, Mail, Heart } from "lucide-react"
+import { Globe, Briefcase, Mail } from "lucide-react"
 import { motion } from "framer-motion"
 
 const socialLinks = [
