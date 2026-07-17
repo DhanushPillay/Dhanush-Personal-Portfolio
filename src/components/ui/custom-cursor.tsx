@@ -18,19 +18,19 @@ export default function CustomCursor() {
     gsap.set(follower, { xPercent: -50, yPercent: -50 })
 
     const cursorXSetter = gsap.quickTo(cursor, "x", {
-      duration: 0.15,
+      duration: 0.0,
       ease: "power3.out",
     })
     const cursorYSetter = gsap.quickTo(cursor, "y", {
-      duration: 0.15,
+      duration: 0.0,
       ease: "power3.out",
     })
     const followerXSetter = gsap.quickTo(follower, "x", {
-      duration: 0.5,
+      duration: 0.15,
       ease: "power3.out",
     })
     const followerYSetter = gsap.quickTo(follower, "y", {
-      duration: 0.5,
+      duration: 0.15,
       ease: "power3.out",
     })
 
