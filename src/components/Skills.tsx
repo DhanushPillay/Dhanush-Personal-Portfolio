@@ -1,99 +1,174 @@
-import { useRef } from "react"
-import { useGSAP } from "@gsap/react"
-import gsap from "gsap"
-import { ScrollTrigger } from "gsap/ScrollTrigger"
-import { SplitText } from "gsap/SplitText"
-import { Marquee } from "@/components/ui/marquee"
+import { motion } from "framer-motion"
+import { Brain, Shield, Globe, Database, FileText, Eye, Fingerprint, Network } from "lucide-react"
+import { SpotlightCard } from "@/components/ui/spotlight-card"
 
-gsap.registerPlugin(ScrollTrigger, SplitText)
+// Helper to get skillicons.dev URL
+const getIcon = (name: string) => `https://skillicons.dev/icons?i=${name}`
 
-const firstRow = [
-  "Python", "JavaScript", "HTML/CSS", "SQL", "Flask", "React", "Node.js", "Tailwind CSS"
+type Skill = { name: string; level?: string; icon?: string }
+type SkillCategory = { title: string; skills: Skill[] }
+
+const skillCategories: SkillCategory[] = [
+  {
+    title: "Languages",
+    skills: [
+      { name: "Python", level: "Strong", icon: getIcon("python") },
+      { name: "JavaScript", level: "Solid", icon: getIcon("js") },
+      { name: "TypeScript", level: "Learning", icon: getIcon("ts") },
+      { name: "HTML/CSS", level: "Strong", icon: getIcon("html") },
+      { name: "Rust", level: "Exposure", icon: getIcon("rust") },
+      { name: "SQL", level: "Working", icon: getIcon("mysql") },
+    ]
+  },
+  {
+    title: "AI & Machine Learning",
+    skills: [
+      { name: "PyTorch", icon: getIcon("pytorch") },
+      { name: "Transformers" },
+      { name: "Groq LLaMA" },
+      { name: "FAISS" },
+      { name: "KNN" },
+      { name: "Sentence-Transformers" },
+      { name: "Pandas", icon: getIcon("pandas") },
+      { name: "NumPy", icon: getIcon("numpy") },
+      { name: "OpenCV", icon: getIcon("opencv") },
+      { name: "Matplotlib" },
+      { name: "Librosa" },
+      { name: "NLTK" },
+    ]
+  },
+  {
+    title: "Web & Data",
+    skills: [
+      { name: "Node.js", icon: getIcon("nodejs") },
+      { name: "Express", icon: getIcon("express") },
+      { name: "MongoDB", icon: getIcon("mongodb") },
+      { name: "Flask", icon: getIcon("flask") },
+      { name: "FastAPI", icon: getIcon("fastapi") },
+      { name: "Tailwind CSS", icon: getIcon("tailwind") },
+      { name: "Socket.IO" },
+      { name: "BeautifulSoup" },
+      { name: "Fabric.js" },
+    ]
+  },
+  {
+    title: "Cloud & Infrastructure",
+    skills: [
+      { name: "Google Cloud", icon: getIcon("gcp") },
+      { name: "AWS", icon: getIcon("aws") },
+      { name: "Docker", icon: getIcon("docker") },
+      { name: "Kubernetes", icon: getIcon("kubernetes") },
+      { name: "Nginx", icon: getIcon("nginx") },
+      { name: "GitHub Actions", icon: getIcon("githubactions") },
+      { name: "Vercel", icon: getIcon("vercel") },
+      { name: "Netlify", icon: getIcon("netlify") },
+      { name: "Render" },
+      { name: "Hugging Face" },
+    ]
+  },
+  {
+    title: "Tools & Security",
+    skills: [
+      { name: "Git", icon: getIcon("git") },
+      { name: "Linux", icon: getIcon("linux") },
+      { name: "VS Code", icon: getIcon("vscode") },
+      { name: "Figma", icon: getIcon("figma") },
+      { name: "JWT" },
+      { name: "Google OAuth" },
+    ]
+  }
 ]
 
-const secondRow = [
-  "NLP", "Data Scraping", "Pandas", "SQLite", "Network Security", "AWS", "Git/GitHub", "Linux"
+const domains = [
+  { name: "AI / Machine Learning", icon: <Brain size={18} /> },
+  { name: "Cybersecurity", icon: <Shield size={18} /> },
+  { name: "Web Development", icon: <Globe size={18} /> },
+  { name: "Data Science", icon: <Database size={18} /> },
+  { name: "NLP", icon: <FileText size={18} /> },
+  { name: "Computer Vision", icon: <Eye size={18} /> },
+  { name: "Adversarial ML", icon: <Network size={18} /> },
+  { name: "Deepfake Detection", icon: <Fingerprint size={18} /> },
+  { name: "RAG", icon: <Database size={18} /> },
 ]
-
-const thirdRow = [
-  "PyTorch", "Transformers", "Google Cloud", "Docker", "Socket.IO", "BeautifulSoup", "FAISS", "REST APIs"
-]
-
-const SkillCard = ({ name }: { name: string }) => {
-  return (
-    <div className="relative w-max cursor-pointer overflow-hidden rounded-xl border border-white/10 bg-white/[0.03] backdrop-blur-xl p-4 hover:bg-white/10 transition-colors">
-      <div className="flex flex-row items-center gap-2">
-        <div className="flex flex-col">
-          <figcaption className="text-sm font-medium text-white">
-            {name}
-          </figcaption>
-        </div>
-      </div>
-    </div>
-  )
-}
 
 export default function Skills() {
-  const sectionRef = useRef<HTMLElement>(null)
-  const headingRef = useRef<HTMLHeadingElement>(null)
-
-  useGSAP(
-    () => {
-      if (!sectionRef.current) return
-
-      if (headingRef.current) {
-        const splitHeading = new SplitText(headingRef.current, {
-          type: "chars,words",
-        })
-        gsap.from(splitHeading.chars, {
-          opacity: 0,
-          y: 50,
-          rotateX: -90,
-          stagger: 0.02,
-          duration: 0.8,
-          ease: "back.out(1.7)",
-          scrollTrigger: {
-            trigger: headingRef.current,
-            start: "top 85%",
-          },
-        })
-      }
-    },
-    { scope: sectionRef }
-  )
-
   return (
-    <section ref={sectionRef} id="skills" className="py-20 bg-zinc-950 overflow-hidden">
-      <div className="max-w-6xl mx-auto px-6 mb-12">
-        <h2
-          ref={headingRef}
-          className="text-5xl md:text-6xl font-bold text-center text-white"
+    <section id="skills" className="py-20 bg-black relative">
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(245,158,11,0.05)_0%,transparent_70%)] pointer-events-none" />
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
+        <motion.h2
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6 }}
+          className="text-5xl md:text-6xl font-bold text-center mb-16 text-white tracking-tight"
         >
           Skills &{" "}
           <span className="bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500 bg-clip-text text-transparent">
-            Technologies
+            Expertise
           </span>
-        </h2>
-      </div>
+        </motion.h2>
 
-      <div className="relative flex w-full flex-col items-center justify-center overflow-hidden rounded-lg bg-transparent">
-        <Marquee pauseOnHover className="[--duration:20s]">
-          {firstRow.map((skill) => (
-            <SkillCard key={skill} name={skill} />
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+          {skillCategories.map((category, i) => (
+            <motion.div
+              key={category.title}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.5, delay: i * 0.1 }}
+              className="h-full"
+            >
+              <SpotlightCard className="h-full p-6">
+                <h3 className="text-xl font-semibold text-white mb-6 pb-2 border-b border-white/10">
+                  {category.title}
+                </h3>
+                <div className="flex flex-wrap gap-2 mt-auto">
+                  {category.skills.map((skill) => (
+                    <div
+                      key={skill.name}
+                      className="group flex items-center gap-2 px-3 py-1.5 text-sm font-medium rounded-lg bg-white/5 text-zinc-300 border border-white/10 hover:bg-amber-500/10 hover:text-amber-400 hover:border-amber-500/30 transition-all duration-300 cursor-default"
+                    >
+                      {skill.icon && <img src={skill.icon} alt={skill.name} className="w-4 h-4 rounded-sm group-hover:scale-110 transition-transform duration-300" />}
+                      <span>{skill.name}</span>
+                      {skill.level && <span className="opacity-50 text-[10px] uppercase tracking-wider ml-1 hidden sm:inline group-hover:opacity-100 transition-opacity">({skill.level})</span>}
+                    </div>
+                  ))}
+                </div>
+              </SpotlightCard>
+            </motion.div>
           ))}
-        </Marquee>
-        <Marquee reverse pauseOnHover className="[--duration:25s]">
-          {secondRow.map((skill) => (
-            <SkillCard key={skill} name={skill} />
-          ))}
-        </Marquee>
-        <Marquee pauseOnHover className="[--duration:22s]">
-          {thirdRow.map((skill) => (
-            <SkillCard key={skill} name={skill} />
-          ))}
-        </Marquee>
-        <div className="pointer-events-none absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-zinc-950 dark:from-background"></div>
-        <div className="pointer-events-none absolute inset-y-0 right-0 w-1/3 bg-gradient-to-l from-zinc-950 dark:from-background"></div>
+        </div>
+
+        {/* Full-width Domains Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.5, delay: 0.5 }}
+        >
+          <SpotlightCard className="p-8">
+            <div className="flex flex-col md:flex-row gap-8 items-start md:items-center">
+              <div className="md:w-1/3">
+                <h3 className="text-3xl font-bold text-white mb-2 tracking-tight">Core Domains</h3>
+                <p className="text-zinc-400 text-sm">Specialized areas of focus spanning artificial intelligence, modern web infrastructure, and data security.</p>
+              </div>
+              <div className="md:w-2/3 flex flex-wrap gap-3">
+                {domains.map((domain) => (
+                  <div
+                    key={domain.name}
+                    className="group flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-xl bg-black text-zinc-300 border border-white/10 hover:border-amber-500/50 hover:shadow-[0_0_15px_rgba(245,158,11,0.2)] transition-all duration-300 cursor-default"
+                  >
+                    <span className="text-amber-500/70 group-hover:text-amber-400 group-hover:scale-110 transition-all duration-300">
+                      {domain.icon}
+                    </span>
+                    {domain.name}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </SpotlightCard>
+        </motion.div>
       </div>
     </section>
   )
