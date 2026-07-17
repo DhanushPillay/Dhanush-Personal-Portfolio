@@ -119,19 +119,7 @@ html.lenis, html.lenis body {
   overscroll-behavior: contain;
 }
 
-/* Scrollbar styling */
-::-webkit-scrollbar {
-  width: 6px;
-}
 
-::-webkit-scrollbar-track {
-  background: #000;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #f59e0b;
-  border-radius: 3px;
-}
 
 /* Selection color */
 ::selection {
