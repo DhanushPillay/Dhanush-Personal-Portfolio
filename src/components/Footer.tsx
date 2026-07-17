@@ -62,16 +62,6 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-6">
-          <p className="text-zinc-500 text-sm flex items-center gap-2">
-            Made with <Heart className="w-4 h-4 text-red-500 fill-red-500 animate-pulse" /> by{" "}
-            <span className="text-zinc-300 font-medium">Dhanush Pillay</span>
-          </p>
-          <p className="text-zinc-600 text-sm">
-            &copy; {new Date().getFullYear()} All rights reserved.
-          </p>
-        </div>
       </div>
     </footer>
   )
