@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { Menu, X } from "lucide-react"
-import gsap from "gsap"
+import { motion, AnimatePresence } from "framer-motion"
 
 const navLinks = [
   { name: "Home", href: "#home" },
@@ -10,6 +10,59 @@ const navLinks = [
   { name: "Experience", href: "#experience" },
   { name: "Contact", href: "#contact" },
 ]
+
+// Magnetic Button Component
+const MagneticLink = ({ 
+  children, 
+  href, 
+  active,
+  onClick
+}: { 
+  children: React.ReactNode; 
+  href: string; 
+  active: boolean;
+  onClick?: () => void;
+}) => {
+  const ref = useRef<HTMLAnchorElement>(null)
+  const [position, setPosition] = useState({ x: 0, y: 0 })
+
+  const handleMouse = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (!ref.current) return
+    const { clientX, clientY } = e
+    const { height, width, left, top } = ref.current.getBoundingClientRect()
+    const middleX = clientX - (left + width / 2)
+    const middleY = clientY - (top + height / 2)
+    setPosition({ x: middleX * 0.3, y: middleY * 0.3 })
+  }
+
+  const reset = () => {
+    setPosition({ x: 0, y: 0 })
+  }
+
+  return (
+    <motion.a
+      href={href}
+      ref={ref}
+      onClick={onClick}
+      onMouseMove={handleMouse}
+      onMouseLeave={reset}
+      animate={{ x: position.x, y: position.y }}
+      transition={{ type: "spring", stiffness: 150, damping: 15, mass: 0.1 }}
+      className={`relative px-4 py-2 rounded-full text-sm font-medium transition-colors duration-300 ${
+        active ? "text-amber-400" : "text-zinc-400 hover:text-white"
+      }`}
+    >
+      {children}
+      {active && (
+        <motion.div
+          layoutId="active-pill"
+          className="absolute inset-0 bg-amber-500/10 border border-amber-500/20 rounded-full -z-10"
+          transition={{ type: "spring", stiffness: 300, damping: 30 }}
+        />
+      )}
+    </motion.a>
+  )
+}
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -37,93 +90,83 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
-  useEffect(() => {
-    if (isMobileOpen) {
-      const menu = document.querySelector(".mobile-menu")
-      if (menu) {
-        gsap.from(menu, {
-          x: "100%",
-          duration: 0.4,
-          ease: "power3.out",
-        })
-        gsap.from(menu.querySelectorAll("a"), {
-          opacity: 0,
-          x: 30,
-          stagger: 0.05,
-          duration: 0.4,
-          ease: "power3.out",
-          delay: 0.15,
-        })
-      }
-    }
-  }, [isMobileOpen])
-
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        isScrolled
-          ? "bg-black/70 backdrop-blur-xl shadow-[0_4px_30px_rgba(0,0,0,0.5)] border-b border-white/10"
-          : "bg-transparent"
-      }`}
-    >
-      <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-        <a
-          href="#home"
-          className="text-2xl font-bold bg-gradient-to-r from-amber-400 to-amber-500 bg-clip-text text-transparent"
-        >
-          Portfolio
-        </a>
+    <>
+      <nav
+        className={`fixed top-4 left-1/2 -translate-x-1/2 z-50 transition-all duration-500 ${
+          isScrolled
+            ? "w-[95%] max-w-4xl bg-black/60 backdrop-blur-xl shadow-[0_4px_30px_rgba(0,0,0,0.5)] border border-white/10 rounded-full"
+            : "w-full max-w-6xl bg-transparent"
+        }`}
+      >
+        <div className={`flex items-center justify-between px-6 py-3 transition-all duration-500 ${isScrolled ? "py-2" : ""}`}>
+          <a
+            href="#home"
+            className="text-xl font-bold bg-gradient-to-r from-amber-400 to-amber-500 bg-clip-text text-transparent hover:scale-105 transition-transform"
+          >
+            DP
+          </a>
 
-        {/* Desktop Nav */}
-        <div className="hidden md:flex items-center gap-8">
-          {navLinks.map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
-              className={`relative text-sm font-medium transition-colors duration-200 py-1 ${
-                activeSection === link.href.replace("#", "")
-                  ? "text-white"
-                  : "text-zinc-400 hover:text-white"
-              }`}
-            >
-              {link.name}
-              {activeSection === link.href.replace("#", "") && (
-                <span className="absolute bottom-0 left-0 w-full h-0.5 bg-amber-400 rounded-full" />
-              )}
-            </a>
-          ))}
-        </div>
-
-        {/* Mobile Toggle */}
-        <button
-          className="md:hidden text-zinc-400 hover:text-white"
-          onClick={() => setIsMobileOpen(!isMobileOpen)}
-        >
-          {isMobileOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
-      </div>
-
-      {/* Mobile Nav */}
-      {isMobileOpen && (
-        <div className="mobile-menu md:hidden fixed inset-y-0 right-0 w-72 bg-black/80 backdrop-blur-2xl border-l border-white/10 pt-20 px-8 shadow-[-10px_0_30px_rgba(0,0,0,0.5)]">
-          <div className="flex flex-col gap-6">
+          {/* Desktop Nav */}
+          <div className="hidden md:flex items-center gap-1">
             {navLinks.map((link) => (
-              <a
+              <MagneticLink
                 key={link.name}
                 href={link.href}
-                onClick={() => setIsMobileOpen(false)}
-                className={`text-base font-medium transition-colors duration-300 ${
-                  activeSection === link.href.replace("#", "")
-                    ? "text-amber-400"
-                    : "text-zinc-400 hover:text-white"
-                }`}
+                active={activeSection === link.href.replace("#", "")}
               >
                 {link.name}
-              </a>
+              </MagneticLink>
             ))}
           </div>
+
+          {/* Mobile Toggle */}
+          <button
+            className="md:hidden text-zinc-400 hover:text-white p-2"
+            onClick={() => setIsMobileOpen(true)}
+          >
+            <Menu size={24} />
+          </button>
         </div>
-      )}
-    </nav>
+      </nav>
+
+      {/* Mobile Nav Overlay */}
+      <AnimatePresence>
+        {isMobileOpen && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[60] bg-black/90 backdrop-blur-md md:hidden flex flex-col items-center justify-center"
+          >
+            <button
+              className="absolute top-6 right-6 text-zinc-400 hover:text-white p-2"
+              onClick={() => setIsMobileOpen(false)}
+            >
+              <X size={32} />
+            </button>
+            <div className="flex flex-col items-center gap-8">
+              {navLinks.map((link, i) => (
+                <motion.a
+                  key={link.name}
+                  href={link.href}
+                  onClick={() => setIsMobileOpen(false)}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.1 }}
+                  className={`text-3xl font-bold transition-colors duration-300 ${
+                    activeSection === link.href.replace("#", "")
+                      ? "text-amber-400"
+                      : "text-white/70 hover:text-white"
+                  }`}
+                >
+                  {link.name}
+                </motion.a>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   )
 }

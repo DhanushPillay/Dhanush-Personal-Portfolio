@@ -19,6 +19,8 @@ export default function Contact() {
     email: "",
     message: "",
   })
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle")
 
   useGSAP(
     () => {
@@ -77,9 +79,36 @@ export default function Contact() {
     setFormData({ ...formData, [e.target.name]: e.target.value })
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    console.log("Form submitted:", formData)
+    setIsSubmitting(true)
+    setSubmitStatus("idle")
+    
+    try {
+      const response = await fetch("https://formsubmit.co/ajax/dhanushpillay28@gmail.com", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+        }),
+      })
+      
+      if (response.ok) {
+        setSubmitStatus("success")
+        setFormData({ name: "", email: "", message: "" })
+      } else {
+        setSubmitStatus("error")
+      }
+    } catch (error) {
+      setSubmitStatus("error")
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -226,14 +255,19 @@ export default function Contact() {
               />
             </div>
             <LiquidButton
-              type="submit"
-              size="lg"
-              variant="default"
-              className="w-full"
-            >
-              <Send className="w-5 h-5 mr-2" />
-              Send Message
-            </LiquidButton>
+                type="submit"
+                className="w-full flex items-center justify-center gap-2"
+                disabled={isSubmitting}
+              >
+                <Send size={18} />
+                {isSubmitting ? "Sending..." : "Send Message"}
+              </LiquidButton>
+              {submitStatus === "success" && (
+                <p className="text-emerald-400 text-sm text-center mt-4">Message sent successfully! I will get back to you soon.</p>
+              )}
+              {submitStatus === "error" && (
+                <p className="text-red-400 text-sm text-center mt-4">Failed to send message. Please try again or email me directly.</p>
+              )}
           </form>
         </div>
       </div>
