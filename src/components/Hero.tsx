@@ -182,18 +182,16 @@ export default function Hero() {
     >
       {/* Spline as full background */}
       <div className="absolute inset-0">
-        {/* 3D Engine Loading Overlay */}
+        {/* 3D Engine Loading Indicator */}
         <div 
-          className={`absolute inset-0 z-0 flex items-center justify-center bg-black transition-opacity duration-1000 ${
-            isSplineLoaded ? "opacity-0 pointer-events-none" : "opacity-100"
+          className={`absolute bottom-8 right-8 z-50 flex items-center gap-4 bg-black/40 backdrop-blur-md px-5 py-3 rounded-full border border-white/10 transition-all duration-1000 ${
+            isSplineLoaded ? "opacity-0 translate-y-4 pointer-events-none" : "opacity-100 translate-y-0"
           }`}
         >
-          <div className="flex flex-col items-center gap-6">
-            <div className="w-16 h-16 border-4 border-zinc-900 border-t-amber-500 rounded-full animate-spin shadow-[0_0_15px_rgba(245,158,11,0.5)]" />
-            <span className="text-amber-500/70 text-sm font-medium tracking-[0.3em] uppercase animate-pulse">
-              Initializing 3D Engine...
-            </span>
-          </div>
+          <div className="w-5 h-5 border-2 border-zinc-700 border-t-amber-500 rounded-full animate-spin shadow-[0_0_10px_rgba(245,158,11,0.3)]" />
+          <span className="text-zinc-300 text-xs font-medium tracking-[0.2em] uppercase">
+            Loading 3D Engine...
+          </span>
         </div>
 
         <Spline
