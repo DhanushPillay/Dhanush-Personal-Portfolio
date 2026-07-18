@@ -6,7 +6,6 @@ import { SplitText } from "gsap/SplitText"
 import { Send, Mail, MapPin } from "lucide-react"
 import { GithubIcon, LinkedinIcon } from "@/components/ui/social-icons"
 import { LiquidButton } from "@/components/ui/liquid-button"
-import { motion } from "framer-motion"
 
 gsap.registerPlugin(ScrollTrigger, SplitText)
 
@@ -14,12 +13,14 @@ export default function Contact() {
   const sectionRef = useRef<HTMLElement>(null)
   const infoRef = useRef<HTMLDivElement>(null)
   const formRef = useRef<HTMLFormElement>(null)
+  const headingRef = useRef<HTMLHeadingElement>(null)
 
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     message: "",
   })
+  const [errors, setErrors] = useState<{name?: string; email?: string; message?: string}>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle")
 
@@ -27,7 +28,20 @@ export default function Contact() {
     () => {
       if (!sectionRef.current) return
 
-      // Heading animation handled by framer-motion
+      if (headingRef.current) {
+        gsap.from(headingRef.current, {
+          opacity: 0,
+          y: 40,
+          filter: "blur(15px)",
+          duration: 1.2,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 80%",
+            once: true
+          }
+        })
+      }
 
       if (infoRef.current) {
         gsap.from(infoRef.current, {
@@ -64,8 +78,20 @@ export default function Contact() {
     setFormData({ ...formData, [e.target.name]: e.target.value })
   }
 
+  const validate = () => {
+    const newErrors: {name?: string; email?: string; message?: string} = {}
+    if (!formData.name.trim()) newErrors.name = "Name is required"
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) newErrors.email = "Invalid email address"
+    if (formData.message.trim().length < 10) newErrors.message = "Message must be at least 10 characters"
+    
+    setErrors(newErrors)
+    return Object.keys(newErrors).length === 0
+  }
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    if (!validate()) return
+    
     setIsSubmitting(true)
     setSubmitStatus("idle")
     
@@ -99,18 +125,15 @@ export default function Contact() {
   return (
     <section ref={sectionRef} id="contact" className="py-20 bg-zinc-950">
       <div className="max-w-6xl mx-auto px-6">
-        <motion.h2
-          initial={{ opacity: 0, y: 40, filter: "blur(15px)" }}
-          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+        <h2
+          ref={headingRef}
           className="text-5xl md:text-6xl font-bold text-center mb-16 text-white tracking-tight"
         >
           Get In{" "}
           <span className="bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500 bg-clip-text text-transparent">
             Touch
           </span>
-        </motion.h2>
+        </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           {/* Contact Info */}
@@ -202,9 +225,12 @@ export default function Contact() {
                 value={formData.name}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-3 bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-xl text-white placeholder-zinc-600 focus:outline-none focus:border-amber-500/50 focus:shadow-[0_0_20px_rgba(245,158,11,0.1)] transition-all duration-500"
+                aria-invalid={!!errors.name}
+                aria-describedby={errors.name ? "name-error" : undefined}
+                className={`w-full px-4 py-3 bg-white/[0.03] backdrop-blur-xl border ${errors.name ? 'border-red-500/50' : 'border-white/10'} rounded-xl text-white placeholder-zinc-600 focus:outline-none focus:border-amber-500/50 focus:shadow-[0_0_20px_rgba(245,158,11,0.1)] transition-all duration-500`}
                 placeholder="Your name"
               />
+              {errors.name && <p id="name-error" className="text-red-400 text-xs mt-1" aria-live="polite">{errors.name}</p>}
             </div>
             <div>
               <label
@@ -220,9 +246,12 @@ export default function Contact() {
                 value={formData.email}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-3 bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-xl text-white placeholder-zinc-600 focus:outline-none focus:border-amber-500/50 focus:shadow-[0_0_20px_rgba(245,158,11,0.1)] transition-all duration-500"
+                aria-invalid={!!errors.email}
+                aria-describedby={errors.email ? "email-error" : undefined}
+                className={`w-full px-4 py-3 bg-white/[0.03] backdrop-blur-xl border ${errors.email ? 'border-red-500/50' : 'border-white/10'} rounded-xl text-white placeholder-zinc-600 focus:outline-none focus:border-amber-500/50 focus:shadow-[0_0_20px_rgba(245,158,11,0.1)] transition-all duration-500`}
                 placeholder="your.email@example.com"
               />
+              {errors.email && <p id="email-error" className="text-red-400 text-xs mt-1" aria-live="polite">{errors.email}</p>}
             </div>
             <div>
               <label
@@ -237,25 +266,32 @@ export default function Contact() {
                 value={formData.message}
                 onChange={handleChange}
                 required
+                aria-invalid={!!errors.message}
+                aria-describedby={errors.message ? "message-error" : undefined}
                 rows={5}
-                className="w-full px-4 py-3 bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-xl text-white placeholder-zinc-600 focus:outline-none focus:border-amber-500/50 focus:shadow-[0_0_20px_rgba(245,158,11,0.1)] transition-all duration-500 resize-none"
+                className={`w-full px-4 py-3 bg-white/[0.03] backdrop-blur-xl border ${errors.message ? 'border-red-500/50' : 'border-white/10'} rounded-xl text-white placeholder-zinc-600 focus:outline-none focus:border-amber-500/50 focus:shadow-[0_0_20px_rgba(245,158,11,0.1)] transition-all duration-500 resize-none`}
                 placeholder="Your message..."
               />
+              {errors.message && <p id="message-error" className="text-red-400 text-xs mt-1" aria-live="polite">{errors.message}</p>}
             </div>
             <LiquidButton
                 type="submit"
                 className="w-full flex items-center justify-center gap-2"
                 disabled={isSubmitting}
+                aria-disabled={isSubmitting}
+                aria-busy={isSubmitting}
               >
                 <Send size={18} />
                 {isSubmitting ? "Sending..." : "Send Message"}
               </LiquidButton>
-              {submitStatus === "success" && (
-                <p className="text-emerald-400 text-sm text-center mt-4">Message sent successfully! I will get back to you soon.</p>
-              )}
-              {submitStatus === "error" && (
-                <p className="text-red-400 text-sm text-center mt-4">Failed to send message. Please try again or email me directly.</p>
-              )}
+              <div aria-live="polite" className="mt-4">
+                {submitStatus === "success" && (
+                  <p className="text-emerald-400 text-sm text-center">Message sent successfully! I will get back to you soon.</p>
+                )}
+                {submitStatus === "error" && (
+                  <p className="text-red-400 text-sm text-center">Failed to send message. Please try again or email me directly.</p>
+                )}
+              </div>
           </form>
         </div>
       </div>
