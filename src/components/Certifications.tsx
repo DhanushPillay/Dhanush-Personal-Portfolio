@@ -7,6 +7,15 @@ const badges = [
   "8bd1785b-33ee-4700-890c-7595911e7cad",
   "ce14c476-3163-4337-bad9-8956a8a87fe6",
   "fc07c0cc-6aba-4f9f-8ffb-40bdec1616f8",
+  "784c4883-68ae-4bfb-8f1e-2749922e7bc0",
+  "90e38dd3-4100-4bb4-b458-90cd5a1f739a",
+  "bbfb8b9c-d9c5-4d42-8937-d41d3f98839c",
+  "c2808b2b-c3a8-4d28-a79c-d53e67870c07",
+  "8e2e36c8-1d3f-46e6-b6e6-27b30887e1fc",
+  "02e343ac-1ba5-41b0-ae05-b6d867d69177",
+  "9f29e4ba-3b53-48f2-8bd4-48647a7791c8",
+  "d1078748-6b96-49f6-9f0e-a75aee250a10",
+  "9730c6c5-901c-4118-a676-bcc6ce7d590b",
 ]
 
 export default function Certifications() {
