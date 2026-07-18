@@ -83,10 +83,15 @@ export function SpotlightCard({
         transformStyle: "preserve-3d",
       }}
       className={cn(
-        "relative rounded-2xl border border-white/5 bg-zinc-950 overflow-hidden",
+        "relative rounded-2xl bg-white/[0.02] backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.1)] overflow-hidden",
         className
       )}
     >
+      {/* HUD Tech Accents */}
+      <div className="absolute top-3 left-3 w-1 h-1 bg-white/20 rounded-full" />
+      <div className="absolute top-3 right-3 w-1 h-1 bg-white/20 rounded-full" />
+      <div className="absolute bottom-3 left-3 w-1 h-1 bg-white/20 rounded-full" />
+      <div className="absolute bottom-3 right-3 w-1 h-1 bg-white/20 rounded-full" />
       {/* 3D Content wrapper to push content out */}
       <div 
         style={{ transform: "translateZ(30px)", transformStyle: "preserve-3d" }}

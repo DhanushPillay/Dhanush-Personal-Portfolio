@@ -42,8 +42,7 @@ export default function App() {
         style={{ scaleX }}
       />
       
-      {/* Noise texture overlay */}
-      <div className="noise-overlay" aria-hidden="true" />
+      {/* Noise texture overlay removed */}
       <div className="min-h-screen bg-black">
         <Navbar />
         <Hero />

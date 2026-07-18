@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-  --color-background: #000000;
+  --color-background: #050505;
   --color-foreground: #ffffff;
   --color-primary: #f59e0b;
   --color-primary-foreground: #000000;
@@ -45,7 +45,7 @@
 body {
   background-color: var(--color-background);
   color: var(--color-foreground);
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   cursor: none;
@@ -127,17 +127,36 @@ html.lenis, html.lenis body {
   color: #ffffff;
 }
 
-/* Noise texture overlay */
-.noise-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 9990;
-  pointer-events: none;
-  opacity: 0.03;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-  background-repeat: repeat;
-  background-size: 256px 256px;
+/* Noise texture overlay removed */
+
+@keyframes scanline {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(200%);
+  }
 }
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+}
+.animate-marquee-reverse {
+  animation: marquee 30s linear infinite reverse;
+}
+.marquee-container:hover .animate-marquee,
+.marquee-container:hover .animate-marquee-reverse {
+  animation-play-state: paused;
+}
+
 
 /* Section gradient dividers */
 .section-divider {
@@ -190,11 +209,11 @@ html.lenis, html.lenis body {
 
 /* Section backgrounds */
 .section-dark {
-  background: linear-gradient(180deg, #000000 0%, #09090b 100%);
+  background: linear-gradient(180deg, #050505 0%, #09090b 100%);
 }
 
 .section-darker {
-  background: linear-gradient(180deg, #09090b 0%, #000000 100%);
+  background: linear-gradient(180deg, #09090b 0%, #050505 100%);
 }
 
 @media (prefers-reduced-motion: reduce) {

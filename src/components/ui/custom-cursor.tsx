@@ -43,6 +43,22 @@ export default function CustomCursor() {
 
   return (
     <>
+      {/* Soft Glow */}
+      <motion.div
+        className="fixed top-0 left-0 w-[400px] h-[400px] bg-amber-500/10 rounded-full pointer-events-none z-[9998] blur-[80px]"
+        style={{
+          x: cursorXSpring,
+          y: cursorYSpring,
+          translateX: "-50%",
+          translateY: "-50%"
+        }}
+        animate={{
+          scale: isHovering ? 1.2 : 1,
+          opacity: isHovering ? 0.8 : 0.3
+        }}
+        transition={{ duration: 0.4, ease: "easeOut" }}
+      />
+
       {/* Tiny solid dot that tracks instantly */}
       <motion.div
         className="fixed top-0 left-0 w-2 h-2 bg-white rounded-full pointer-events-none z-[10000] mix-blend-difference"
