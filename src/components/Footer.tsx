@@ -1,9 +1,10 @@
-import { Globe, Briefcase, Mail } from "lucide-react"
+import { Mail } from "lucide-react"
+import { GithubIcon, LinkedinIcon } from "@/components/ui/social-icons"
 import { motion } from "framer-motion"
 
 const socialLinks = [
-  { name: "GitHub", icon: Globe, url: "https://github.com/DhanushPillay" },
-  { name: "LinkedIn", icon: Briefcase, url: "https://linkedin.com/in/dhanush-pillay" },
+  { name: "GitHub", icon: GithubIcon, url: "https://github.com/DhanushPillay" },
+  { name: "LinkedIn", icon: LinkedinIcon, url: "https://linkedin.com/in/dhanush-pillay" },
   { name: "Email", icon: Mail, url: "mailto:dhanushpillay28@gmail.com" },
 ]
 

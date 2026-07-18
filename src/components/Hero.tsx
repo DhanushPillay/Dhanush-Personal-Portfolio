@@ -5,7 +5,8 @@ import { SplitText } from "gsap/SplitText"
 import { ScrambleTextPlugin } from "gsap/ScrambleTextPlugin"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 const Spline = lazy(() => import("@splinetool/react-spline"))
-import { Mail, Globe, Briefcase } from "lucide-react"
+import { Mail } from "lucide-react"
+import { GithubIcon, LinkedinIcon } from "@/components/ui/social-icons"
 import { LiquidButton } from "@/components/ui/liquid-button"
 import { Magnetic } from "@/components/ui/magnetic"
 
@@ -240,7 +241,7 @@ export default function Hero() {
             rel="noopener noreferrer"
             className="text-zinc-400 hover:text-amber-400 transition-colors"
           >
-            <Globe size={24} />
+            <GithubIcon size={24} />
           </a>
           <a
             href="https://linkedin.com/in/dhanush-pillay"
@@ -248,7 +249,7 @@ export default function Hero() {
             rel="noopener noreferrer"
             className="text-zinc-400 hover:text-amber-400 transition-colors"
           >
-            <Briefcase size={24} />
+            <LinkedinIcon size={24} />
           </a>
           <a
             href="mailto:dhanushpillay28@gmail.com"

@@ -3,7 +3,8 @@ import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { SplitText } from "gsap/SplitText"
-import { Send, Mail, MapPin, Globe, Briefcase } from "lucide-react"
+import { Send, Mail, MapPin } from "lucide-react"
+import { GithubIcon, LinkedinIcon } from "@/components/ui/social-icons"
 import { LiquidButton } from "@/components/ui/liquid-button"
 import { motion } from "framer-motion"
 
@@ -148,7 +149,7 @@ export default function Contact() {
               </div>
               <div className="flex items-center gap-4">
                 <div className="p-3 bg-amber-500/10 rounded-xl">
-                  <Globe className="w-6 h-6 text-amber-400" />
+                  <GithubIcon className="w-6 h-6 text-amber-400" />
                 </div>
                 <div>
                   <p className="text-sm text-zinc-400">GitHub</p>
@@ -164,7 +165,7 @@ export default function Contact() {
               </div>
               <div className="flex items-center gap-4">
                 <div className="p-3 bg-amber-500/10 rounded-xl">
-                  <Briefcase className="w-6 h-6 text-amber-400" />
+                  <LinkedinIcon className="w-6 h-6 text-amber-400" />
                 </div>
                 <div>
                   <p className="text-sm text-zinc-400">LinkedIn</p>
