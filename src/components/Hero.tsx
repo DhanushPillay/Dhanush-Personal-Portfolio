@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react"
+import { useRef, useEffect, useState } from "react"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
 import { SplitText } from "gsap/SplitText"
@@ -58,6 +58,7 @@ function hideSplineWatermark() {
 }
 
 export default function Hero() {
+  const [isSplineLoaded, setIsSplineLoaded] = useState(false)
   const sectionRef = useRef<HTMLElement>(null)
   const headingRef = useRef<HTMLHeadingElement>(null)
   const subheadingRef = useRef<HTMLParagraphElement>(null)
@@ -181,11 +182,26 @@ export default function Hero() {
     >
       {/* Spline as full background */}
       <div className="absolute inset-0">
+        {/* 3D Engine Loading Overlay */}
+        <div 
+          className={`absolute inset-0 z-0 flex items-center justify-center bg-black transition-opacity duration-1000 ${
+            isSplineLoaded ? "opacity-0 pointer-events-none" : "opacity-100"
+          }`}
+        >
+          <div className="flex flex-col items-center gap-6">
+            <div className="w-16 h-16 border-4 border-zinc-900 border-t-amber-500 rounded-full animate-spin shadow-[0_0_15px_rgba(245,158,11,0.5)]" />
+            <span className="text-amber-500/70 text-sm font-medium tracking-[0.3em] uppercase animate-pulse">
+              Initializing 3D Engine...
+            </span>
+          </div>
+        </div>
+
         <Spline
           scene="https://prod.spline.design/bgrSKlWpJMCqKqli/scene.splinecode"
           style={{ width: "100%", height: "100%", background: "transparent" }}
           onLoad={(spline) => {
             spline.setZoom(1)
+            setIsSplineLoaded(true)
             // Hide watermark after scene loads — use multiple delays to catch late injections
             setTimeout(hideSplineWatermark, 500)
             setTimeout(hideSplineWatermark, 1500)
