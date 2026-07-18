@@ -1,11 +1,11 @@
 import { motion } from "framer-motion"
-import { Brain, Shield, Globe, Database, FileText, Eye, Fingerprint, Network } from "lucide-react"
+import { Brain, Shield, Globe, Database, FileText, Eye, Fingerprint, Network, Cpu, Lock, Cloud, Code, Braces, Binary, Zap, Key } from "lucide-react"
 import { SpotlightCard } from "@/components/ui/spotlight-card"
 
 // Helper to get skillicons.dev URL
 const getIcon = (name: string) => `https://skillicons.dev/icons?i=${name}`
 
-type Skill = { name: string; level?: string; icon?: string }
+type Skill = { name: string; level?: string; icon?: string; lucide?: React.ReactNode }
 type SkillCategory = { title: string; skills: Skill[] }
 
 const skillCategories: SkillCategory[] = [
@@ -24,17 +24,17 @@ const skillCategories: SkillCategory[] = [
     title: "AI & Machine Learning",
     skills: [
       { name: "PyTorch", icon: getIcon("pytorch") },
-      { name: "Transformers" },
-      { name: "Groq LLaMA" },
-      { name: "FAISS" },
-      { name: "KNN" },
-      { name: "Sentence-Transformers" },
+      { name: "Transformers", lucide: <Cpu size={16} /> },
+      { name: "Groq LLaMA", lucide: <Zap size={16} /> },
+      { name: "FAISS", lucide: <Database size={16} /> },
+      { name: "KNN", lucide: <Network size={16} /> },
+      { name: "Sentence-Transformers", lucide: <FileText size={16} /> },
       { name: "Pandas", icon: getIcon("pandas") },
       { name: "NumPy", icon: getIcon("numpy") },
       { name: "OpenCV", icon: getIcon("opencv") },
-      { name: "Matplotlib" },
-      { name: "Librosa" },
-      { name: "NLTK" },
+      { name: "Matplotlib", lucide: <Eye size={16} /> },
+      { name: "Librosa", lucide: <Binary size={16} /> },
+      { name: "NLTK", lucide: <FileText size={16} /> },
     ]
   },
   {
@@ -46,9 +46,9 @@ const skillCategories: SkillCategory[] = [
       { name: "Flask", icon: getIcon("flask") },
       { name: "FastAPI", icon: getIcon("fastapi") },
       { name: "Tailwind CSS", icon: getIcon("tailwind") },
-      { name: "Socket.IO" },
-      { name: "BeautifulSoup" },
-      { name: "Fabric.js" },
+      { name: "Socket.IO", lucide: <Network size={16} /> },
+      { name: "BeautifulSoup", lucide: <Code size={16} /> },
+      { name: "Fabric.js", lucide: <Braces size={16} /> },
     ]
   },
   {
@@ -62,8 +62,8 @@ const skillCategories: SkillCategory[] = [
       { name: "GitHub Actions", icon: getIcon("githubactions") },
       { name: "Vercel", icon: getIcon("vercel") },
       { name: "Netlify", icon: getIcon("netlify") },
-      { name: "Render" },
-      { name: "Hugging Face" },
+      { name: "Render", lucide: <Cloud size={16} /> },
+      { name: "Hugging Face", lucide: <Brain size={16} /> },
     ]
   },
   {
@@ -73,8 +73,8 @@ const skillCategories: SkillCategory[] = [
       { name: "Linux", icon: getIcon("linux") },
       { name: "VS Code", icon: getIcon("vscode") },
       { name: "Figma", icon: getIcon("figma") },
-      { name: "JWT" },
-      { name: "Google OAuth" },
+      { name: "JWT", lucide: <Lock size={16} /> },
+      { name: "Google OAuth", lucide: <Key size={16} /> },
     ]
   }
 ]
@@ -130,6 +130,7 @@ export default function Skills() {
                       className="group flex items-center gap-2 px-3 py-1.5 text-sm font-medium rounded-lg bg-white/5 text-zinc-300 border border-white/10 hover:bg-amber-500/10 hover:text-amber-400 hover:border-amber-500/30 transition-all duration-300 cursor-default"
                     >
                       {skill.icon && <img src={skill.icon} alt={skill.name} className="w-4 h-4 rounded-sm group-hover:scale-110 transition-transform duration-300" />}
+                      {skill.lucide && <span className="text-zinc-400 group-hover:text-amber-400 group-hover:scale-110 transition-all duration-300 w-4 h-4 flex items-center justify-center">{skill.lucide}</span>}
                       <span>{skill.name}</span>
                       {skill.level && <span className="opacity-50 text-[10px] uppercase tracking-wider ml-1 hidden sm:inline group-hover:opacity-100 transition-opacity">({skill.level})</span>}
                     </div>
