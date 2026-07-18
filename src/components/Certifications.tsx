@@ -8,73 +8,73 @@ const credentials = [
     id: "c2808b2b-c3a8-4d28-a79c-d53e67870c07",
     title: "Develop Serverless Applications on Cloud Run",
     issuer: "Google Cloud",
-    icon: Code,
+    image: "https://cdn.simpleicons.org/googlecloud/4285F4",
   },
   {
     id: "9f29e4ba-3b53-48f2-8bd4-48647a7791c8",
     title: "Manage Kubernetes in Google Cloud",
     issuer: "Google Cloud",
-    icon: Network,
+    image: "https://cdn.simpleicons.org/googlecloud/4285F4",
   },
   {
     id: "fc07c0cc-6aba-4f9f-8ffb-40bdec1616f8",
     title: "Streaming Analytics into BigQuery",
     issuer: "Google Cloud",
-    icon: Database,
+    image: "https://cdn.simpleicons.org/googlecloud/4285F4",
   },
   {
     id: "8e2e36c8-1d3f-46e6-b6e6-27b30887e1fc",
     title: "Implement CI/CD Pipelines on Google Cloud",
     issuer: "Google Cloud",
-    icon: Terminal,
+    image: "https://cdn.simpleicons.org/googlecloud/4285F4",
   },
   {
     id: "02e343ac-1ba5-41b0-ae05-b6d867d69177",
     title: "Machine Learning with Python (V2)",
     issuer: "Coursera",
-    icon: Brain,
+    image: "https://cdn.simpleicons.org/coursera/white",
   },
   {
     id: "bbfb8b9c-d9c5-4d42-8937-d41d3f98839c",
     title: "Cybersecurity Fundamentals",
     issuer: "IBM SkillsBuild",
-    icon: Shield,
+    image: "https://cdn.simpleicons.org/ibm/white",
   },
   {
     id: "784c4883-68ae-4bfb-8f1e-2749922e7bc0",
     title: "AWS Knowledge: Cloud Essentials",
     issuer: "Amazon Web Services",
-    icon: Cloud,
+    image: "https://cdn.simpleicons.org/amazonaws/FF9900",
   },
   {
     id: "90e38dd3-4100-4bb4-b458-90cd5a1f739a",
     title: "AWS Educate Introduction to Cloud 101",
     issuer: "Amazon Web Services",
-    icon: Cloud,
+    image: "https://cdn.simpleicons.org/amazonaws/FF9900",
   },
   {
     id: "d1078748-6b96-49f6-9f0e-a75aee250a10",
     title: "Networking Basics",
     issuer: "Cisco",
-    icon: Network,
+    image: "https://cdn.simpleicons.org/cisco/049fd9",
   },
   {
     id: "9730c6c5-901c-4118-a676-bcc6ce7d590b",
     title: "Prepare Data for ML APIs on Google Cloud",
     issuer: "Google Cloud",
-    icon: Database,
+    image: "https://cdn.simpleicons.org/googlecloud/4285F4",
   },
   {
     id: "8bd1785b-33ee-4700-890c-7595911e7cad",
     title: "Share Data Using Google Data Cloud",
     issuer: "Google Cloud",
-    icon: Database,
+    image: "https://cdn.simpleicons.org/googlecloud/4285F4",
   },
   {
     id: "ce14c476-3163-4337-bad9-8956a8a87fe6",
     title: "Store, Process, and Manage Data",
     issuer: "Google Cloud",
-    icon: Terminal,
+    image: "https://cdn.simpleicons.org/googlecloud/4285F4",
   },
 ]
 
@@ -97,9 +97,7 @@ export default function Certifications() {
         </motion.h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-16">
-          {credentials.map((cred, index) => {
-            const Icon = cred.icon
-            return (
+          {credentials.map((cred, index) => (
               <motion.a
                 key={cred.id}
                 href={`https://www.credly.com/badges/${cred.id}/public_url`}
@@ -113,8 +111,8 @@ export default function Certifications() {
               >
                 <SpotlightCard className="h-full p-6 flex flex-col items-start justify-between bg-zinc-950 border border-white/10 group-hover:border-amber-500/50 transition-colors">
                   <div className="w-full flex justify-between items-start mb-6">
-                    <div className="p-3 bg-white/5 rounded-xl text-amber-400 group-hover:scale-110 group-hover:bg-amber-500/10 transition-all duration-300">
-                      <Icon size={32} strokeWidth={1.5} />
+                    <div className="p-3 bg-white/5 rounded-xl group-hover:scale-110 transition-all duration-300 h-14 w-14 flex items-center justify-center">
+                      <img src={cred.image} alt={cred.issuer} className="w-8 h-8 object-contain" />
                     </div>
                     <ExternalLink size={18} className="text-zinc-600 group-hover:text-amber-400 transition-colors" />
                   </div>
@@ -130,8 +128,7 @@ export default function Certifications() {
                   </div>
                 </SpotlightCard>
               </motion.a>
-            )
-          })}
+          ))}
         </div>
         
         <motion.div 
