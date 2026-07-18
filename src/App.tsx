@@ -9,6 +9,7 @@ import Navbar from "@/components/Navbar"
 import Hero from "@/components/Hero"
 import About from "@/components/About"
 import Skills from "@/components/Skills"
+import Certifications from "@/components/Certifications"
 import Projects from "@/components/Projects"
 import Resume from "@/components/Resume"
 import Contact from "@/components/Contact"
@@ -50,6 +51,8 @@ export default function App() {
         <About />
         <div className="section-divider" />
         <Skills />
+        <div className="section-divider" />
+        <Certifications />
         <div className="section-divider" />
         <Projects />
         <div className="section-divider" />
