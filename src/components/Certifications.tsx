@@ -1,6 +1,6 @@
 import { motion } from "framer-motion"
 import { SpotlightCard } from "@/components/ui/spotlight-card"
-import { ExternalLink, Cloud, Shield, Database, Brain, Terminal, Network, Code, Award } from "lucide-react"
+import { ExternalLink, Award } from "lucide-react"
 
 // Mapped from your Credly profile for a native, custom UI
 const credentials = [
