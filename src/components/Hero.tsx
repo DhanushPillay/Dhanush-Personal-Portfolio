@@ -1,13 +1,13 @@
-import { useRef, useEffect, useState } from "react"
+import { useRef, useEffect, useState, lazy, Suspense } from "react"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
 import { SplitText } from "gsap/SplitText"
 import { ScrambleTextPlugin } from "gsap/ScrambleTextPlugin"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
-import Spline from "@splinetool/react-spline"
+const Spline = lazy(() => import("@splinetool/react-spline"))
 import { Mail, Globe, Briefcase } from "lucide-react"
 import { LiquidButton } from "@/components/ui/liquid-button"
-import { ShinyBadge } from "@/components/ui/shiny-badge"
+import { Magnetic } from "@/components/ui/magnetic"
 
 gsap.registerPlugin(SplitText, ScrambleTextPlugin, ScrollTrigger)
 
@@ -194,18 +194,20 @@ export default function Hero() {
           </span>
         </div>
 
-        <Spline
-          scene="https://prod.spline.design/bgrSKlWpJMCqKqli/scene.splinecode"
-          style={{ width: "100%", height: "100%", background: "transparent" }}
-          onLoad={(spline) => {
-            spline.setZoom(1)
-            setIsSplineLoaded(true)
-            // Hide watermark after scene loads — use multiple delays to catch late injections
-            setTimeout(hideSplineWatermark, 500)
-            setTimeout(hideSplineWatermark, 1500)
-            setTimeout(hideSplineWatermark, 3000)
-          }}
-        />
+        <Suspense fallback={null}>
+          <Spline
+            scene="/scene.splinecode"
+            style={{ width: "100%", height: "100%", background: "transparent" }}
+            onLoad={(spline) => {
+              spline.setZoom(1)
+              setIsSplineLoaded(true)
+              // Hide watermark after scene loads — use multiple delays to catch late injections
+              setTimeout(hideSplineWatermark, 500)
+              setTimeout(hideSplineWatermark, 1500)
+              setTimeout(hideSplineWatermark, 3000)
+            }}
+          />
+        </Suspense>
       </div>
 
       {/* Dark overlay for text readability */}
@@ -213,9 +215,6 @@ export default function Hero() {
 
       {/* Content overlay */}
       <div className="relative z-10 h-full flex flex-col items-center justify-center px-6">
-        <div className="mb-8">
-          <ShinyBadge text="Available for Work" />
-        </div>
         <h1
           ref={headingRef}
           className="text-6xl md:text-7xl lg:text-8xl font-bold text-white mb-4 text-center"
@@ -259,16 +258,20 @@ export default function Hero() {
           </a>
         </div>
         <div ref={buttonsRef} className="flex gap-4">
-          <a href="#projects">
-            <LiquidButton size="lg" variant="default">
-              View Projects
-            </LiquidButton>
-          </a>
-          <a href="#contact">
-            <LiquidButton size="lg" variant="outline">
-              Contact Me
-            </LiquidButton>
-          </a>
+          <Magnetic intensity={0.2}>
+            <a href="#projects">
+              <LiquidButton size="lg" variant="default">
+                View Projects
+              </LiquidButton>
+            </a>
+          </Magnetic>
+          <Magnetic intensity={0.2}>
+            <a href="#contact">
+              <LiquidButton size="lg" variant="outline">
+                Contact Me
+              </LiquidButton>
+            </a>
+          </Magnetic>
         </div>
       </div>
 

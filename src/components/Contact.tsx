@@ -5,12 +5,12 @@ import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { SplitText } from "gsap/SplitText"
 import { Send, Mail, MapPin, Globe, Briefcase } from "lucide-react"
 import { LiquidButton } from "@/components/ui/liquid-button"
+import { motion } from "framer-motion"
 
 gsap.registerPlugin(ScrollTrigger, SplitText)
 
 export default function Contact() {
   const sectionRef = useRef<HTMLElement>(null)
-  const headingRef = useRef<HTMLHeadingElement>(null)
   const infoRef = useRef<HTMLDivElement>(null)
   const formRef = useRef<HTMLFormElement>(null)
 
@@ -26,23 +26,7 @@ export default function Contact() {
     () => {
       if (!sectionRef.current) return
 
-      if (headingRef.current) {
-        const splitHeading = new SplitText(headingRef.current, {
-          type: "chars,words",
-        })
-        gsap.from(splitHeading.chars, {
-          opacity: 0,
-          y: 50,
-          rotateX: -90,
-          stagger: 0.02,
-          duration: 0.8,
-          ease: "back.out(1.7)",
-          scrollTrigger: {
-            trigger: headingRef.current,
-            start: "top 85%",
-          },
-        })
-      }
+      // Heading animation handled by framer-motion
 
       if (infoRef.current) {
         gsap.from(infoRef.current, {
@@ -114,15 +98,18 @@ export default function Contact() {
   return (
     <section ref={sectionRef} id="contact" className="py-20 bg-zinc-950">
       <div className="max-w-6xl mx-auto px-6">
-        <h2
-          ref={headingRef}
-          className="text-5xl md:text-6xl font-bold text-center mb-16 text-white"
+        <motion.h2
+          initial={{ opacity: 0, y: 40, filter: "blur(15px)" }}
+          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+          className="text-5xl md:text-6xl font-bold text-center mb-16 text-white tracking-tight"
         >
           Get In{" "}
           <span className="bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500 bg-clip-text text-transparent">
             Touch
           </span>
-        </h2>
+        </motion.h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           {/* Contact Info */}
