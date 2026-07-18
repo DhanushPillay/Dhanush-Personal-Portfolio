@@ -38,19 +38,19 @@ const credentials = [
     id: "bbfb8b9c-d9c5-4d42-8937-d41d3f98839c",
     title: "Cybersecurity Fundamentals",
     issuer: "IBM SkillsBuild",
-    image: "https://cdn.simpleicons.org/ibm/white",
+    image: "/logos/ibm.svg",
   },
   {
     id: "784c4883-68ae-4bfb-8f1e-2749922e7bc0",
     title: "AWS Knowledge: Cloud Essentials",
     issuer: "Amazon Web Services",
-    image: "https://cdn.simpleicons.org/amazonaws/FF9900",
+    image: "/logos/aws.svg",
   },
   {
     id: "90e38dd3-4100-4bb4-b458-90cd5a1f739a",
     title: "AWS Educate Introduction to Cloud 101",
     issuer: "Amazon Web Services",
-    image: "https://cdn.simpleicons.org/amazonaws/FF9900",
+    image: "/logos/aws.svg",
   },
   {
     id: "d1078748-6b96-49f6-9f0e-a75aee250a10",
