@@ -23,16 +23,23 @@ export default function Hero() {
     // Pick a random stall point between 86 and 98 to feel more organic
     const stallPoint = Math.floor(Math.random() * 13) + 86;
 
-    // Asymptotic fake progress that slows down as it gets closer to the stallPoint
+    // Fake progress that randomly stalls and jumps in chunks to simulate real network activity
     const timer = setInterval(() => {
       setLoadingProgress((prev) => {
+        // 30% chance to completely stall on the current number for this tick
+        if (Math.random() < 0.3) return prev;
+
         if (prev >= stallPoint) return stallPoint;
         const remaining = stallPoint - prev;
-        // Move 8% of the remaining distance per interval
-        const increment = Math.max(1, Math.floor(remaining * 0.08));
+        
+        // Move a random percentage of the remaining distance (between 5% and 15%)
+        // This creates irregular jumps like real network packets
+        const randomJumpMultiplier = 0.05 + Math.random() * 0.1;
+        const increment = Math.max(1, Math.floor(remaining * randomJumpMultiplier));
+        
         return prev + increment;
       });
-    }, 100);
+    }, 150);
 
     return () => clearInterval(timer);
   }, [isSplineLoaded]);
