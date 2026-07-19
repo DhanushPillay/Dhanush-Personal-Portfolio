@@ -192,7 +192,7 @@ export default function Hero() {
             ref={subheadingRef}
             className="text-amber-500 mb-6 font-mono text-xs md:text-sm uppercase tracking-[0.3em] font-medium drop-shadow-[0_0_10px_rgba(245,158,11,0.5)]"
           >
-            [SYSTEM_READY] // Big Data & Cloud Engineer
+            Big Data & Cloud Engineer
           </p>
           <h1
             className="text-[14vw] md:text-[9vw] lg:text-[7vw] leading-[0.9] font-bold text-white mb-10 tracking-tighter"
