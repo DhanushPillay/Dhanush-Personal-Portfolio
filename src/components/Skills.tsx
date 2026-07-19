@@ -1,5 +1,5 @@
 import { motion } from "framer-motion"
-import { Brain, Shield, Globe, Database, FileText, Eye, Fingerprint, Network, Cpu, Lock, Cloud, Code, Braces, Binary, Zap, Key } from "lucide-react"
+import { Brain, Shield, Globe, Database, FileText, Eye, Fingerprint, Network } from "lucide-react"
 import { SpotlightCard } from "@/components/ui/spotlight-card"
 
 // Helper to get skillicons.dev URL

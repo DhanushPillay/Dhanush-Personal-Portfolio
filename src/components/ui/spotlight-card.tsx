@@ -13,8 +13,6 @@ export function SpotlightCard({
 }) {
   const divRef = useRef<HTMLDivElement>(null)
   const [isFocused, setIsFocused] = useState(false)
-  const [position, setPosition] = useState({ x: 0, y: 0 })
-  const [opacity, setOpacity] = useState(0)
 
   // Framer motion values for the 3D tilt effect
   const x = useMotionValue(0)
@@ -37,9 +35,6 @@ export function SpotlightCard({
     const mouseX = e.clientX - rect.left
     const mouseY = e.clientY - rect.top
 
-    // Update spotlight position
-    setPosition({ x: mouseX, y: mouseY })
-
     // Calculate percentage for tilt (-0.5 to 0.5)
     const xPct = mouseX / rect.width - 0.5
     const yPct = mouseY / rect.height - 0.5
@@ -50,20 +45,14 @@ export function SpotlightCard({
 
   const handleFocus = () => {
     setIsFocused(true)
-    setOpacity(1)
   }
 
   const handleBlur = () => {
     setIsFocused(false)
-    setOpacity(0)
-  }
-
-  const handleMouseEnter = () => {
-    setOpacity(1)
   }
 
   const handleMouseLeave = () => {
-    setOpacity(0)
+
     // Reset tilt on mouse leave
     x.set(0)
     y.set(0)
@@ -75,7 +64,6 @@ export function SpotlightCard({
       onMouseMove={handleMouseMove}
       onFocus={handleFocus}
       onBlur={handleBlur}
-      onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       style={{
         rotateX,
