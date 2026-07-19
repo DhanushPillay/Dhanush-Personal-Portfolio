@@ -1,6 +1,5 @@
 import { motion } from "framer-motion"
-import { SpotlightCard } from "@/components/ui/spotlight-card"
-import { ExternalLink, Award } from "lucide-react"
+import { ExternalLink, Award, ChevronRight } from "lucide-react"
 
 // Mapped from your Credly profile for a native, custom UI
 const credentials = [
@@ -29,36 +28,6 @@ const credentials = [
     image: "/logos/google.svg",
   },
   {
-    id: "02e343ac-1ba5-41b0-ae05-b6d867d69177",
-    title: "Machine Learning with Python (V2)",
-    issuer: "Coursera",
-    image: "/logos/coursera.svg",
-  },
-  {
-    id: "bbfb8b9c-d9c5-4d42-8937-d41d3f98839c",
-    title: "Cybersecurity Fundamentals",
-    issuer: "IBM SkillsBuild",
-    image: "/logos/ibm.svg",
-  },
-  {
-    id: "784c4883-68ae-4bfb-8f1e-2749922e7bc0",
-    title: "AWS Knowledge: Cloud Essentials",
-    issuer: "Amazon Web Services",
-    image: "/logos/aws.svg",
-  },
-  {
-    id: "90e38dd3-4100-4bb4-b458-90cd5a1f739a",
-    title: "AWS Educate Introduction to Cloud 101",
-    issuer: "Amazon Web Services",
-    image: "/logos/aws.svg",
-  },
-  {
-    id: "d1078748-6b96-49f6-9f0e-a75aee250a10",
-    title: "Networking Basics",
-    issuer: "Cisco",
-    image: "/logos/cisco.svg",
-  },
-  {
     id: "9730c6c5-901c-4118-a676-bcc6ce7d590b",
     title: "Prepare Data for ML APIs on Google Cloud",
     issuer: "Google Cloud",
@@ -77,16 +46,28 @@ const credentials = [
     image: "/logos/google.svg",
   },
   {
-    id: "oracle-ai-foundations-associate",
-    title: "AI Foundations Associate",
-    issuer: "Oracle",
-    image: "/logos/oracle.svg",
-  },
-  {
     id: "google-generative-ai",
     title: "Introduction to Generative AI",
     issuer: "Google Cloud",
     image: "/logos/google.svg",
+  },
+  {
+    id: "google-network-architecture",
+    title: "Networking in Google Cloud Network Architecture",
+    issuer: "Google Cloud",
+    image: "/logos/google.svg",
+  },
+  {
+    id: "784c4883-68ae-4bfb-8f1e-2749922e7bc0",
+    title: "AWS Knowledge: Cloud Essentials",
+    issuer: "Amazon Web Services",
+    image: "/logos/aws.svg",
+  },
+  {
+    id: "90e38dd3-4100-4bb4-b458-90cd5a1f739a",
+    title: "AWS Educate Introduction to Cloud 101",
+    issuer: "Amazon Web Services",
+    image: "/logos/aws.svg",
   },
   {
     id: "aws-billing-cost",
@@ -95,10 +76,46 @@ const credentials = [
     image: "/logos/aws.svg",
   },
   {
+    id: "02e343ac-1ba5-41b0-ae05-b6d867d69177",
+    title: "Machine Learning with Python (V2)",
+    issuer: "Coursera",
+    image: "/logos/coursera.svg",
+  },
+  {
+    id: "bbfb8b9c-d9c5-4d42-8937-d41d3f98839c",
+    title: "Cybersecurity Fundamentals",
+    issuer: "IBM SkillsBuild",
+    image: "/logos/ibm.svg",
+  },
+  {
+    id: "d1078748-6b96-49f6-9f0e-a75aee250a10",
+    title: "Networking Basics",
+    issuer: "Cisco",
+    image: "/logos/cisco.svg",
+  },
+  {
     id: "cisco-intro-cyber",
     title: "Intro to Cybersecurity",
     issuer: "Cisco",
     image: "/logos/cisco.svg",
+  },
+  {
+    id: "oracle-ai-foundations-associate",
+    title: "AI Foundations Associate",
+    issuer: "Oracle",
+    image: "/logos/oracle.svg",
+  },
+  {
+    id: "oracle-foundations-associate",
+    title: "Foundations Associate",
+    issuer: "Oracle",
+    image: "/logos/oracle.svg",
+  },
+  {
+    id: "nvidia-ai-jetson",
+    title: "AI & Jetson Nano",
+    issuer: "NVIDIA",
+    image: "/logos/nvidia.svg",
   },
   {
     id: "forage-aws",
@@ -118,76 +135,104 @@ const credentials = [
     issuer: "Forage",
     image: "/logos/forage.svg",
   },
-  {
-    id: "google-network-architecture",
-    title: "Networking in Google Cloud Network Architecture",
-    issuer: "Google Cloud",
-    image: "/logos/google.svg",
-  },
-  {
-    id: "nvidia-ai-jetson",
-    title: "AI & Jetson Nano",
-    issuer: "NVIDIA",
-    image: "/logos/nvidia.svg",
-  },
-  {
-    id: "oracle-foundations-associate",
-    title: "Foundations Associate",
-    issuer: "Oracle",
-    image: "/logos/oracle.svg",
-  },
 ]
+
+// Group credentials by issuer, maintaining insertion order
+function groupByIssuer(creds: typeof credentials) {
+  const groups: { issuer: string; image: string; items: typeof credentials }[] = []
+  const map = new Map<string, typeof credentials>()
+
+  for (const cred of creds) {
+    if (!map.has(cred.issuer)) {
+      const items: typeof credentials = []
+      map.set(cred.issuer, items)
+      groups.push({ issuer: cred.issuer, image: cred.image, items })
+    }
+    map.get(cred.issuer)!.push(cred)
+  }
+
+  return groups
+}
+
+const grouped = groupByIssuer(credentials)
 
 export default function Certifications() {
   return (
-    <section id="certifications" className="py-20 bg-black relative">
+    <section id="certifications" className="py-20 bg-zinc-950 relative">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(245,158,11,0.05)_0%,transparent_70%)] pointer-events-none" />
       <div className="max-w-7xl mx-auto px-6 relative z-10">
-        <motion.h2
+        <motion.div
           initial={{ opacity: 0, y: 40, filter: "blur(15px)" }}
           whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-          className="text-5xl md:text-6xl font-bold text-center mb-16 text-white tracking-tight"
+          className="mb-16"
         >
-          Certifications &{" "}
-          <span className="bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500 bg-clip-text text-transparent">
-            Badges
-          </span>
-        </motion.h2>
+          <p className="text-amber-500/60 font-mono text-xs uppercase tracking-[0.4em] mb-4 text-center">
+            [03] — Credentials
+          </p>
+          <h2 className="text-5xl md:text-7xl font-bold text-center text-white tracking-tight">
+            Certifications &{" "}
+            <span className="bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500 bg-clip-text text-transparent">
+              Badges
+            </span>
+          </h2>
+        </motion.div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-16">
-          {credentials.map((cred, index) => (
-              <motion.a
-                key={cred.id}
-                href={`https://www.credly.com/badges/${cred.id}/public_url`}
-                target="_blank"
-                rel="noopener noreferrer"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.5, delay: index * 0.05 }}
-                className="group block h-full"
-              >
-                <SpotlightCard className="h-full p-6 flex flex-col items-start justify-between bg-zinc-950 border border-white/10 group-hover:border-amber-500/50 transition-colors">
-                  <div className="w-full flex justify-between items-start mb-6">
-                    <div className="p-3 bg-white/5 rounded-xl group-hover:scale-110 transition-all duration-300 h-14 w-14 flex items-center justify-center">
-                      <img src={cred.image} alt={cred.issuer} className="w-8 h-8 object-contain" />
-                    </div>
-                    <ExternalLink size={18} className="text-zinc-600 group-hover:text-amber-400 transition-colors" />
-                  </div>
-                  
-                  <div>
-                    <h3 className="text-lg font-bold text-white mb-2 leading-tight group-hover:text-amber-400 transition-colors">
-                      {cred.title}
-                    </h3>
-                    <div className="flex items-center gap-2">
-                      <Award size={14} className="text-zinc-400" />
-                      <p className="text-sm font-medium text-zinc-400">{cred.issuer}</p>
-                    </div>
-                  </div>
-                </SpotlightCard>
-              </motion.a>
+        {/* Provider Groups */}
+        <div className="space-y-12 mb-16">
+          {grouped.map((group, groupIndex) => (
+            <motion.div
+              key={group.issuer}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.6, delay: groupIndex * 0.1 }}
+            >
+              {/* Provider Header */}
+              <div className="flex items-center gap-4 mb-5">
+                <div className="p-2.5 bg-white/5 rounded-xl border border-white/10 h-11 w-11 flex items-center justify-center flex-shrink-0">
+                  <img src={group.image} alt={group.issuer} className="w-6 h-6 object-contain" />
+                </div>
+                <div className="flex items-center gap-3">
+                  <h3 className="text-lg font-semibold text-white">{group.issuer}</h3>
+                  <span className="text-[10px] font-mono uppercase tracking-widest text-amber-500/60 bg-amber-500/10 px-2 py-0.5 rounded-full border border-amber-500/20">
+                    {group.items.length} {group.items.length === 1 ? "cert" : "certs"}
+                  </span>
+                </div>
+                <div className="flex-1 h-px bg-gradient-to-r from-white/10 to-transparent ml-2" />
+              </div>
+
+              {/* Horizontal Scroll Row */}
+              <div className="relative group/scroll">
+                {/* Right fade mask */}
+                <div className="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-black to-transparent z-10 pointer-events-none" />
+
+                <div
+                  className="flex gap-3 overflow-x-auto pb-2 snap-x snap-mandatory"
+                  style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+                >
+                  {group.items.map((cred) => (
+                    <a
+                      key={cred.id}
+                      href={`https://www.credly.com/badges/${cred.id}/public_url`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group flex-shrink-0 snap-start"
+                    >
+                      <div className="flex items-center gap-3 px-5 py-4 rounded-xl bg-white/[0.02] border border-white/10 hover:border-amber-500/40 hover:bg-amber-500/[0.05] transition-all duration-300 w-[280px]">
+                        <div className="flex-1 min-w-0">
+                          <p className="text-sm font-medium text-zinc-200 group-hover:text-amber-400 transition-colors truncate leading-snug">
+                            {cred.title}
+                          </p>
+                        </div>
+                        <ChevronRight size={14} className="text-zinc-600 group-hover:text-amber-400 group-hover:translate-x-0.5 transition-all flex-shrink-0" />
+                      </div>
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
           ))}
         </div>
         
@@ -203,7 +248,8 @@ export default function Certifications() {
             rel="noopener noreferrer"
             className="flex items-center gap-2 px-8 py-4 bg-zinc-900 border border-amber-500/30 text-amber-400 hover:bg-amber-500 hover:text-black rounded-full font-medium transition-all duration-300 hover:shadow-[0_0_25px_rgba(245,158,11,0.4)] hover:-translate-y-1"
           >
-            View all 16 credentials on Credly
+            <Award size={18} />
+            View all credentials on Credly
             <ExternalLink size={18} />
           </a>
         </motion.div>
