@@ -18,24 +18,31 @@ export default function Hero() {
   const [loadingProgress, setLoadingProgress] = useState(0)
 
   useEffect(() => {
-    const duration = 4000;
-    const interval = 40;
-    const steps = duration / interval;
-    let currentStep = 0;
-
+    // Asymptotic fake progress that slows down as it gets closer to 99%
     const timer = setInterval(() => {
-      currentStep++;
-      const currentProgress = Math.min(Math.round((currentStep / steps) * 100), 100);
-      setLoadingProgress(currentProgress);
-
-      if (currentStep >= steps) {
-        setMinTimeElapsed(true);
-        clearInterval(timer);
-      }
-    }, interval);
+      setLoadingProgress((prev) => {
+        if (prev >= 99) return 99; // Cap at 99% until Spline fully loads
+        const remaining = 99 - prev;
+        // Move 8% of the remaining distance per interval (approx 5-6s to reach 99%)
+        const increment = Math.max(1, Math.floor(remaining * 0.08));
+        return prev + increment;
+      });
+    }, 100);
 
     return () => clearInterval(timer);
   }, []);
+
+  // When Spline finishes loading, jump to 100% and hide the loader
+  useEffect(() => {
+    if (isSplineLoaded) {
+      setLoadingProgress(100);
+      // Wait a short moment to let the user see 100% before hiding
+      const hideTimer = setTimeout(() => {
+        setMinTimeElapsed(true);
+      }, 400);
+      return () => clearTimeout(hideTimer);
+    }
+  }, [isSplineLoaded]);
 
   const hideLoader = isSplineLoaded && minTimeElapsed;
 
