@@ -51,10 +51,8 @@ export default function Hero() {
         setLoadingProgress((prev) => {
           if (prev >= 100) {
             clearInterval(finishTimer);
-            // Give the loading page a full second to sit at 100% before showing the home screen
-            setTimeout(() => {
-              setMinTimeElapsed(true);
-            }, 1000);
+            // Show home screen immediately upon hitting 100%
+            setMinTimeElapsed(true);
             return 100;
           }
           // Increment slowly so the final stretch takes 1-2 seconds
