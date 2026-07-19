@@ -46,16 +46,15 @@ export default function App() {
       <div className="min-h-screen bg-black">
         <Navbar />
         <Hero />
-        <div className="section-divider" />
+        <div className="section-fade" />
         <About />
         <div className="section-divider" />
         <Skills />
-        <div className="section-divider" />
+        <div className="section-fade" />
         <Certifications />
         <div className="section-divider" />
         <Projects />
-        <div className="section-divider" />
-        <div className="section-divider" />
+        <div className="section-fade" />
         <Resume />
         <div className="section-divider" />
         <Contact />

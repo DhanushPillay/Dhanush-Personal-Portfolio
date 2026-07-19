@@ -139,6 +139,22 @@ html.lenis, html.lenis body {
   pointer-events: none;
 }
 
+/* Soft gradient fades between sections */
+.section-fade {
+  position: relative;
+  height: 150px;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(245, 158, 11, 0.05) 50%,
+    transparent 100%
+  );
+  pointer-events: none;
+  margin-top: -75px;
+  margin-bottom: -75px;
+  z-index: 10;
+}
+
 /* Glassmorphism card hover glow */
 .glass-card {
   background: rgba(255, 255, 255, 0.03);
