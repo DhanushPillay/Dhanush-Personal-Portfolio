@@ -1,1 +1,9 @@
-<svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>Forage</title><path fill="white" d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8zm-2 4h4v8h-4z"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 250 60" width="250" height="60">
+  <!-- Geometric Logo Icon (Isometric Cube / Leaf shape approximation) -->
+  <path d="M40,10 L60,20 L60,40 L40,50 L20,40 L20,20 Z" fill="#1C6C38" />
+  <path d="M40,10 L60,20 L40,30 L20,20 Z" fill="#2E9E52" />
+  <path d="M40,30 L60,20 L60,40 L40,50 Z" fill="#15532A" />
+  
+  <!-- "Forage" Wordmark -->
+  <text x="75" y="42" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="34" fill="#1C6C38" letter-spacing="-1">Forage</text>
+</svg>
