@@ -18,12 +18,15 @@ export default function Hero() {
   const [loadingProgress, setLoadingProgress] = useState(0)
 
   useEffect(() => {
-    // Asymptotic fake progress that slows down as it gets closer to 99%
+    // Pick a random stall point between 86 and 98 to feel more organic
+    const stallPoint = Math.floor(Math.random() * 13) + 86;
+
+    // Asymptotic fake progress that slows down as it gets closer to the stallPoint
     const timer = setInterval(() => {
       setLoadingProgress((prev) => {
-        if (prev >= 99) return 99; // Cap at 99% until Spline fully loads
-        const remaining = 99 - prev;
-        // Move 8% of the remaining distance per interval (approx 5-6s to reach 99%)
+        if (prev >= stallPoint) return stallPoint;
+        const remaining = stallPoint - prev;
+        // Move 8% of the remaining distance per interval
         const increment = Math.max(1, Math.floor(remaining * 0.08));
         return prev + increment;
       });
