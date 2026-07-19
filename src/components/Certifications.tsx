@@ -76,6 +76,66 @@ const credentials = [
     issuer: "Google Cloud",
     image: "/logos/google.svg",
   },
+  {
+    id: "oracle-ai-foundations-associate",
+    title: "AI Foundations Associate",
+    issuer: "Oracle",
+    image: "/logos/oracle.svg",
+  },
+  {
+    id: "google-generative-ai",
+    title: "Introduction to Generative AI",
+    issuer: "Google Cloud",
+    image: "/logos/google.svg",
+  },
+  {
+    id: "aws-billing-cost",
+    title: "AWS Billing and Cost Management",
+    issuer: "Amazon Web Services",
+    image: "/logos/aws.svg",
+  },
+  {
+    id: "cisco-intro-cyber",
+    title: "Intro to Cybersecurity",
+    issuer: "Cisco",
+    image: "/logos/cisco.svg",
+  },
+  {
+    id: "forage-aws",
+    title: "AWS Solutions Architecture - Job Simulation",
+    issuer: "Forage",
+    image: "/logos/forage.svg",
+  },
+  {
+    id: "forage-deloitte",
+    title: "Deloitte Cyber - Job Simulation",
+    issuer: "Forage",
+    image: "/logos/forage.svg",
+  },
+  {
+    id: "forage-verizon",
+    title: "Verizon Cloud Platform - Job Simulation",
+    issuer: "Forage",
+    image: "/logos/forage.svg",
+  },
+  {
+    id: "google-network-architecture",
+    title: "Networking in Google Cloud Network Architecture",
+    issuer: "Google Cloud",
+    image: "/logos/google.svg",
+  },
+  {
+    id: "nvidia-ai-jetson",
+    title: "AI & Jetson Nano",
+    issuer: "NVIDIA",
+    image: "/logos/nvidia.svg",
+  },
+  {
+    id: "oracle-foundations-associate",
+    title: "Foundations Associate",
+    issuer: "Oracle",
+    image: "/logos/oracle.svg",
+  },
 ]
 
 export default function Certifications() {

@@ -60,52 +60,6 @@ a, button {
   border-color: var(--color-border);
 }
 
-/* Hide Spline "Built with Spline" logo/watermark */
-.spline-logo,
-[class*="spline"] a[href*="spline"],
-footer a[href*="spline.design"],
-[aria-label*="Spline"],
-[aria-label*="spline"],
-a[href*="spline.design/community"],
-a[href*="spline.design"],
-[class*="watermark"],
-[class*="Watermark"],
-[class*="logo-wrap"],
-[class*="built-with"],
-[class*="branding"],
-a[href*="spline.design"]:not(canvas a) {
-  display: none !important;
-  visibility: hidden !important;
-  opacity: 0 !important;
-  pointer-events: none !important;
-  position: absolute !important;
-  width: 0 !important;
-  height: 0 !important;
-  overflow: hidden !important;
-}
-
-/* Spline viewer shadow DOM watermark hiding */
-spline-viewer::part(logo),
-spline-viewer::part(navigation),
-spline-viewer a,
-spline-viewer iframe,
-spline-viewer div[style*="position: absolute"][style*="bottom"],
-spline-viewer div[style*="position: absolute"][style*="z-index"] {
-  display: none !important;
-  visibility: hidden !important;
-}
-
-/* React Spline component watermark hiding */
-div:has(> canvas) > a[href*="spline"],
-div:has(> canvas) > div > a[href*="spline"],
-div[class*="scene"] > a[href*="spline"],
-div[style*="position: relative"] > a[href*="spline"] {
-  display: none !important;
-  visibility: hidden !important;
-  opacity: 0 !important;
-  pointer-events: none !important;
-}
-
 /* Lenis overrides */
 html.lenis, html.lenis body {
   height: auto;

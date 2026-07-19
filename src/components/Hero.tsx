@@ -1,4 +1,4 @@
-import { useRef, useState, lazy, Suspense, useEffect } from "react"
+import { useRef, useState, lazy, Suspense } from "react"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
@@ -11,25 +11,6 @@ import { ScrambleText } from "@/components/ui/scramble-text"
 
 gsap.registerPlugin(ScrollTrigger)
 
-const hideSplineWatermark = () => {
-  const allElements = document.querySelectorAll("div, a, span, p")
-  allElements.forEach((el) => {
-    if (el.textContent?.trim() === "Built with Spline" || el.textContent?.trim() === "Built with spline") {
-      const htmlEl = el as HTMLElement
-      htmlEl.style.display = "none"
-      htmlEl.style.visibility = "hidden"
-      htmlEl.style.opacity = "0"
-      htmlEl.style.pointerEvents = "none"
-      const parent = htmlEl.parentElement
-      if (parent) {
-        parent.style.display = "none"
-        parent.style.visibility = "hidden"
-        parent.style.opacity = "0"
-      }
-    }
-  })
-}
-
 export default function Hero() {
   const [isSplineLoaded, setIsSplineLoaded] = useState(false)
   const sectionRef = useRef<HTMLElement>(null)
@@ -37,23 +18,6 @@ export default function Hero() {
   const iconsRef = useRef<HTMLDivElement>(null)
   const buttonsRef = useRef<HTMLDivElement>(null)
   const scrollRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    // Initial attempt to hide watermark
-    hideSplineWatermark()
-
-    // Set up MutationObserver to catch late-injected watermarks
-    const observer = new MutationObserver(() => {
-      hideSplineWatermark()
-    })
-
-    observer.observe(document.body, {
-      childList: true,
-      subtree: true,
-    })
-
-    return () => observer.disconnect()
-  }, [])
 
   useGSAP(() => {
     if (!sectionRef.current) return
@@ -137,7 +101,7 @@ export default function Hero() {
       className="relative h-screen w-full overflow-hidden bg-black"
     >
       {/* Spline as full background */}
-      <div className="absolute inset-0">
+      <div className="absolute inset-0" style={{ transform: "translateY(60px)" }}>
         {/* 3D Engine Loading Indicator */}
         <div 
           className={`absolute bottom-8 right-8 z-50 flex items-center gap-4 bg-black/40 backdrop-blur-md px-5 py-3 rounded-full border border-white/10 transition-all duration-1000 ${
@@ -157,12 +121,19 @@ export default function Hero() {
             onLoad={(spline) => {
               spline.setZoom(1)
               setIsSplineLoaded(true)
-              setTimeout(hideSplineWatermark, 500)
-              setTimeout(hideSplineWatermark, 1500)
-              setTimeout(hideSplineWatermark, 3000)
             }}
           />
         </Suspense>
+
+        {/* Bottom-right corner gradient to cover canvas-rendered watermark */}
+        <div
+          className="absolute bottom-0 right-0 pointer-events-none"
+          style={{
+            width: "240px",
+            height: "60px",
+            background: "linear-gradient(to left, rgba(0,0,0,1) 0%, rgba(0,0,0,0.95) 50%, rgba(0,0,0,0.6) 75%, transparent 100%)",
+          }}
+        />
       </div>
 
       {/* Dark overlay for text readability */}
