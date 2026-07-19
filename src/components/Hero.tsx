@@ -18,6 +18,8 @@ export default function Hero() {
   const [loadingProgress, setLoadingProgress] = useState(0)
 
   useEffect(() => {
+    if (isSplineLoaded) return; // Stop running the fake progress once actually loaded
+
     // Pick a random stall point between 86 and 98 to feel more organic
     const stallPoint = Math.floor(Math.random() * 13) + 86;
 
@@ -33,7 +35,7 @@ export default function Hero() {
     }, 100);
 
     return () => clearInterval(timer);
-  }, []);
+  }, [isSplineLoaded]);
 
   // When Spline finishes loading, jump to 100% and hide the loader
   useEffect(() => {
