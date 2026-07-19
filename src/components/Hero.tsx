@@ -1,4 +1,4 @@
-import { useRef, useState, lazy, Suspense } from "react"
+import { useRef, useState, lazy, Suspense, useEffect } from "react"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
@@ -8,11 +8,37 @@ import { GithubIcon, LinkedinIcon } from "@/components/ui/social-icons"
 import { LiquidButton } from "@/components/ui/liquid-button"
 import { Magnetic } from "@/components/ui/magnetic"
 import { ScrambleText } from "@/components/ui/scramble-text"
+import LoadingSpinner from "@/components/ui/snow-ball-loading-spinner"
 
 gsap.registerPlugin(ScrollTrigger)
 
 export default function Hero() {
   const [isSplineLoaded, setIsSplineLoaded] = useState(false)
+  const [minTimeElapsed, setMinTimeElapsed] = useState(false)
+  const [loadingProgress, setLoadingProgress] = useState(0)
+
+  useEffect(() => {
+    const duration = 4000;
+    const interval = 40;
+    const steps = duration / interval;
+    let currentStep = 0;
+
+    const timer = setInterval(() => {
+      currentStep++;
+      const currentProgress = Math.min(Math.round((currentStep / steps) * 100), 100);
+      setLoadingProgress(currentProgress);
+
+      if (currentStep >= steps) {
+        setMinTimeElapsed(true);
+        clearInterval(timer);
+      }
+    }, interval);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  const hideLoader = isSplineLoaded && minTimeElapsed;
+
   const sectionRef = useRef<HTMLElement>(null)
   const subheadingRef = useRef<HTMLParagraphElement>(null)
   const iconsRef = useRef<HTMLDivElement>(null)
@@ -100,19 +126,17 @@ export default function Hero() {
       id="home"
       className="relative h-screen w-full overflow-hidden bg-black"
     >
+      {/* Snowball Spinner Loading Overlay */}
+      <div
+        className={`fixed inset-0 z-[100] bg-black flex flex-col items-center justify-center transition-all duration-[1500ms] ease-[cubic-bezier(0.76,0,0.24,1)] ${
+          hideLoader ? "opacity-0 pointer-events-none scale-[1.5] blur-md" : "opacity-100 scale-100 blur-0"
+        }`}
+      >
+        <LoadingSpinner progress={loadingProgress} />
+      </div>
+
       {/* Spline as full background */}
       <div className="absolute inset-0" style={{ transform: "translateY(60px)" }}>
-        {/* 3D Engine Loading Indicator */}
-        <div 
-          className={`absolute bottom-8 right-8 z-50 flex items-center gap-4 bg-black/40 backdrop-blur-md px-5 py-3 rounded-full border border-white/10 transition-all duration-1000 ${
-            isSplineLoaded ? "opacity-0 translate-y-4 pointer-events-none" : "opacity-100 translate-y-0"
-          }`}
-        >
-          <div className="w-5 h-5 border-2 border-zinc-700 border-t-amber-500 rounded-full animate-spin shadow-[0_0_10px_rgba(245,158,11,0.3)]" />
-          <span className="text-zinc-300 text-xs font-medium tracking-[0.2em] uppercase">
-            Loading 3D Engine...
-          </span>
-        </div>
 
         <Suspense fallback={null}>
           <Spline

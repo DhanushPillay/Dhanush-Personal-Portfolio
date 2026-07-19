@@ -186,6 +186,99 @@ html.lenis, html.lenis body {
   background: linear-gradient(180deg, #09090b 0%, #050505 100%);
 }
 
+/* Snow Ball Loading Spinner */
+.pl {
+  width: 15em;
+  height: 15em;
+  position: relative;
+  font-size: 10px; /* Scale down slightly if needed, or leave to inherit */
+}
+.pl__outer-ring,
+.pl__inner-ring,
+.pl__track-cover {
+  position: absolute;
+  border-radius: 50%;
+}
+.pl__outer-ring {
+  inset: 0;
+  box-shadow: 0 0 0 2em #18181b inset; /* Single thick track exactly matching the ball size */
+}
+.pl__inner-ring {
+  display: none; /* Removed inner ring to avoid misalignment */
+}
+.pl__track-cover {
+  inset: 0;
+  background: conic-gradient(transparent 0deg, #000000 270deg); /* black background match */
+  animation: trackCover 2s linear infinite;
+}
+.pl__ball {
+  position: absolute;
+  width: 2em;
+  height: 2em;
+  top: 50%;
+  left: 50%;
+  margin: -1em 0 0 -1em;
+  border-radius: 50%;
+  background-color: #fbbf24; /* amber-400 */
+  animation: ball 2s linear infinite;
+  transform: rotate(0) translateY(-6.5em);
+  box-shadow: 0 0 20px rgba(245, 158, 11, 0.8), 0 0 40px rgba(245, 158, 11, 0.4);
+  overflow: hidden;
+}
+.pl__ball-texture {
+  width: 200%;
+  height: 100%;
+  background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%);
+  animation: ballTexture 1s linear infinite;
+}
+.pl__ball-outer-shadow,
+.pl__ball-inner-shadow,
+.pl__ball-side-shadows {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+}
+.pl__ball-outer-shadow {
+  box-shadow: 0 0.3em 0.5em rgba(0,0,0,0.5);
+  animation: ballOuterShadow 2s linear infinite;
+}
+.pl__ball-inner-shadow {
+  box-shadow: 0 -0.3em 0.5em rgba(0,0,0,0.5) inset;
+  animation: ballInnerShadow 2s linear infinite;
+}
+
+@keyframes ball {
+  from {
+    transform: rotate(0) translateY(-6.5em);
+  }
+  50% {
+    transform: rotate(180deg) translateY(-6em);
+  }
+  to {
+    transform: rotate(360deg) translateY(-6.5em);
+  }
+}
+
+@keyframes ballInnerShadow {
+  from { transform: rotate(0); }
+  to { transform: rotate(-360deg); }
+}
+
+@keyframes ballOuterShadow {
+  from { transform: rotate(20deg); }
+  to { transform: rotate(-340deg); }
+}
+
+@keyframes ballTexture {
+  from { transform: translateX(0); }
+  to { transform: translateX(50%); }
+}
+
+@keyframes trackCover {
+  from { transform: rotate(0); }
+  to { transform: rotate(360deg); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
