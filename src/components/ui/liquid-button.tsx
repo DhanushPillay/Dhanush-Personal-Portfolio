@@ -57,4 +57,4 @@ function LiquidButton({
   )
 }
 
-export { LiquidButton, liquidbuttonVariants }
+export { LiquidButton }
