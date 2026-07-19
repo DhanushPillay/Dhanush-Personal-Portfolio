@@ -103,9 +103,7 @@ export default function Skills() {
           transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
           className="mb-16"
         >
-          <p className="text-amber-500/60 font-mono text-xs uppercase tracking-[0.4em] mb-4 text-center">
-            [02] — Capabilities
-          </p>
+
           <h2 className="text-5xl md:text-7xl font-bold text-center text-white tracking-tight">
             Skills &{" "}
             <span className="bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500 bg-clip-text text-transparent">

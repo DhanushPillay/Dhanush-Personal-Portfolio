@@ -2,7 +2,7 @@ import { Timeline } from "@/components/ui/timeline"
 
 const timelineData = [
   {
-    title: "Machine Learning Engineer",
+    title: "AI/ML Intern",
     subtitle: "IEEE Computational Intelligence Society",
     date: "June 2025 - July 2026",
     content: (
@@ -14,7 +14,7 @@ const timelineData = [
     ),
   },
   {
-    title: "Full-Stack Developer",
+    title: "Full-Stack Developer Intern",
     subtitle: "IEEE Student Branch, MIT-ADT University",
     date: "June 2025 - July 2025",
     content: (
