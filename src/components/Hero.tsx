@@ -37,15 +37,25 @@ export default function Hero() {
     return () => clearInterval(timer);
   }, [isSplineLoaded]);
 
-  // When Spline finishes loading, jump to 100% and hide the loader
+  // When Spline finishes loading, rapidly animate to 100% and hide the loader
   useEffect(() => {
     if (isSplineLoaded) {
-      setLoadingProgress(100);
-      // Wait a short moment to let the user see 100% before hiding
-      const hideTimer = setTimeout(() => {
-        setMinTimeElapsed(true);
-      }, 400);
-      return () => clearTimeout(hideTimer);
+      const finishTimer = setInterval(() => {
+        setLoadingProgress((prev) => {
+          if (prev >= 100) {
+            clearInterval(finishTimer);
+            // Wait a short moment to let the user see 100% before hiding
+            setTimeout(() => {
+              setMinTimeElapsed(true);
+            }, 300);
+            return 100;
+          }
+          // Increment rapidly
+          return prev + 2; 
+        });
+      }, 20);
+
+      return () => clearInterval(finishTimer);
     }
   }, [isSplineLoaded]);
 
