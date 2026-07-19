@@ -125,15 +125,17 @@ export default function Contact() {
   return (
     <section ref={sectionRef} id="contact" className="py-20 bg-zinc-950">
       <div className="max-w-6xl mx-auto px-6">
-        <h2
-          ref={headingRef}
-          className="text-5xl md:text-6xl font-bold text-center mb-16 text-white tracking-tight"
-        >
-          Get In{" "}
-          <span className="bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500 bg-clip-text text-transparent">
-            Touch
-          </span>
-        </h2>
+        <div ref={headingRef} className="mb-16">
+          <p className="text-amber-500/60 font-mono text-xs uppercase tracking-[0.4em] mb-4 text-center">
+            [05] — Connect
+          </p>
+          <h2 className="text-5xl md:text-7xl font-bold text-center text-white tracking-tight">
+            Get In{" "}
+            <span className="bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500 bg-clip-text text-transparent">
+              Touch
+            </span>
+          </h2>
+        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           {/* Contact Info */}

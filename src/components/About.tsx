@@ -1,5 +1,5 @@
 import { motion } from "framer-motion"
-import { Database, Cloud, Code, MapPin, Sparkles } from "lucide-react"
+import { Database, Cloud, Code, MapPin } from "lucide-react"
 import { SpotlightCard } from "@/components/ui/spotlight-card"
 
 export default function About() {
@@ -9,73 +9,55 @@ export default function About() {
       description: "I love turning complex problems into elegant, scalable solutions. Always curious. Always coding.",
       icon: <Code className="h-6 w-6 text-amber-500" />,
       colSpan: "md:col-span-2",
-      header: (
-        <div className="flex flex-1 w-full h-full min-h-[120px] rounded-xl bg-gradient-to-br from-amber-500/10 via-black to-zinc-900 border border-white/5 items-center justify-center relative overflow-hidden group">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(245,158,11,0.15)_0%,transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-          <Code className="h-12 w-12 text-amber-500/50 group-hover:text-amber-400 group-hover:scale-110 transition-all duration-500 z-10" />
-          <Sparkles className="absolute top-4 right-4 h-5 w-5 text-amber-500/30 group-hover:text-amber-400 animate-pulse" />
-        </div>
-      ),
+      stat: "5+",
+      statLabel: "Projects Built",
     },
     {
       title: "Based in Pune, India",
       description: "Currently pursuing B.Tech at MIT-ADT University, building global solutions.",
       icon: <MapPin className="h-6 w-6 text-amber-500" />,
       colSpan: "md:col-span-1",
-      header: (
-        <div className="flex flex-1 w-full h-full min-h-[120px] rounded-xl bg-zinc-900 border border-white/5 items-center justify-center overflow-hidden relative group">
-          {/* Stylized Campus Background */}
-          <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center opacity-20 mix-blend-luminosity group-hover:opacity-40 group-hover:scale-105 transition-all duration-700"></div>
-          
-          {/* Radar / Pulsing Pin effect */}
-          <div className="relative z-10 flex items-center justify-center">
-            <div className="absolute w-12 h-12 bg-amber-500/20 rounded-full animate-ping" />
-            <div className="absolute w-16 h-16 bg-amber-500/10 rounded-full animate-pulse" />
-            <MapPin className="h-10 w-10 text-amber-500 drop-shadow-[0_0_15px_rgba(245,158,11,0.8)]" />
-          </div>
-        </div>
-      ),
+      stat: "2025",
+      statLabel: "Since",
     },
     {
       title: "Data & AI Focus",
       description: "Architecting machine learning pipelines, RAG systems, and robust data infrastructures.",
       icon: <Database className="h-6 w-6 text-amber-500" />,
       colSpan: "md:col-span-1",
-      header: (
-        <div className="flex flex-1 w-full h-full min-h-[120px] rounded-xl bg-gradient-to-tr from-amber-500/10 to-zinc-900 border border-white/5 items-center justify-center relative overflow-hidden group">
-          <Database className="h-12 w-12 text-amber-500/50 group-hover:text-amber-400 group-hover:-translate-y-1 group-hover:scale-110 transition-all duration-500 z-10" />
-        </div>
-      ),
+      stat: "ML",
+      statLabel: "Specialty",
     },
     {
       title: "Cloud & Security",
       description: "Building highly available, resilient cloud-native systems with a deep, uncompromising focus on cybersecurity.",
       icon: <Cloud className="h-6 w-6 text-amber-500" />,
       colSpan: "md:col-span-2",
-      header: (
-        <div className="flex flex-1 w-full h-full min-h-[120px] rounded-xl bg-gradient-to-tl from-amber-500/10 to-zinc-900 border border-white/5 items-center justify-center relative overflow-hidden group">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(245,158,11,0.15)_0%,transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-          <Cloud className="h-12 w-12 text-amber-500/50 group-hover:text-amber-400 group-hover:scale-110 transition-all duration-500 z-10" />
-        </div>
-      ),
+      stat: "22+",
+      statLabel: "Certifications",
     },
   ]
 
   return (
-    <section id="about" className="py-20 bg-black relative">
+    <section id="about" className="py-20 bg-zinc-950 relative">
       <div className="max-w-5xl mx-auto px-6 relative z-10">
-        <motion.h2
+        <motion.div
           initial={{ opacity: 0, y: 40, filter: "blur(15px)" }}
           whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-          className="text-5xl md:text-6xl font-bold text-center mb-16 text-white tracking-tight"
+          className="mb-16"
         >
-          About{" "}
-          <span className="bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500 bg-clip-text text-transparent">
-            Me
-          </span>
-        </motion.h2>
+          <p className="text-amber-500/60 font-mono text-xs uppercase tracking-[0.4em] mb-4 text-center">
+            [01] — Introduction
+          </p>
+          <h2 className="text-5xl md:text-7xl font-bold text-center text-white tracking-tight">
+            About{" "}
+            <span className="bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500 bg-clip-text text-transparent">
+              Me
+            </span>
+          </h2>
+        </motion.div>
 
         {/* Custom CSS Grid instead of buggy third-party BentoGrid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -88,19 +70,22 @@ export default function About() {
               transition={{ duration: 0.5, delay: i * 0.1 }}
               className={`h-full ${card.colSpan}`}
             >
-              <SpotlightCard className="h-full flex flex-col p-6 group">
-                <div className="mb-6 w-full">
-                  {card.header}
-                </div>
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="p-2 rounded-lg bg-amber-500/10 border border-amber-500/20 group-hover:bg-amber-500/20 transition-colors duration-300">
-                    {card.icon}
+              <SpotlightCard className="h-full flex flex-col p-6 group border-l-[3px] border-l-transparent hover:border-l-amber-500 transition-all duration-300">
+                <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-4">
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 rounded-lg bg-amber-500/10 border border-amber-500/20 group-hover:bg-amber-500/20 transition-colors duration-300">
+                      {card.icon}
+                    </div>
+                    <h3 className="text-xl font-bold text-white group-hover:text-amber-400 transition-colors duration-300">
+                      {card.title}
+                    </h3>
                   </div>
-                  <h3 className="text-xl font-bold text-white group-hover:text-amber-400 transition-colors duration-300">
-                    {card.title}
-                  </h3>
+                  <div className="text-left sm:text-right flex-shrink-0">
+                    <div className="text-2xl font-black text-amber-500">{card.stat}</div>
+                    <div className="text-[10px] uppercase tracking-wider text-zinc-500 font-mono mt-0.5">{card.statLabel}</div>
+                  </div>
                 </div>
-                <p className="text-zinc-400 text-sm leading-relaxed">
+                <p className="text-zinc-400 text-sm leading-relaxed mt-auto">
                   {card.description}
                 </p>
               </SpotlightCard>
