@@ -7,7 +7,7 @@ export default function About() {
     {
       title: "Passionate Developer",
       description: "I love turning complex problems into elegant, scalable solutions. Always curious. Always coding.",
-      icon: <Code className="h-6 w-6 text-amber-500" />,
+      icon: <Code className="h-6 w-6 text-zinc-400 group-hover:text-white transition-colors duration-300" />,
       colSpan: "md:col-span-2",
       stat: "5+",
       statLabel: "Projects Built",
@@ -15,15 +15,15 @@ export default function About() {
     {
       title: "Based in Pune, India",
       description: "Currently pursuing B.Tech at MIT-ADT University, building global solutions.",
-      icon: <MapPin className="h-6 w-6 text-amber-500" />,
+      icon: <MapPin className="h-6 w-6 text-zinc-400 group-hover:text-white transition-colors duration-300" />,
       colSpan: "md:col-span-1",
-      stat: "2025",
+      stat: "2024",
       statLabel: "Since",
     },
     {
       title: "Data & AI Focus",
       description: "Architecting machine learning pipelines, RAG systems, and robust data infrastructures.",
-      icon: <Database className="h-6 w-6 text-amber-500" />,
+      icon: <Database className="h-6 w-6 text-zinc-400 group-hover:text-white transition-colors duration-300" />,
       colSpan: "md:col-span-1",
       stat: "ML",
       statLabel: "Specialty",
@@ -31,7 +31,7 @@ export default function About() {
     {
       title: "Cloud & Security",
       description: "Building highly available, resilient cloud-native systems with a deep, uncompromising focus on cybersecurity.",
-      icon: <Cloud className="h-6 w-6 text-amber-500" />,
+      icon: <Cloud className="h-6 w-6 text-zinc-400 group-hover:text-white transition-colors duration-300" />,
       colSpan: "md:col-span-2",
       stat: "22+",
       statLabel: "Certifications",
@@ -68,18 +68,18 @@ export default function About() {
               transition={{ duration: 0.5, delay: i * 0.1 }}
               className={`h-full ${card.colSpan}`}
             >
-              <SpotlightCard className="h-full flex flex-col p-6 group border-l-[3px] border-l-transparent hover:border-l-amber-500 transition-all duration-300">
+              <SpotlightCard className="h-full flex flex-col p-6 group border-l-[3px] border-l-transparent hover:border-l-white/10 transition-all duration-300">
                 <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-4">
                   <div className="flex items-center gap-3">
-                    <div className="p-2 rounded-lg bg-amber-500/10 border border-amber-500/20 group-hover:bg-amber-500/20 transition-colors duration-300">
+                    <div className="p-2">
                       {card.icon}
                     </div>
-                    <h3 className="text-xl font-bold text-white group-hover:text-amber-400 transition-colors duration-300">
+                    <h3 className="text-xl font-bold text-zinc-100">
                       {card.title}
                     </h3>
                   </div>
                   <div className="text-left sm:text-right flex-shrink-0">
-                    <div className="text-2xl font-black text-amber-500">{card.stat}</div>
+                    <div className="text-2xl font-black text-zinc-100 group-hover:text-white transition-colors duration-300">{card.stat}</div>
                     <div className="text-[10px] uppercase tracking-wider text-zinc-500 font-mono mt-0.5">{card.statLabel}</div>
                   </div>
                 </div>

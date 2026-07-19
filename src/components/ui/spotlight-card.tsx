@@ -97,22 +97,7 @@ export function SpotlightCard({
         style={{ transform: "translateZ(30px)", transformStyle: "preserve-3d" }}
         className="w-full h-full"
       >
-        <div
-          className="pointer-events-none absolute -inset-px opacity-0 transition duration-500"
-          style={{
-            opacity,
-            background: `radial-gradient(600px circle at ${position.x}px ${position.y}px, rgba(255, 255, 255, 0.06), transparent 40%)`,
-          }}
-        />
-        <div
-          className="pointer-events-none absolute inset-0 opacity-0 transition duration-500 rounded-2xl"
-          style={{
-            opacity,
-            boxShadow: `inset 0 0 0 1px rgba(255, 255, 255, 0.15)`,
-            maskImage: `radial-gradient(300px circle at ${position.x}px ${position.y}px, black, transparent)`,
-            WebkitMaskImage: `radial-gradient(300px circle at ${position.x}px ${position.y}px, black, transparent)`,
-          }}
-        />
+
         <div className="relative h-full z-10">{children}</div>
       </div>
     </motion.div>

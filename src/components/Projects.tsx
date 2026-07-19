@@ -8,8 +8,8 @@ const projects = [
     description: "A full-stack Blood and Organ Donor Matching platform with real-time donor search, hospital connectivity, JWT authentication, and WebSocket messaging.",
     image: "https://images.unsplash.com/photo-1538108149393-fbbd81895907?q=80&w=2000&auto=format&fit=crop",
     tags: ["React 19", "Express", "MongoDB", "Socket.IO"],
-    liveUrl: "#",
-    githubUrl: "#",
+    liveUrl: "https://blood-and-organ-donar-matching-syst.vercel.app/",
+    githubUrl: "https://github.com/DhanushPillay/LifeLink",
     colSpan: "md:col-span-1"
   },
   {
@@ -18,7 +18,7 @@ const projects = [
     image: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?q=80&w=2071&auto=format&fit=crop",
     tags: ["PyTorch", "Transformers", "Flask"],
     liveUrl: "https://vaticmacro.onrender.com/#command-center",
-    githubUrl: "#",
+    githubUrl: "https://github.com/DhanushPillay/VaticMacro",
     colSpan: "md:col-span-1"
   },
   {
@@ -27,7 +27,7 @@ const projects = [
     image: "https://images.unsplash.com/photo-1504711434969-e33886168f5c?q=80&w=2070&auto=format&fit=crop",
     tags: ["Python", "Flask", "SQLite", "NLP"],
     liveUrl: "https://sniffer-vfru.onrender.com/",
-    githubUrl: "#",
+    githubUrl: "https://github.com/DhanushPillay",
     colSpan: "md:col-span-1"
   },
   {
@@ -35,8 +35,8 @@ const projects = [
     description: "Agricultural decision support platform for Maharashtra farmers providing crop recommendations, pest risk analysis, and real-time market price tracking.",
     image: "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?q=80&w=2070&auto=format&fit=crop",
     tags: ["JavaScript", "Python", "Flask", "Tailwind CSS"],
-    liveUrl: "#",
-    githubUrl: "#",
+    liveUrl: "https://smartsheti-rho.vercel.app/",
+    githubUrl: "https://github.com/DhanushPillay/Smartsheti",
     colSpan: "md:col-span-1"
   },
   {
@@ -44,8 +44,17 @@ const projects = [
     description: "Web-based photobooth with WebRTC camera access, real-time vintage filters, Fabric.js canvas editor, and an IndexedDB scattered-polaroid masonry gallery.",
     image: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=2000&auto=format&fit=crop",
     tags: ["Vanilla JS", "Fabric.js", "IndexedDB"],
-    liveUrl: "#",
-    githubUrl: "#",
+    liveUrl: "https://pixb00th.netlify.app/",
+    githubUrl: "https://github.com/DhanushPillay/PixBooth",
+    colSpan: "md:col-span-1"
+  },
+  {
+    title: "VisioNova",
+    description: "The Deepfake & Misinformation Defense Grid. An advanced system to detect deepfakes and defend against digital misinformation.",
+    image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop",
+    tags: ["Python", "AI", "Cybersecurity"],
+    liveUrl: "https://visio-nova.vercel.app",
+    githubUrl: "https://github.com/DhanushPillay/VisioNova",
     colSpan: "md:col-span-1"
   }
 ]

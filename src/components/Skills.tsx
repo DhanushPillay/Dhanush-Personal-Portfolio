@@ -24,17 +24,17 @@ const skillCategories: SkillCategory[] = [
     title: "AI & Machine Learning",
     skills: [
       { name: "PyTorch", icon: getIcon("pytorch") },
-      { name: "Transformers", lucide: <Cpu size={16} /> },
-      { name: "Groq LLaMA", lucide: <Zap size={16} /> },
-      { name: "FAISS", lucide: <Database size={16} /> },
-      { name: "KNN", lucide: <Network size={16} /> },
-      { name: "Sentence-Transformers", lucide: <FileText size={16} /> },
+      { name: "Transformers", icon: "https://cdn.simpleicons.org/huggingface" },
+      { name: "Groq LLaMA", icon: "https://cdn.simpleicons.org/meta" },
+      { name: "FAISS", icon: "https://cdn.simpleicons.org/meta" },
+      { name: "KNN", icon: "https://cdn.simpleicons.org/scikitlearn" },
+      { name: "Sentence-Transformers", icon: "https://cdn.simpleicons.org/huggingface" },
       { name: "Pandas", icon: getIcon("pandas") },
       { name: "NumPy", icon: getIcon("numpy") },
       { name: "OpenCV", icon: getIcon("opencv") },
-      { name: "Matplotlib", lucide: <Eye size={16} /> },
-      { name: "Librosa", lucide: <Binary size={16} /> },
-      { name: "NLTK", lucide: <FileText size={16} /> },
+      { name: "Matplotlib", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/matplotlib/matplotlib-original.svg" },
+      { name: "Librosa", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" },
+      { name: "NLTK", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" },
     ]
   },
   {
@@ -46,9 +46,9 @@ const skillCategories: SkillCategory[] = [
       { name: "Flask", icon: getIcon("flask") },
       { name: "FastAPI", icon: getIcon("fastapi") },
       { name: "Tailwind CSS", icon: getIcon("tailwind") },
-      { name: "Socket.IO", lucide: <Network size={16} /> },
-      { name: "BeautifulSoup", lucide: <Code size={16} /> },
-      { name: "Fabric.js", lucide: <Braces size={16} /> },
+      { name: "Socket.IO", icon: "https://cdn.simpleicons.org/socketdotio" },
+      { name: "BeautifulSoup", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" },
+      { name: "Fabric.js", icon: "https://cdn.simpleicons.org/javascript" },
     ]
   },
   {
@@ -62,8 +62,8 @@ const skillCategories: SkillCategory[] = [
       { name: "GitHub Actions", icon: getIcon("githubactions") },
       { name: "Vercel", icon: getIcon("vercel") },
       { name: "Netlify", icon: getIcon("netlify") },
-      { name: "Render", lucide: <Cloud size={16} /> },
-      { name: "Hugging Face", lucide: <Brain size={16} /> },
+      { name: "Render", icon: "https://cdn.simpleicons.org/render" },
+      { name: "Hugging Face", icon: "https://cdn.simpleicons.org/huggingface" },
     ]
   },
   {
@@ -73,8 +73,8 @@ const skillCategories: SkillCategory[] = [
       { name: "Linux", icon: getIcon("linux") },
       { name: "VS Code", icon: getIcon("vscode") },
       { name: "Figma", icon: getIcon("figma") },
-      { name: "JWT", lucide: <Lock size={16} /> },
-      { name: "Google OAuth", lucide: <Key size={16} /> },
+      { name: "JWT", icon: "https://cdn.simpleicons.org/jsonwebtokens" },
+      { name: "Google OAuth", icon: "https://cdn.simpleicons.org/google" },
     ]
   }
 ]
