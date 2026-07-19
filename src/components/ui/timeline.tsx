@@ -13,6 +13,27 @@ interface TimelineEntry {
   content: React.ReactNode
 }
 
+const TimelineDot = () => {
+  const ref = useRef<HTMLDivElement>(null)
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["center 60%", "center 40%"],
+  })
+
+  const backgroundColor = useTransform(scrollYProgress, [0, 1], ["#262626", "#f59e0b"])
+  const borderColor = useTransform(scrollYProgress, [0, 1], ["#404040", "#fbbf24"])
+  const boxShadow = useTransform(scrollYProgress, [0, 1], ["0 0 0px 0px rgba(245, 158, 11, 0)", "0 0 20px 4px rgba(245, 158, 11, 0.6)"])
+
+  return (
+    <div ref={ref} className="h-10 absolute left-3 md:left-3 w-10 rounded-full bg-black flex items-center justify-center">
+      <motion.div 
+        style={{ backgroundColor, borderColor, boxShadow }}
+        className="h-4 w-4 rounded-full border p-2" 
+      />
+    </div>
+  )
+}
+
 export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
   const ref = useRef<HTMLDivElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
@@ -42,9 +63,7 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
         {data.map((item, index) => (
           <div key={index} className="flex justify-start pt-10 md:pt-40 md:gap-10">
             <div className="sticky flex flex-col md:flex-row z-40 items-center top-40 self-start max-w-xs lg:max-w-sm md:w-full">
-              <div className="h-10 absolute left-3 md:left-3 w-10 rounded-full bg-black flex items-center justify-center">
-                <div className="h-4 w-4 rounded-full bg-neutral-800 border border-neutral-700 p-2" />
-              </div>
+              <TimelineDot />
               <h3 className="hidden md:block text-xl md:pl-20 md:text-3xl font-bold text-amber-500/80">
                 {item.date}
               </h3>
