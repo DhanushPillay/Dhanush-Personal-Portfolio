@@ -1,20 +1,10 @@
-import { useState, useRef } from "react"
-import { useGSAP } from "@gsap/react"
-import gsap from "gsap"
-import { ScrollTrigger } from "gsap/ScrollTrigger"
-import { SplitText } from "gsap/SplitText"
+import { useState } from "react"
+import { motion } from "framer-motion"
 import { Send, Mail, MapPin } from "lucide-react"
 import { GithubIcon, LinkedinIcon } from "@/components/ui/social-icons"
 import { LiquidButton } from "@/components/ui/liquid-button"
 
-gsap.registerPlugin(ScrollTrigger, SplitText)
-
 export default function Contact() {
-  const sectionRef = useRef<HTMLElement>(null)
-  const infoRef = useRef<HTMLDivElement>(null)
-  const formRef = useRef<HTMLFormElement>(null)
-  const headingRef = useRef<HTMLHeadingElement>(null)
-
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -23,54 +13,6 @@ export default function Contact() {
   const [errors, setErrors] = useState<{name?: string; email?: string; message?: string}>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle")
-
-  useGSAP(
-    () => {
-      if (!sectionRef.current) return
-
-      if (headingRef.current) {
-        gsap.from(headingRef.current, {
-          opacity: 0,
-          y: 40,
-          filter: "blur(15px)",
-          duration: 1.2,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top 80%",
-            once: true
-          }
-        })
-      }
-
-      if (infoRef.current) {
-        gsap.from(infoRef.current, {
-          opacity: 0,
-          x: -80,
-          duration: 1,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: infoRef.current,
-            start: "top 80%",
-          },
-        })
-      }
-
-      if (formRef.current) {
-        gsap.from(formRef.current, {
-          opacity: 0,
-          x: 80,
-          duration: 1,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: formRef.current,
-            start: "top 80%",
-          },
-        })
-      }
-    },
-    { scope: sectionRef }
-  )
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -123,99 +65,79 @@ export default function Contact() {
   }
 
   return (
-    <section ref={sectionRef} id="contact" className="py-20 bg-zinc-950">
-      <div className="max-w-6xl mx-auto px-6">
-        <div ref={headingRef} className="mb-16">
+    <section id="contact" className="py-24 md:py-32 bg-zinc-950">
+      <div className="max-w-5xl mx-auto px-6">
 
-          <h2 className="text-5xl md:text-7xl font-bold text-center text-white tracking-tight">
-            Get In{" "}
-            <span className="bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500 bg-clip-text text-transparent">
-              Touch
-            </span>
-          </h2>
-        </div>
+        {/* Heading */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6 }}
+          className="mb-12"
+        >
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Let's Talk</h2>
+        </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-          {/* Contact Info */}
-          <div ref={infoRef} className="space-y-8">
-            <h3 className="text-3xl font-semibold text-white">
-              Let's work together
-            </h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
+          {/* Contact Info — consistent Framer Motion, no GSAP mix */}
+          <motion.div
+            initial={{ opacity: 0, x: -40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="space-y-8"
+          >
             <p className="text-lg text-zinc-400 leading-relaxed">
-              I'm always open to discussing new projects, creative ideas, or
-              opportunities to be part of your vision. Feel free to reach out!
+              Open to internships, collaborations, and interesting problems.
+              Drop a message or reach out directly.
             </p>
 
-            <div className="space-y-6">
+            <div className="space-y-5">
+              <a href="mailto:dhanushpillay28@gmail.com" className="flex items-center gap-4 group">
+                <div className="p-2.5 bg-white/[0.04] rounded-lg border border-white/[0.06] group-hover:border-white/20 transition-colors duration-200">
+                  <Mail className="w-5 h-5 text-zinc-400 group-hover:text-white transition-colors duration-200" />
+                </div>
+                <span className="text-zinc-300 group-hover:text-white transition-colors duration-200">
+                  dhanushpillay28@gmail.com
+                </span>
+              </a>
               <div className="flex items-center gap-4">
-                <div className="p-3 bg-amber-500/10 rounded-xl">
-                  <Mail className="w-6 h-6 text-amber-400" />
+                <div className="p-2.5 bg-white/[0.04] rounded-lg border border-white/[0.06]">
+                  <MapPin className="w-5 h-5 text-zinc-400" />
                 </div>
-                <div>
-                  <p className="text-sm text-zinc-400">Email</p>
-                  <a
-                    href="mailto:dhanushpillay28@gmail.com"
-                    className="text-white hover:text-amber-400 transition-colors"
-                  >
-                    dhanushpillay28@gmail.com
-                  </a>
-                </div>
+                <span className="text-zinc-300">Pune, India</span>
               </div>
-              <div className="flex items-center gap-4">
-                <div className="p-3 bg-amber-500/10 rounded-xl">
-                  <MapPin className="w-6 h-6 text-amber-400" />
+              <a href="https://github.com/DhanushPillay" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 group">
+                <div className="p-2.5 bg-white/[0.04] rounded-lg border border-white/[0.06] group-hover:border-white/20 transition-colors duration-200">
+                  <GithubIcon size={20} className="text-zinc-400 group-hover:text-white transition-colors duration-200" />
                 </div>
-                <div>
-                  <p className="text-sm text-zinc-400">Location</p>
-                  <p className="text-white">Pune, India</p>
+                <span className="text-zinc-300 group-hover:text-white transition-colors duration-200">
+                  github.com/DhanushPillay
+                </span>
+              </a>
+              <a href="https://linkedin.com/in/dhanush-pillay" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 group">
+                <div className="p-2.5 bg-white/[0.04] rounded-lg border border-white/[0.06] group-hover:border-white/20 transition-colors duration-200">
+                  <LinkedinIcon size={20} className="text-zinc-400 group-hover:text-white transition-colors duration-200" />
                 </div>
-              </div>
-              <div className="flex items-center gap-4">
-                <div className="p-3 bg-amber-500/10 rounded-xl">
-                  <GithubIcon className="w-6 h-6 text-amber-400" />
-                </div>
-                <div>
-                  <p className="text-sm text-zinc-400">GitHub</p>
-                  <a
-                    href="https://github.com/DhanushPillay"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-white hover:text-amber-400 transition-colors"
-                  >
-                    github.com/DhanushPillay
-                  </a>
-                </div>
-              </div>
-              <div className="flex items-center gap-4">
-                <div className="p-3 bg-amber-500/10 rounded-xl">
-                  <LinkedinIcon className="w-6 h-6 text-amber-400" />
-                </div>
-                <div>
-                  <p className="text-sm text-zinc-400">LinkedIn</p>
-                  <a
-                    href="https://linkedin.com/in/dhanush-pillay"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-white hover:text-amber-400 transition-colors"
-                  >
-                    linkedin.com/in/dhanush-pillay
-                  </a>
-                </div>
-              </div>
+                <span className="text-zinc-300 group-hover:text-white transition-colors duration-200">
+                  linkedin.com/in/dhanush-pillay
+                </span>
+              </a>
             </div>
-          </div>
+          </motion.div>
 
-          {/* Contact Form */}
-          <form
-            ref={formRef}
+          {/* Contact Form — consistent Framer Motion */}
+          <motion.form
+            initial={{ opacity: 0, x: 40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8, delay: 0.3 }}
             onSubmit={handleSubmit}
             className="space-y-6"
           >
             <div>
-              <label
-                htmlFor="name"
-                className="block text-sm font-medium text-zinc-300 mb-2"
-              >
+              <label htmlFor="name" className="block text-sm font-medium text-zinc-400 mb-2">
                 Name
               </label>
               <input
@@ -227,16 +149,13 @@ export default function Contact() {
                 required
                 aria-invalid={!!errors.name}
                 aria-describedby={errors.name ? "name-error" : undefined}
-                className={`w-full px-4 py-3 bg-white/[0.03] backdrop-blur-xl border ${errors.name ? 'border-red-500/50' : 'border-white/10'} rounded-xl text-white placeholder-zinc-600 focus:outline-none focus:border-amber-500/50 focus:shadow-[0_0_20px_rgba(245,158,11,0.1)] transition-all duration-500`}
+                className={`w-full px-4 py-3 bg-white/[0.03] border ${errors.name ? 'border-red-500/50' : 'border-white/[0.08]'} rounded-xl text-white placeholder-zinc-600 focus:outline-none focus:border-white/30 transition-colors duration-300`}
                 placeholder="Your name"
               />
               {errors.name && <p id="name-error" className="text-red-400 text-xs mt-1" aria-live="polite">{errors.name}</p>}
             </div>
             <div>
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium text-zinc-300 mb-2"
-              >
+              <label htmlFor="email" className="block text-sm font-medium text-zinc-400 mb-2">
                 Email
               </label>
               <input
@@ -248,16 +167,13 @@ export default function Contact() {
                 required
                 aria-invalid={!!errors.email}
                 aria-describedby={errors.email ? "email-error" : undefined}
-                className={`w-full px-4 py-3 bg-white/[0.03] backdrop-blur-xl border ${errors.email ? 'border-red-500/50' : 'border-white/10'} rounded-xl text-white placeholder-zinc-600 focus:outline-none focus:border-amber-500/50 focus:shadow-[0_0_20px_rgba(245,158,11,0.1)] transition-all duration-500`}
+                className={`w-full px-4 py-3 bg-white/[0.03] border ${errors.email ? 'border-red-500/50' : 'border-white/[0.08]'} rounded-xl text-white placeholder-zinc-600 focus:outline-none focus:border-white/30 transition-colors duration-300`}
                 placeholder="your.email@example.com"
               />
               {errors.email && <p id="email-error" className="text-red-400 text-xs mt-1" aria-live="polite">{errors.email}</p>}
             </div>
             <div>
-              <label
-                htmlFor="message"
-                className="block text-sm font-medium text-zinc-300 mb-2"
-              >
+              <label htmlFor="message" className="block text-sm font-medium text-zinc-400 mb-2">
                 Message
               </label>
               <textarea
@@ -269,30 +185,30 @@ export default function Contact() {
                 aria-invalid={!!errors.message}
                 aria-describedby={errors.message ? "message-error" : undefined}
                 rows={5}
-                className={`w-full px-4 py-3 bg-white/[0.03] backdrop-blur-xl border ${errors.message ? 'border-red-500/50' : 'border-white/10'} rounded-xl text-white placeholder-zinc-600 focus:outline-none focus:border-amber-500/50 focus:shadow-[0_0_20px_rgba(245,158,11,0.1)] transition-all duration-500 resize-none`}
-                placeholder="Your message..."
+                className={`w-full px-4 py-3 bg-white/[0.03] border ${errors.message ? 'border-red-500/50' : 'border-white/[0.08]'} rounded-xl text-white placeholder-zinc-600 focus:outline-none focus:border-white/30 transition-colors duration-300 resize-none`}
+                placeholder="What do you have in mind?"
               />
               {errors.message && <p id="message-error" className="text-red-400 text-xs mt-1" aria-live="polite">{errors.message}</p>}
             </div>
             <LiquidButton
-                type="submit"
-                className="w-full flex items-center justify-center gap-2"
-                disabled={isSubmitting}
-                aria-disabled={isSubmitting}
-                aria-busy={isSubmitting}
-              >
-                <Send size={18} />
-                {isSubmitting ? "Sending..." : "Send Message"}
-              </LiquidButton>
-              <div aria-live="polite" className="mt-4">
-                {submitStatus === "success" && (
-                  <p className="text-emerald-400 text-sm text-center">Message sent successfully! I will get back to you soon.</p>
-                )}
-                {submitStatus === "error" && (
-                  <p className="text-red-400 text-sm text-center">Failed to send message. Please try again or email me directly.</p>
-                )}
-              </div>
-          </form>
+              type="submit"
+              className="w-full flex items-center justify-center gap-2"
+              disabled={isSubmitting}
+              aria-disabled={isSubmitting}
+              aria-busy={isSubmitting}
+            >
+              <Send size={18} />
+              {isSubmitting ? "Sending..." : "Send Message"}
+            </LiquidButton>
+            <div aria-live="polite" className="mt-4">
+              {submitStatus === "success" && (
+                <p className="text-emerald-400 text-sm text-center">Message sent. I'll get back to you soon.</p>
+              )}
+              {submitStatus === "error" && (
+                <p className="text-red-400 text-sm text-center">Failed to send. Try emailing me directly.</p>
+              )}
+            </div>
+          </motion.form>
         </div>
       </div>
     </section>
