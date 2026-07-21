@@ -1,162 +1,141 @@
 import { motion } from "framer-motion"
 import { ExternalLink, Code } from "lucide-react"
-import { SpotlightCard } from "@/components/ui/spotlight-card"
 
 const projects = [
   {
     title: "LifeLink",
-    description: "A full-stack Blood and Organ Donor Matching platform with real-time donor search, hospital connectivity, JWT authentication, and WebSocket messaging.",
+    description: "Full-stack Blood & Organ Donor Matching platform with real-time donor search, hospital connectivity, JWT auth, and WebSocket messaging.",
     image: "https://images.unsplash.com/photo-1538108149393-fbbd81895907?q=80&w=2000&auto=format&fit=crop",
     tags: ["React 19", "Express", "MongoDB", "Socket.IO"],
     liveUrl: "https://blood-and-organ-donar-matching-syst.vercel.app/",
     githubUrl: "https://github.com/DhanushPillay/LifeLink",
-    colSpan: "md:col-span-1"
   },
   {
     title: "VaticMacro",
-    description: "An inflation forecasting system ingesting 7 macroeconomic indicators to predict India's YoY inflation 1 month ahead. Engineered a 35-feature pipeline avoiding lookahead bias.",
+    description: "Inflation forecasting system ingesting 7 macroeconomic indicators to predict India's YoY inflation 1 month ahead. 35-feature pipeline avoiding lookahead bias.",
     image: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?q=80&w=2071&auto=format&fit=crop",
     tags: ["PyTorch", "Transformers", "Flask"],
     liveUrl: "https://vaticmacro.onrender.com/#command-center",
     githubUrl: "https://github.com/DhanushPillay/VaticMacro",
-    colSpan: "md:col-span-1"
   },
   {
     title: "Tech News Aggregator",
-    description: "A Flask application aggregating tech news from 5 major sources. Features concurrent scraping, SQLite FTS5 full-text search, and NLP enrichment via APScheduler.",
+    description: "Flask app aggregating tech news from 5 sources. Concurrent scraping, SQLite FTS5 full-text search, and NLP enrichment via APScheduler.",
     image: "https://images.unsplash.com/photo-1504711434969-e33886168f5c?q=80&w=2070&auto=format&fit=crop",
     tags: ["Python", "Flask", "SQLite", "NLP"],
     liveUrl: "https://sniffer-vfru.onrender.com/",
     githubUrl: "https://github.com/DhanushPillay",
-    colSpan: "md:col-span-1"
   },
   {
     title: "SmartSheti",
-    description: "Agricultural decision support platform for Maharashtra farmers providing crop recommendations, pest risk analysis, and real-time market price tracking.",
+    description: "Agricultural decision support for Maharashtra farmers — crop recommendations, pest risk analysis, and real-time market price tracking.",
     image: "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?q=80&w=2070&auto=format&fit=crop",
     tags: ["JavaScript", "Python", "Flask", "Tailwind CSS"],
     liveUrl: "https://smartsheti-rho.vercel.app/",
     githubUrl: "https://github.com/DhanushPillay/Smartsheti",
-    colSpan: "md:col-span-1"
   },
   {
     title: "PixBooth",
-    description: "Web-based photobooth with WebRTC camera access, real-time vintage filters, Fabric.js canvas editor, and an IndexedDB scattered-polaroid masonry gallery.",
+    description: "Web-based photobooth — WebRTC camera, real-time vintage filters, Fabric.js canvas editor, and an IndexedDB scattered-polaroid gallery.",
     image: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=2000&auto=format&fit=crop",
     tags: ["Vanilla JS", "Fabric.js", "IndexedDB"],
     liveUrl: "https://pixb00th.netlify.app/",
     githubUrl: "https://github.com/DhanushPillay/PixBooth",
-    colSpan: "md:col-span-1"
   },
   {
     title: "VisioNova",
-    description: "The Deepfake & Misinformation Defense Grid. An advanced system to detect deepfakes and defend against digital misinformation.",
+    description: "Deepfake & Misinformation Defense Grid. Detects deepfakes and defends against digital misinformation using adversarial ML.",
     image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop",
     tags: ["Python", "AI", "Cybersecurity"],
     liveUrl: "https://visio-nova.vercel.app",
     githubUrl: "https://github.com/DhanushPillay/VisioNova",
-    colSpan: "md:col-span-1"
   }
 ]
 
 export default function Projects() {
   return (
-    <section id="projects" className="py-20 bg-black relative">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(245,158,11,0.05)_0%,transparent_70%)] pointer-events-none" />
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 40, filter: "blur(15px)" }}
-          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-          className="mb-16"
-        >
+    <section id="projects" className="py-24 md:py-32 bg-black relative">
+      <div className="max-w-6xl mx-auto px-6 relative z-10">
 
-          <h2 className="text-5xl md:text-7xl font-bold text-center text-white tracking-tight">
-            Featured{" "}
-            <span className="bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500 bg-clip-text text-transparent">
-              Projects
-            </span>
-          </h2>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6 }}
+          className="mb-12"
+        >
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Featured Projects</h2>
+          <p className="text-zinc-400 text-lg">
+            Recent work and personal explorations. ({projects.length} featured)
+          </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {projects.map((project, i) => (
-              <motion.div
-                key={project.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
-                className="h-full"
-              >
-                <SpotlightCard className="h-full group flex flex-col overflow-hidden border border-white/5 hover:border-amber-500/30 transition-all duration-500">
-                  
-                  {/* Image Container with Hover Overlay */}
-                  <div className="relative w-full aspect-video bg-zinc-900 border-b border-white/10 overflow-hidden flex-shrink-0">
-                    <div className="absolute top-0 left-0 right-0 h-6 bg-zinc-950/80 backdrop-blur-sm border-b border-white/10 flex items-center px-3 gap-1.5 z-20">
-                      <div className="w-2.5 h-2.5 rounded-full bg-red-500/80" />
-                      <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/80" />
-                      <div className="w-2.5 h-2.5 rounded-full bg-green-500/80" />
-                    </div>
-                    <img
-                      src={project.image}
-                      alt={project.title}
-                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                    />
-                    
-                    {/* Dark gradient overlay always visible for text legibility */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
-                    
-                    {/* Hover text overlay */}
-                    <div className="absolute inset-0 bg-black/80 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 pointer-events-none z-10">
-                      <p className="text-zinc-300 text-sm leading-relaxed transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                        {project.description}
-                      </p>
-                    </div>
+            <motion.article
+              key={project.title}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.6, delay: i * 0.08 }}
+              className="group"
+            >
+              {/* Image — clean, no fake window chrome */}
+              <div className="relative w-full aspect-[16/10] bg-zinc-900 rounded-xl overflow-hidden mb-5">
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-300" />
+              </div>
+
+              {/* Content — description visible by default, not hidden in a hover overlay */}
+              <div className="space-y-3">
+                <div className="flex items-start justify-between gap-4">
+                  <h3 className="text-xl font-bold text-white group-hover:text-zinc-300 transition-colors duration-300">
+                    {project.title}
+                  </h3>
+                  <div className="flex items-center gap-3 flex-shrink-0 pt-1">
+                    <a
+                      href={project.liveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`Visit ${project.title}`}
+                      className="text-zinc-500 hover:text-white transition-colors duration-200"
+                    >
+                      <ExternalLink size={16} />
+                    </a>
+                    <a
+                      href={project.githubUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`View ${project.title} source code`}
+                      className="text-zinc-500 hover:text-white transition-colors duration-200"
+                    >
+                      <Code size={16} />
+                    </a>
                   </div>
+                </div>
 
-                  <div className="flex-grow flex flex-col p-6 z-20 bg-zinc-950/50">
-                    <h3 className="text-xl font-bold text-white mb-4 group-hover:text-amber-400 transition-colors duration-300">
-                      {project.title}
-                    </h3>
+                <p className="text-zinc-400 text-sm leading-relaxed">
+                  {project.description}
+                </p>
 
-                    <div className="flex flex-wrap gap-2 mb-6">
-                      {project.tags.map((tag) => (
-                        <span
-                          key={tag}
-                          className="px-2 py-1 text-[10px] uppercase tracking-wider font-medium rounded bg-white/5 text-amber-500/80 border border-white/5"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-
-                    <div className="flex items-center justify-between mt-auto">
-                      <a
-                        href={project.liveUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-amber-500 hover:text-amber-400 text-sm font-medium flex items-center gap-1.5 transition-colors"
-                      >
-                        <ExternalLink size={14} />
-                        Visit
-                      </a>
-                      <a
-                        href={project.githubUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-zinc-400 hover:text-white text-sm font-medium flex items-center gap-1.5 transition-colors"
-                      >
-                        <Code size={14} />
-                        Source
-                      </a>
-                    </div>
-                  </div>
-                </SpotlightCard>
-              </motion.div>
-            )
-          )}
+                <div className="flex flex-wrap gap-2 pt-1">
+                  {project.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="px-2 py-0.5 text-[10px] uppercase tracking-wider font-mono rounded bg-white/[0.04] text-zinc-500 border border-white/[0.06]"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </motion.article>
+          ))}
         </div>
       </div>
     </section>
