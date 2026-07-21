@@ -102,11 +102,7 @@ function LogoMarquee() {
       <div className="absolute left-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-r from-black to-transparent z-10 pointer-events-none" />
       <div className="absolute right-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-l from-black to-transparent z-10 pointer-events-none" />
       
-      <motion.div
-        className="flex items-center gap-6 md:gap-10 w-max pr-6 md:pr-10"
-        animate={{ x: ["0%", "-50%"] }}
-        transition={{ repeat: Infinity, ease: "linear", duration: 40 }}
-      >
+      <div className="animate-marquee flex items-center gap-6 md:gap-10 w-max pr-6 md:pr-10">
         {/* Duplicate for seamless loop */}
         {[...allIconSkills, ...allIconSkills].map((skill, i) => (
           <div key={`${skill.name}-${i}`} className="flex-shrink-0 flex items-center justify-center transition-all duration-300 group">
@@ -114,7 +110,6 @@ function LogoMarquee() {
               src={skill.icon}
               alt={skill.name}
               className="w-10 h-10 md:w-12 md:h-12 opacity-60 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300"
-              loading="lazy"
               onError={(e) => {
                 // If an icon fails to load, hide the whole container to prevent empty gaps
                 (e.target as HTMLImageElement).parentElement!.style.display = 'none';
@@ -122,7 +117,7 @@ function LogoMarquee() {
             />
           </div>
         ))}
-      </motion.div>
+      </div>
     </div>
   )
 }
