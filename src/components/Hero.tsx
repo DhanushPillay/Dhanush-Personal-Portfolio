@@ -1,7 +1,6 @@
 import { useRef, useState, lazy, Suspense, useEffect } from "react"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
-import { ScrollTrigger } from "gsap/ScrollTrigger"
 const Spline = lazy(() => import("@splinetool/react-spline"))
 import { Mail } from "lucide-react"
 import { GithubIcon, LinkedinIcon } from "@/components/ui/social-icons"
@@ -9,8 +8,6 @@ import { LiquidButton } from "@/components/ui/liquid-button"
 import { Magnetic } from "@/components/ui/magnetic"
 import { ScrambleText } from "@/components/ui/scramble-text"
 import LoadingSpinner from "@/components/ui/snow-ball-loading-spinner"
-
-gsap.registerPlugin(ScrollTrigger)
 
 export default function Hero() {
   const [isSplineLoaded, setIsSplineLoaded] = useState(false)
