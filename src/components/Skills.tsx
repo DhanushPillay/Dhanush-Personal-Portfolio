@@ -78,6 +78,8 @@ const skillCategories: SkillCategory[] = [
       { name: "Git", icon: "https://cdn.simpleicons.org/git" },
       { name: "Linux", icon: "https://cdn.simpleicons.org/linux" },
       { name: "VS Code", icon: "https://cdn.simpleicons.org/visualstudiocode" },
+      { name: "Claude", icon: "https://cdn.simpleicons.org/anthropic/white" },
+      { name: "Antigravity", icon: "https://cdn.simpleicons.org/googlegemini/white" },
       { name: "Figma", icon: "https://cdn.simpleicons.org/figma" },
       { name: "JWT", icon: "https://cdn.simpleicons.org/jsonwebtokens/white" },
       { name: "Google OAuth", icon: "https://cdn.simpleicons.org/google" },
