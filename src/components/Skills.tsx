@@ -102,7 +102,7 @@ function LogoMarquee() {
       <div className="absolute left-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-r from-black to-transparent z-10 pointer-events-none" />
       <div className="absolute right-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-l from-black to-transparent z-10 pointer-events-none" />
       
-      <div className="animate-marquee flex items-center gap-6 md:gap-10 w-max pr-6 md:pr-10">
+      <div className="animate-skills-marquee flex items-center gap-6 md:gap-10 w-max pr-6 md:pr-10">
         {/* Duplicate for seamless loop */}
         {[...allIconSkills, ...allIconSkills].map((skill, i) => (
           <div key={`${skill.name}-${i}`} className="flex-shrink-0 flex items-center justify-center transition-all duration-300 group">
