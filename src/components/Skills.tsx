@@ -2,8 +2,6 @@ import { useRef } from "react"
 import { motion, useInView } from "framer-motion"
 import { SpotlightCard } from "@/components/ui/spotlight-card"
 
-const getIcon = (name: string) => `https://skillicons.dev/icons?i=${name}`
-
 type Skill = { name: string; icon?: string }
 type SkillCategory = {
   title: string

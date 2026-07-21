@@ -72,7 +72,7 @@ export default function CustomCursor() {
       ) : (
         <motion.div
           animate={{ opacity: [1, 0, 1] }}
-          transition={{ repeat: Infinity, duration: 1, ease: "steps(2, end)" }}
+          transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
           className="w-3 h-6 bg-white"
         />
       )}
