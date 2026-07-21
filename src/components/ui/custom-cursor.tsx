@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react"
 import { motion, useMotionValue, useSpring } from "framer-motion"
+import { useIsMobile } from "@/hooks/useIsMobile"
 
 export default function CustomCursor() {
+  const isMobile = useIsMobile()
   const [isHovering, setIsHovering] = useState(false)
   const [isVisible, setIsVisible] = useState(false)
   
@@ -14,8 +16,7 @@ export default function CustomCursor() {
   const cursorYSpring = useSpring(cursorY, springConfig)
 
   useEffect(() => {
-    const isTouchDevice = "ontouchstart" in window || navigator.maxTouchPoints > 0
-    if (isTouchDevice) return
+    if (isMobile) return
 
     setIsVisible(true)
     

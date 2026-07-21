@@ -8,11 +8,19 @@ import { LiquidButton } from "@/components/ui/liquid-button"
 import { Magnetic } from "@/components/ui/magnetic"
 import { ScrambleText } from "@/components/ui/scramble-text"
 import LoadingSpinner from "@/components/ui/snow-ball-loading-spinner"
+import { useIsMobile } from "@/hooks/useIsMobile"
 
 export default function Hero() {
   const [isSplineLoaded, setIsSplineLoaded] = useState(false)
   const [minTimeElapsed, setMinTimeElapsed] = useState(false)
   const [loadingProgress, setLoadingProgress] = useState(0)
+  const isMobile = useIsMobile()
+
+  useEffect(() => {
+    if (isMobile) {
+      setIsSplineLoaded(true)
+    }
+  }, [isMobile])
 
   useEffect(() => {
     if (isSplineLoaded) return; // Stop running the fake progress once actually loaded
@@ -162,16 +170,20 @@ export default function Hero() {
       {/* Spline as full background */}
       <div className="absolute inset-0" style={{ transform: "translateY(60px)" }}>
 
-        <Suspense fallback={null}>
-          <Spline
-            scene="/scene.splinecode"
-            style={{ width: "100%", height: "100%", background: "transparent" }}
-            onLoad={(spline) => {
-              spline.setZoom(1)
-              setIsSplineLoaded(true)
-            }}
-          />
-        </Suspense>
+        {isMobile ? (
+          <div className="w-full h-full bg-gradient-to-br from-black via-zinc-900/80 to-amber-900/30 opacity-60" />
+        ) : (
+          <Suspense fallback={null}>
+            <Spline
+              scene="/scene.splinecode"
+              style={{ width: "100%", height: "100%", background: "transparent" }}
+              onLoad={(spline) => {
+                spline.setZoom(1)
+                setIsSplineLoaded(true)
+              }}
+            />
+          </Suspense>
+        )}
 
         {/* Bottom-right corner gradient to cover canvas-rendered watermark */}
         <div

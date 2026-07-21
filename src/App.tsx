@@ -33,7 +33,7 @@ export default function App() {
   })
 
   return (
-    <ReactLenis root options={{ lerp: 0.08, duration: 1.2, syncTouch: true }}>
+    <ReactLenis root options={{ lerp: 0.08, duration: 1.2, smoothWheel: true, syncTouch: false }}>
       <CustomCursor />
       
       {/* Interactive Scroll Progress Bar */}

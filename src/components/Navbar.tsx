@@ -123,8 +123,9 @@ export default function Navbar() {
 
           {/* Mobile Toggle */}
           <button
-            className="md:hidden text-zinc-400 hover:text-white p-2"
+            className="md:hidden text-zinc-400 hover:text-white p-3 -mr-1"
             onClick={() => setIsMobileOpen(true)}
+            aria-label="Open Menu"
           >
             <Menu size={24} />
           </button>
@@ -141,8 +142,9 @@ export default function Navbar() {
             className="fixed inset-0 z-[60] bg-black/90 backdrop-blur-md md:hidden flex flex-col items-center justify-center"
           >
             <button
-              className="absolute top-6 right-6 text-zinc-400 hover:text-white p-2"
+              className="absolute top-6 right-6 text-zinc-400 hover:text-white p-3"
               onClick={() => setIsMobileOpen(false)}
+              aria-label="Close Menu"
             >
               <X size={32} />
             </button>
