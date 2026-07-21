@@ -8,8 +8,8 @@ export default function CustomCursor() {
   const cursorX = useMotionValue(-100)
   const cursorY = useMotionValue(-100)
   
-  // Spring physics for the ring (smooth lag)
-  const springConfig = { damping: 25, stiffness: 300, mass: 0.5 }
+  // Tight spring for the terminal block so it feels snappy and responsive
+  const springConfig = { damping: 30, stiffness: 400, mass: 0.5 }
   const cursorXSpring = useSpring(cursorX, springConfig)
   const cursorYSpring = useSpring(cursorY, springConfig)
 
@@ -18,6 +18,9 @@ export default function CustomCursor() {
     if (isTouchDevice) return
 
     setIsVisible(true)
+    
+    // Hide default cursor globally
+    document.documentElement.style.cursor = "none"
 
     const moveCursor = (e: MouseEvent) => {
       cursorX.set(e.clientX)
@@ -26,8 +29,13 @@ export default function CustomCursor() {
 
     const handleMouseOver = (e: MouseEvent) => {
       const target = e.target as HTMLElement
-      const isInteractive = target.closest('a, button, input, textarea, [data-cursor-hover]')
+      const isInteractive = target.closest('a, button, input, textarea, [data-cursor-hover], [role="button"]')
       setIsHovering(!!isInteractive)
+      
+      // Ensure the hovered element also hides its native cursor (like the pointer hand)
+      if (isInteractive) {
+        (isInteractive as HTMLElement).style.cursor = "none"
+      }
     }
 
     window.addEventListener("mousemove", moveCursor)
@@ -42,51 +50,32 @@ export default function CustomCursor() {
   if (!isVisible) return null
 
   return (
-    <>
-      {/* Soft Glow */}
-      <motion.div
-        className="fixed top-0 left-0 w-[400px] h-[400px] bg-amber-500/10 rounded-full pointer-events-none z-[9998] blur-[80px]"
-        style={{
-          x: cursorXSpring,
-          y: cursorYSpring,
-          translateX: "-50%",
-          translateY: "-50%"
-        }}
-        animate={{
-          scale: isHovering ? 1.2 : 1,
-          opacity: isHovering ? 0.8 : 0.3
-        }}
-        transition={{ duration: 0.4, ease: "easeOut" }}
-      />
-
-      {/* Tiny solid dot that tracks instantly */}
-      <motion.div
-        className="fixed top-0 left-0 w-2 h-2 bg-white rounded-full pointer-events-none z-[10000] mix-blend-difference"
-        style={{
-          x: cursorX,
-          y: cursorY,
-          translateX: "-50%",
-          translateY: "-50%"
-        }}
-      />
-      
-      {/* Larger hollow ring with spring physics */}
-      <motion.div
-        className="fixed top-0 left-0 rounded-full pointer-events-none z-[9999] mix-blend-difference"
-        style={{
-          x: cursorXSpring,
-          y: cursorYSpring,
-          translateX: "-50%",
-          translateY: "-50%"
-        }}
-        animate={{
-          width: isHovering ? 64 : 32,
-          height: isHovering ? 64 : 32,
-          border: isHovering ? "2px solid rgba(255,255,255,0)" : "2px solid rgba(255,255,255,1)",
-          backgroundColor: isHovering ? "rgba(255,255,255,1)" : "rgba(255,255,255,0)"
-        }}
-        transition={{ duration: 0.2, ease: "easeOut" }}
-      />
-    </>
+    <motion.div
+      className="fixed top-0 left-0 pointer-events-none z-[10000] flex items-center justify-center mix-blend-difference"
+      style={{
+        x: cursorXSpring,
+        y: cursorYSpring,
+        translateX: "-50%",
+        translateY: "-50%"
+      }}
+    >
+      {isHovering ? (
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.2 }}
+          className="text-white font-mono text-3xl font-bold flex items-center"
+        >
+          <span className="mr-8 text-amber-500">&lt;</span>
+          <span className="text-amber-500">&gt;</span>
+        </motion.div>
+      ) : (
+        <motion.div
+          animate={{ opacity: [1, 0, 1] }}
+          transition={{ repeat: Infinity, duration: 1, ease: "steps(2, end)" }}
+          className="w-3 h-6 bg-white"
+        />
+      )}
+    </motion.div>
   )
 }
