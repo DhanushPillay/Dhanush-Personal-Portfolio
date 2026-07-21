@@ -1,10 +1,5 @@
 import { useRef } from "react"
 import { useScroll, useTransform, motion } from "framer-motion"
-import gsap from "gsap"
-import { ScrollTrigger } from "gsap/ScrollTrigger"
-import { SplitText } from "gsap/SplitText"
-
-gsap.registerPlugin(ScrollTrigger, SplitText)
 
 interface TimelineEntry {
   title: string
@@ -48,15 +43,18 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
   return (
     <div className="w-full bg-black font-sans md:px-10" ref={containerRef}>
       <div className="max-w-7xl mx-auto py-20 px-4 md:px-8 lg:px-10">
-        <h2 className="text-5xl md:text-6xl font-bold mb-4 text-white">
-          Experience &{" "}
-          <span className="bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500 bg-clip-text text-transparent">
-            Education
-          </span>
-        </h2>
-        <p className="text-zinc-400 text-lg max-w-sm">
-          My journey in Big Data, Cloud Engineering, and Full-Stack Development.
-        </p>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6 }}
+          className="mb-12"
+        >
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Experience & Education</h2>
+          <p className="text-zinc-400 text-lg">
+            My journey in Big Data, Cloud Engineering, and Full-Stack Development.
+          </p>
+        </motion.div>
       </div>
 
       <div ref={ref} className="relative max-w-7xl mx-auto pb-20">
