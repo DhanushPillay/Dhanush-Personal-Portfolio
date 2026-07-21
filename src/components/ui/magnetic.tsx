@@ -1,4 +1,4 @@
-import { useRef, useState } from "react"
+import { useRef } from "react"
 import { motion, useSpring } from "framer-motion"
 
 interface MagneticProps {
@@ -9,7 +9,6 @@ interface MagneticProps {
 
 export function Magnetic({ children, className = "", intensity = 0.5 }: MagneticProps) {
   const ref = useRef<HTMLDivElement>(null)
-  const [isHovered, setIsHovered] = useState(false)
   
   // Spring configuration for extremely snappy, organic physics
   const springConfig = { stiffness: 350, damping: 15, mass: 0.1 }
@@ -33,13 +32,8 @@ export function Magnetic({ children, className = "", intensity = 0.5 }: Magnetic
   }
 
   const handleMouseLeave = () => {
-    setIsHovered(false)
     x.set(0)
     y.set(0)
-  }
-
-  const handleMouseEnter = () => {
-    setIsHovered(true)
   }
 
   return (
@@ -47,10 +41,7 @@ export function Magnetic({ children, className = "", intensity = 0.5 }: Magnetic
       ref={ref}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      onMouseEnter={handleMouseEnter}
-      animate={{ 
-        scale: isHovered ? 1.05 : 1 
-      }}
+      whileHover={{ scale: 1.05 }}
       transition={{ type: "spring", stiffness: 400, damping: 20 }}
       style={{ x, y }}
       className={`inline-block ${className}`}
