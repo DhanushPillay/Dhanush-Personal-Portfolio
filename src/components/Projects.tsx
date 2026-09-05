@@ -54,7 +54,7 @@ const projects = [
 
 export default function Projects() {
   return (
-    <section id="projects" className="py-24 md:py-32 bg-black relative">
+    <section id="projects" className="py-24 md:py-32 bg-white relative">
       <div className="max-w-6xl mx-auto px-6 relative z-10">
 
         <motion.div
@@ -64,8 +64,8 @@ export default function Projects() {
           transition={{ duration: 0.6 }}
           className="mb-12"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Featured Projects</h2>
-          <p className="text-zinc-400 text-lg">
+          <h2 className="text-3xl md:text-4xl font-bold text-[#1c1c1c] mb-4">Featured Projects</h2>
+          <p className="text-zinc-600 text-lg">
             Recent work and personal explorations. ({projects.length} featured)
           </p>
         </motion.div>
@@ -81,20 +81,20 @@ export default function Projects() {
               className="group"
             >
               {/* Image — clean, no fake window chrome */}
-              <div className="relative w-full aspect-[16/10] bg-zinc-900 rounded-xl overflow-hidden mb-5">
+              <div className="relative w-full aspect-[16/10] bg-zinc-100 rounded-xl overflow-hidden mb-5">
                 <img
                   src={project.image}
                   alt={project.title}
                   className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   loading="lazy"
                 />
-                <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-300" />
+                <div className="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors duration-300" />
               </div>
 
               {/* Content — description visible by default, not hidden in a hover overlay */}
               <div className="space-y-3">
                 <div className="flex items-start justify-between gap-4">
-                  <h3 className="text-xl font-bold text-white group-hover:text-zinc-300 transition-colors duration-300">
+                  <h3 className="text-xl font-bold text-[#1c1c1c] group-hover:text-zinc-600 transition-colors duration-300">
                     {project.title}
                   </h3>
                   <div className="flex items-center gap-3 flex-shrink-0 pt-1">
@@ -103,7 +103,7 @@ export default function Projects() {
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={`Visit ${project.title}`}
-                      className="text-zinc-500 hover:text-white transition-colors duration-200"
+                      className="text-zinc-400 hover:text-[#1c1c1c] transition-colors duration-200"
                     >
                       <ExternalLink size={16} />
                     </a>
@@ -112,14 +112,14 @@ export default function Projects() {
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={`View ${project.title} source code`}
-                      className="text-zinc-500 hover:text-white transition-colors duration-200"
+                      className="text-zinc-400 hover:text-[#1c1c1c] transition-colors duration-200"
                     >
                       <Code size={16} />
                     </a>
                   </div>
                 </div>
 
-                <p className="text-zinc-400 text-sm leading-relaxed">
+                <p className="text-zinc-600 text-sm leading-relaxed">
                   {project.description}
                 </p>
 
@@ -127,7 +127,7 @@ export default function Projects() {
                   {project.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="px-2 py-0.5 text-[10px] uppercase tracking-wider font-mono rounded bg-white/[0.04] text-zinc-500 border border-white/[0.06]"
+                      className="px-2 py-0.5 text-[10px] uppercase tracking-wider font-mono rounded bg-white text-zinc-600 border border-[#e4e4e7]"
                     >
                       {tag}
                     </span>

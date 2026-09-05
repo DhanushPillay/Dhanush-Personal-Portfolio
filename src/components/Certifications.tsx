@@ -194,18 +194,18 @@ function ProviderAccordion({ group, defaultOpen }: { group: typeof grouped[0]; d
   const [isOpen, setIsOpen] = useState(defaultOpen ?? false)
 
   return (
-    <div className="border border-white/[0.06] rounded-2xl overflow-hidden bg-white/[0.01] hover:bg-white/[0.02] transition-colors duration-300">
+    <div className="border border-[#e4e4e7] rounded-2xl overflow-hidden bg-white hover:bg-zinc-50 transition-colors duration-300 shadow-sm">
       {/* Clickable header */}
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="w-full flex items-center justify-between px-6 py-5 text-left group"
       >
         <div className="flex items-center gap-4">
-          <div className="px-3 bg-zinc-200/95 rounded-lg h-10 flex items-center justify-center flex-shrink-0 min-w-[60px]">
+          <div className="px-3 bg-zinc-100 rounded-lg h-10 flex items-center justify-center flex-shrink-0 min-w-[60px] border border-zinc-200">
             <img src={group.image} alt={group.issuer} className="h-5 w-auto max-w-[120px] object-contain" />
           </div>
           <div>
-            <p className="text-white font-semibold text-sm">{group.issuer}</p>
+            <p className="text-[#1c1c1c] font-semibold text-sm">{group.issuer}</p>
             <p className="text-zinc-500 text-xs mt-0.5">
               {group.items.length} {group.items.length === 1 ? "credential" : "credentials"}
             </p>
@@ -236,13 +236,13 @@ function ProviderAccordion({ group, defaultOpen }: { group: typeof grouped[0]; d
                   href={cred.link || `https://www.credly.com/badges/${cred.id}/public_url`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group/item flex items-center gap-3 px-4 py-3 rounded-xl bg-white/[0.02] border border-white/[0.05] hover:border-amber-500/30 hover:bg-amber-500/[0.04] transition-all duration-300"
+                  className="group/item flex items-center gap-3 px-4 py-3 rounded-xl bg-white border border-[#e4e4e7] hover:border-[#e34234]/30 hover:bg-[#e34234]/5 transition-all duration-300 shadow-sm"
                 >
-                  <div className="w-1 h-1 rounded-full bg-amber-500/50 flex-shrink-0" />
-                  <p className="text-sm text-zinc-300 group-hover/item:text-white transition-colors truncate">
+                  <div className="w-1 h-1 rounded-full bg-[#e34234]/60 flex-shrink-0" />
+                  <p className="text-sm text-zinc-600 group-hover/item:text-[#1c1c1c] transition-colors truncate">
                     {cred.title}
                   </p>
-                  <ExternalLink size={12} className="text-zinc-600 group-hover/item:text-amber-500 flex-shrink-0 ml-auto transition-colors" />
+                  <ExternalLink size={12} className="text-zinc-400 group-hover/item:text-[#e34234] flex-shrink-0 ml-auto transition-colors" />
                 </a>
               ))}
             </div>
@@ -255,7 +255,7 @@ function ProviderAccordion({ group, defaultOpen }: { group: typeof grouped[0]; d
 
 export default function Certifications() {
   return (
-    <section id="certifications" className="py-24 md:py-32 bg-zinc-950 relative">
+    <section id="certifications" className="py-24 md:py-32 bg-[#f5f5f7] relative">
       <div className="max-w-5xl mx-auto px-6 relative z-10">
 
         {/* Heading */}
@@ -267,10 +267,10 @@ export default function Certifications() {
           className="mb-12 flex flex-col lg:flex-row lg:items-end justify-between gap-8"
         >
           <div>
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-[#1c1c1c] mb-4">
               Certifications & Badges
             </h2>
-            <p className="text-zinc-400 text-lg">
+            <p className="text-zinc-600 text-lg">
               {credentials.length} credentials across {grouped.length} providers (Google Cloud, AWS, Oracle, etc.)
             </p>
           </div>
@@ -279,7 +279,7 @@ export default function Certifications() {
             href="https://www.credly.com/users/dhanush-pillay"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 px-5 py-2.5 text-sm bg-amber-500/10 border border-amber-500/20 text-amber-400 hover:bg-amber-500 hover:text-black rounded-full font-medium transition-all duration-300 flex-shrink-0 lg:mb-6"
+            className="flex items-center gap-2 px-5 py-2.5 text-sm bg-[#e34234]/10 border border-[#e34234]/20 text-[#e34234] hover:bg-[#e34234] hover:text-white rounded-full font-medium transition-all duration-300 flex-shrink-0 lg:mb-6"
           >
             <Award size={16} />
             View on Credly

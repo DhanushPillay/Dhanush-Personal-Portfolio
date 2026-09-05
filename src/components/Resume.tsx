@@ -30,7 +30,7 @@ const timelineData = [
     subtitle: "MIT ADT University (Big Data & Cloud)",
     date: "Aug 2024 - 2028",
     content: (
-      <p className="mt-2 text-zinc-400">
+      <p className="mt-2 text-zinc-600">
         Pursuing a Bachelor of Technology with a specialization in Big Data and Cloud Engineering in Pune, India.
       </p>
     ),
@@ -39,7 +39,7 @@ const timelineData = [
 
 export default function Resume() {
   return (
-    <section id="experience" className="bg-black w-full overflow-hidden">
+    <section id="experience" className="bg-[#f5f5f7] w-full overflow-hidden">
       <Timeline data={timelineData} />
     </section>
   )

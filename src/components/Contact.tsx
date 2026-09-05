@@ -3,6 +3,7 @@ import { motion } from "framer-motion"
 import { Send, Mail, MapPin } from "lucide-react"
 import { GithubIcon, LinkedinIcon } from "@/components/ui/social-icons"
 import { LiquidButton } from "@/components/ui/liquid-button"
+import { SocialButton } from "@/components/ui/social-button"
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -65,7 +66,7 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" className="py-24 md:py-32 bg-zinc-950">
+    <section id="contact" className="py-24 md:py-32 bg-[#f5f5f7]">
       <div className="max-w-5xl mx-auto px-6">
 
         {/* Heading */}
@@ -76,7 +77,7 @@ export default function Contact() {
           transition={{ duration: 0.6 }}
           className="mb-12"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Let's Talk</h2>
+          <h2 className="text-3xl md:text-4xl font-bold text-[#1c1c1c] mb-4">Let's Talk</h2>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
@@ -88,42 +89,40 @@ export default function Contact() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="space-y-8"
           >
-            <p className="text-lg text-zinc-400 leading-relaxed">
+            <p className="text-lg text-zinc-600 leading-relaxed">
               Open to internships, collaborations, and interesting problems.
               Drop a message or reach out directly.
             </p>
 
             <div className="space-y-5">
               <a href="mailto:dhanushpillay28@gmail.com" className="flex items-center gap-4 group">
-                <div className="p-2.5 bg-white/[0.04] rounded-lg border border-white/[0.06] group-hover:border-white/20 transition-colors duration-200">
-                  <Mail className="w-5 h-5 text-zinc-400 group-hover:text-white transition-colors duration-200" />
+                <div className="p-2.5 bg-white rounded-lg border border-[#e4e4e7] group-hover:border-[#d4d4d8] transition-colors duration-200">
+                  <Mail className="w-5 h-5 text-zinc-500 group-hover:text-[#1c1c1c] transition-colors duration-200" />
                 </div>
-                <span className="text-zinc-300 group-hover:text-white transition-colors duration-200">
+                <span className="text-zinc-600 group-hover:text-[#1c1c1c] transition-colors duration-200">
                   dhanushpillay28@gmail.com
                 </span>
               </a>
               <div className="flex items-center gap-4">
-                <div className="p-2.5 bg-white/[0.04] rounded-lg border border-white/[0.06]">
-                  <MapPin className="w-5 h-5 text-zinc-400" />
+                <div className="p-2.5 bg-white rounded-lg border border-[#e4e4e7]">
+                  <MapPin className="w-5 h-5 text-zinc-500" />
                 </div>
-                <span className="text-zinc-300">Pune, India</span>
+                <span className="text-zinc-600">Pune, India</span>
               </div>
-              <a href="https://github.com/DhanushPillay" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 group">
-                <div className="p-2.5 bg-white/[0.04] rounded-lg border border-white/[0.06] group-hover:border-white/20 transition-colors duration-200">
-                  <GithubIcon size={20} className="text-zinc-400 group-hover:text-white transition-colors duration-200" />
-                </div>
-                <span className="text-zinc-300 group-hover:text-white transition-colors duration-200">
-                  github.com/DhanushPillay
-                </span>
-              </a>
-              <a href="https://linkedin.com/in/dhanush-pillay" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 group">
-                <div className="p-2.5 bg-white/[0.04] rounded-lg border border-white/[0.06] group-hover:border-white/20 transition-colors duration-200">
-                  <LinkedinIcon size={20} className="text-zinc-400 group-hover:text-white transition-colors duration-200" />
-                </div>
-                <span className="text-zinc-300 group-hover:text-white transition-colors duration-200">
-                  linkedin.com/in/dhanush-pillay
-                </span>
-              </a>
+              <div className="flex items-center pt-2 -ml-2">
+                <SocialButton
+                  icon={<GithubIcon />}
+                  label="GitHub"
+                  href="https://github.com/DhanushPillay"
+                  brandColor="#24262a"
+                />
+                <SocialButton
+                  icon={<LinkedinIcon />}
+                  label="LinkedIn"
+                  href="https://linkedin.com/in/dhanush-pillay"
+                  brandColor="#0274b3"
+                />
+              </div>
             </div>
           </motion.div>
 
@@ -137,7 +136,7 @@ export default function Contact() {
             className="space-y-6"
           >
             <div>
-              <label htmlFor="name" className="block text-sm font-medium text-zinc-400 mb-2">
+              <label htmlFor="name" className="block text-sm font-medium text-zinc-600 mb-2">
                 Name
               </label>
               <input
@@ -149,13 +148,13 @@ export default function Contact() {
                 required
                 aria-invalid={!!errors.name}
                 aria-describedby={errors.name ? "name-error" : undefined}
-                className={`w-full px-4 py-3 bg-white/[0.03] border ${errors.name ? 'border-red-500/50' : 'border-white/[0.08]'} rounded-xl text-white placeholder-zinc-600 focus:outline-none focus:border-white/30 transition-colors duration-300`}
+                className={`w-full px-4 py-3 bg-white border ${errors.name ? 'border-red-500/50' : 'border-[#e4e4e7]'} rounded-xl text-[#1c1c1c] placeholder-zinc-400 focus:outline-none focus:border-[#d4d4d8] transition-colors duration-300`}
                 placeholder="Your name"
               />
               {errors.name && <p id="name-error" className="text-red-400 text-xs mt-1" aria-live="polite">{errors.name}</p>}
             </div>
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-zinc-400 mb-2">
+              <label htmlFor="email" className="block text-sm font-medium text-zinc-600 mb-2">
                 Email
               </label>
               <input
@@ -167,13 +166,13 @@ export default function Contact() {
                 required
                 aria-invalid={!!errors.email}
                 aria-describedby={errors.email ? "email-error" : undefined}
-                className={`w-full px-4 py-3 bg-white/[0.03] border ${errors.email ? 'border-red-500/50' : 'border-white/[0.08]'} rounded-xl text-white placeholder-zinc-600 focus:outline-none focus:border-white/30 transition-colors duration-300`}
+                className={`w-full px-4 py-3 bg-white border ${errors.email ? 'border-red-500/50' : 'border-[#e4e4e7]'} rounded-xl text-[#1c1c1c] placeholder-zinc-400 focus:outline-none focus:border-[#d4d4d8] transition-colors duration-300`}
                 placeholder="your.email@example.com"
               />
               {errors.email && <p id="email-error" className="text-red-400 text-xs mt-1" aria-live="polite">{errors.email}</p>}
             </div>
             <div>
-              <label htmlFor="message" className="block text-sm font-medium text-zinc-400 mb-2">
+              <label htmlFor="message" className="block text-sm font-medium text-zinc-600 mb-2">
                 Message
               </label>
               <textarea
@@ -185,7 +184,7 @@ export default function Contact() {
                 aria-invalid={!!errors.message}
                 aria-describedby={errors.message ? "message-error" : undefined}
                 rows={5}
-                className={`w-full px-4 py-3 bg-white/[0.03] border ${errors.message ? 'border-red-500/50' : 'border-white/[0.08]'} rounded-xl text-white placeholder-zinc-600 focus:outline-none focus:border-white/30 transition-colors duration-300 resize-none`}
+                className={`w-full px-4 py-3 bg-white border ${errors.message ? 'border-red-500/50' : 'border-[#e4e4e7]'} rounded-xl text-[#1c1c1c] placeholder-zinc-400 focus:outline-none focus:border-[#d4d4d8] transition-colors duration-300 resize-none`}
                 placeholder="What do you have in mind?"
               />
               {errors.message && <p id="message-error" className="text-red-400 text-xs mt-1" aria-live="polite">{errors.message}</p>}

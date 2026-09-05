@@ -38,12 +38,12 @@ export default function App() {
       
       {/* Interactive Scroll Progress Bar */}
       <motion.div
-        className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-amber-500 via-amber-400 to-amber-600 origin-left z-[100] shadow-[0_0_15px_rgba(245,158,11,0.8)]"
+        className="fixed top-0 left-0 right-0 h-1 bg-[#e34234] origin-left z-[100] shadow-[0_0_15px_rgba(227,66,52,0.4)]"
         style={{ scaleX }}
       />
       
       {/* Noise texture overlay removed */}
-      <div className="min-h-screen bg-black">
+      <div className="min-h-screen bg-[#f5f5f7]">
         <Navbar />
         <Hero />
         <div className="section-fade" />

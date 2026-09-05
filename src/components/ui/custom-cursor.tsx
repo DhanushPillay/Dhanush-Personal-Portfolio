@@ -65,16 +65,16 @@ export default function CustomCursor() {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.2 }}
-          className="text-white font-mono text-3xl font-bold flex items-center"
+          className="text-[#1c1c1c] font-mono text-3xl font-bold flex items-center"
         >
-          <span className="mr-8 text-amber-500">&lt;</span>
-          <span className="text-amber-500">&gt;</span>
+          <span className="mr-8 text-[#e34234]">&lt;</span>
+          <span className="text-[#e34234]">&gt;</span>
         </motion.div>
       ) : (
         <motion.div
           animate={{ opacity: [1, 0, 1] }}
           transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
-          className="w-3 h-6 bg-white"
+          className="w-3 h-6 bg-[#1c1c1c]"
         />
       )}
     </motion.div>

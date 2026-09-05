@@ -101,8 +101,8 @@ function LogoMarquee() {
   return (
     <div className="relative overflow-hidden py-8 mb-12">
       {/* Fade edges */}
-      <div className="absolute left-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-r from-black to-transparent z-10 pointer-events-none" />
-      <div className="absolute right-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-l from-black to-transparent z-10 pointer-events-none" />
+      <div className="absolute left-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
+      <div className="absolute right-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
       
       <div className="animate-skills-marquee flex items-center gap-6 md:gap-10 w-max pr-6 md:pr-10">
         {/* Duplicate for seamless loop */}
@@ -129,8 +129,7 @@ export default function Skills() {
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" })
 
   return (
-    <section ref={sectionRef} id="skills" className="py-24 md:py-32 bg-black relative">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(245,158,11,0.04)_0%,transparent_60%)] pointer-events-none" />
+    <section ref={sectionRef} id="skills" className="py-24 md:py-32 bg-white relative">
       <div className="max-w-6xl mx-auto px-6 relative z-10">
 
         {/* Heading */}
@@ -141,8 +140,8 @@ export default function Skills() {
           transition={{ duration: 0.6 }}
           className="mb-12"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Skills & Tools</h2>
-          <p className="text-zinc-400 text-lg">
+          <h2 className="text-3xl md:text-4xl font-bold text-[#1c1c1c] mb-4">Skills & Tools</h2>
+          <p className="text-zinc-600 text-lg">
             Technologies I use to build and deploy applications.
           </p>
         </motion.div>
@@ -163,7 +162,7 @@ export default function Skills() {
               <SpotlightCard className="h-full p-6 group">
                 {/* Category header */}
                 <div className="mb-5">
-                  <h3 className="text-lg font-bold text-white mb-1">
+                  <h3 className="text-lg font-bold text-[#1c1c1c] mb-1">
                     {category.title}
                   </h3>
                   <p className="text-xs text-zinc-500">{category.description}</p>
@@ -174,7 +173,7 @@ export default function Skills() {
                   {category.skills.map((skill) => (
                     <div
                       key={skill.name}
-                      className="flex items-center gap-1.5 px-2.5 py-1 text-[13px] rounded-md bg-white/[0.04] text-zinc-400 border border-white/[0.06] hover:bg-white/[0.08] hover:text-white hover:border-white/20 transition-all duration-200 cursor-default"
+                      className="flex items-center gap-1.5 px-2.5 py-1 text-[13px] rounded-md bg-[#f5f5f7] text-zinc-600 border border-[#e4e4e7] hover:bg-[#e4e4e7] hover:text-[#1c1c1c] hover:border-[#d4d4d8] transition-all duration-200 cursor-default"
                     >
                       {skill.icon && (
                         <img

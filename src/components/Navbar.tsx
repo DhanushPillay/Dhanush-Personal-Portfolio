@@ -50,14 +50,14 @@ const MagneticLink = ({
       animate={{ x: position.x, y: position.y }}
       transition={{ type: "spring", stiffness: 150, damping: 15, mass: 0.1 }}
       className={`relative px-4 py-2 rounded-full text-sm font-medium transition-colors duration-300 ${
-        active ? "text-amber-400" : "text-zinc-400 hover:text-white"
+        active ? "text-[#e34234]" : "text-zinc-500 hover:text-[#1c1c1c]"
       }`}
     >
       {children}
       {active && (
         <motion.div
           layoutId="active-pill"
-          className="absolute inset-0 bg-amber-500/10 border border-amber-500/20 rounded-full -z-10"
+          className="absolute inset-0 bg-[#f5f5f7] border border-[#e4e4e7] rounded-full -z-10"
           transition={{ type: "spring", stiffness: 300, damping: 30 }}
         />
       )}
@@ -96,14 +96,14 @@ export default function Navbar() {
       <nav
         className={`fixed top-4 left-1/2 -translate-x-1/2 z-50 transition-all duration-500 ${
           isScrolled
-            ? "w-[95%] max-w-4xl bg-black/60 backdrop-blur-xl shadow-[0_4px_30px_rgba(0,0,0,0.5)] border border-white/10 rounded-full"
+            ? "w-[95%] max-w-4xl bg-white/70 backdrop-blur-xl shadow-[0_4px_30px_rgba(0,0,0,0.05)] border border-[#e4e4e7] rounded-full"
             : "w-full max-w-6xl bg-transparent"
         }`}
       >
         <div className={`flex items-center justify-between px-6 py-3 transition-all duration-500 ${isScrolled ? "py-2" : ""}`}>
           <a
             href="#home"
-            className="text-xl font-bold bg-gradient-to-r from-amber-400 to-amber-500 bg-clip-text text-transparent hover:scale-105 transition-transform"
+            className="text-xl font-bold text-[#e34234] hover:scale-105 transition-transform"
           >
             DP
           </a>
@@ -123,7 +123,7 @@ export default function Navbar() {
 
           {/* Mobile Toggle */}
           <button
-            className="md:hidden text-zinc-400 hover:text-white p-3 -mr-1"
+            className="md:hidden text-zinc-500 hover:text-[#1c1c1c] p-3 -mr-1"
             onClick={() => setIsMobileOpen(true)}
             aria-label="Open Menu"
           >
@@ -139,10 +139,10 @@ export default function Navbar() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[60] bg-black/90 backdrop-blur-md md:hidden flex flex-col items-center justify-center"
+            className="fixed inset-0 z-[60] bg-white/95 backdrop-blur-md md:hidden flex flex-col items-center justify-center"
           >
             <button
-              className="absolute top-6 right-6 text-zinc-400 hover:text-white p-3"
+              className="absolute top-6 right-6 text-zinc-500 hover:text-[#1c1c1c] p-3"
               onClick={() => setIsMobileOpen(false)}
               aria-label="Close Menu"
             >
@@ -159,8 +159,8 @@ export default function Navbar() {
                   transition={{ delay: i * 0.1 }}
                   className={`text-3xl font-bold transition-colors duration-300 ${
                     activeSection === link.href.replace("#", "")
-                      ? "text-amber-400"
-                      : "text-white/70 hover:text-white"
+                      ? "text-[#e34234]"
+                      : "text-zinc-500 hover:text-[#1c1c1c]"
                   }`}
                 >
                   {link.name}

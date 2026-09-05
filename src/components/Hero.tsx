@@ -7,13 +7,10 @@ import { GithubIcon, LinkedinIcon } from "@/components/ui/social-icons"
 import { LiquidButton } from "@/components/ui/liquid-button"
 import { Magnetic } from "@/components/ui/magnetic"
 import { ScrambleText } from "@/components/ui/scramble-text"
-import LoadingSpinner from "@/components/ui/snow-ball-loading-spinner"
 import { useIsMobile } from "@/hooks/useIsMobile"
 
 export default function Hero() {
   const [isSplineLoaded, setIsSplineLoaded] = useState(false)
-  const [minTimeElapsed, setMinTimeElapsed] = useState(false)
-  const [loadingProgress, setLoadingProgress] = useState(0)
   const isMobile = useIsMobile()
 
   useEffect(() => {
@@ -22,54 +19,6 @@ export default function Hero() {
     }
   }, [isMobile])
 
-  useEffect(() => {
-    if (isSplineLoaded) return; // Stop running the fake progress once actually loaded
-
-    // Pick a random stall point between 86 and 98 to feel more organic
-    const stallPoint = Math.floor(Math.random() * 13) + 86;
-
-    // Fake progress that randomly stalls and jumps in chunks to simulate real network activity
-    const timer = setInterval(() => {
-      setLoadingProgress((prev) => {
-        // 30% chance to completely stall on the current number for this tick
-        if (Math.random() < 0.3) return prev;
-
-        if (prev >= stallPoint) return stallPoint;
-        const remaining = stallPoint - prev;
-        
-        // Move a random percentage of the remaining distance (between 5% and 15%)
-        // This creates irregular jumps like real network packets
-        const randomJumpMultiplier = 0.05 + Math.random() * 0.1;
-        const increment = Math.max(1, Math.floor(remaining * randomJumpMultiplier));
-        
-        return prev + increment;
-      });
-    }, 150);
-
-    return () => clearInterval(timer);
-  }, [isSplineLoaded]);
-
-  // When Spline finishes loading, smoothly and slowly animate the rest of the way to 100%
-  useEffect(() => {
-    if (isSplineLoaded) {
-      const finishTimer = setInterval(() => {
-        setLoadingProgress((prev) => {
-          if (prev >= 100) {
-            clearInterval(finishTimer);
-            // Show home screen immediately upon hitting 100%
-            setMinTimeElapsed(true);
-            return 100;
-          }
-          // Increment slowly so the final stretch takes 1-2 seconds
-          return prev + 1; 
-        });
-      }, 150);
-
-      return () => clearInterval(finishTimer);
-    }
-  }, [isSplineLoaded]);
-
-  const hideLoader = isSplineLoaded && minTimeElapsed;
 
   const sectionRef = useRef<HTMLElement>(null)
   const subheadingRef = useRef<HTMLParagraphElement>(null)
@@ -156,26 +105,18 @@ export default function Hero() {
     <section
       ref={sectionRef}
       id="home"
-      className="relative h-screen w-full overflow-hidden bg-black"
+      className="relative h-screen w-full overflow-hidden bg-[#f5f5f7]"
     >
-      {/* Snowball Spinner Loading Overlay */}
-      <div
-        className={`fixed inset-0 z-[100] bg-black flex flex-col items-center justify-center transition-all duration-[1500ms] ease-[cubic-bezier(0.76,0,0.24,1)] ${
-          hideLoader ? "opacity-0 pointer-events-none scale-[1.5] blur-md" : "opacity-100 scale-100 blur-0"
-        }`}
-      >
-        <LoadingSpinner progress={loadingProgress} />
-      </div>
 
       {/* Spline as full background */}
-      <div className="absolute inset-0" style={{ transform: "translateY(60px)" }}>
+      <div className="absolute inset-0 md:left-[20%] lg:left-[30%] xl:left-[40%]" style={{ transform: "translateY(60px)" }}>
 
         {isMobile ? (
-          <div className="w-full h-full bg-gradient-to-br from-black via-zinc-900/80 to-amber-900/30 opacity-60" />
+          <div className="w-full h-full bg-gradient-to-br from-[#f5f5f7] via-[#e4e4e7]/80 to-[#f5f5f7]/30 opacity-60" />
         ) : (
           <Suspense fallback={null}>
             <Spline
-              scene="/scene.splinecode"
+              scene="https://prod.spline.design/K4qEdxKLque-YBJ7/scene.splinecode"
               style={{ width: "100%", height: "100%", background: "transparent" }}
               onLoad={(spline) => {
                 spline.setZoom(1)
@@ -191,32 +132,32 @@ export default function Hero() {
           style={{
             width: "240px",
             height: "60px",
-            background: "linear-gradient(to left, rgba(0,0,0,1) 0%, rgba(0,0,0,0.95) 50%, rgba(0,0,0,0.6) 75%, transparent 100%)",
+            background: "linear-gradient(to left, rgba(245,245,247,1) 0%, rgba(245,245,247,0.95) 50%, rgba(245,245,247,0.6) 75%, transparent 100%)",
           }}
         />
       </div>
 
       {/* Dark overlay for text readability */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/60" />
+      <div className="absolute inset-0 bg-gradient-to-b from-white/40 via-transparent to-[#f5f5f7]/80 pointer-events-none" />
 
       {/* Content overlay */}
       <div className="relative z-10 h-full flex flex-col justify-end px-8 md:px-16 pb-32 md:pb-24 pointer-events-none">
         <div className="max-w-6xl pointer-events-auto">
           <p
             ref={subheadingRef}
-            className="text-amber-500 mb-6 font-mono text-xs md:text-sm uppercase tracking-[0.3em] font-medium drop-shadow-[0_0_10px_rgba(245,158,11,0.5)]"
+            className="text-[#e34234] mb-6 font-mono text-xs md:text-sm uppercase tracking-[0.3em] font-medium"
           >
             Big Data & Cloud Engineer
           </p>
           <h1
-            className="text-[14vw] md:text-[9vw] lg:text-[7vw] leading-[0.9] font-bold text-white mb-10 tracking-tighter"
+            className="text-[14vw] md:text-[9vw] lg:text-[7vw] leading-[0.9] font-bold text-black mb-10 tracking-tighter"
           >
-            <ScrambleText text="Hi, I'm" delay={0.3} duration={1.5} className="block text-zinc-100" />
+            <ScrambleText text="Hi, I'm" delay={0.3} duration={1.5} className="block text-[#1c1c1c]" />
             <ScrambleText 
               text="Dhanush Pillay" 
               delay={0.8} 
               duration={1.5} 
-              className="bg-gradient-to-r from-white via-zinc-300 to-zinc-500 bg-clip-text text-transparent block pb-4" 
+              className="text-[#1c1c1c] block pb-4" 
             />
           </h1>
           
@@ -247,7 +188,7 @@ export default function Hero() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="GitHub Profile"
-                className="text-zinc-400 hover:text-amber-400 hover:scale-110 transition-all duration-300"
+                className="text-zinc-600 hover:text-[#e34234] hover:scale-110 transition-all duration-300"
               >
                 <GithubIcon size={28} />
               </a>
@@ -256,14 +197,14 @@ export default function Hero() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="LinkedIn Profile"
-                className="text-zinc-400 hover:text-amber-400 hover:scale-110 transition-all duration-300"
+                className="text-zinc-600 hover:text-[#e34234] hover:scale-110 transition-all duration-300"
               >
                 <LinkedinIcon size={28} />
               </a>
               <a
                 href="mailto:dhanushpillay28@gmail.com"
                 aria-label="Send an Email"
-                className="text-zinc-400 hover:text-amber-400 hover:scale-110 transition-all duration-300"
+                className="text-zinc-600 hover:text-[#e34234] hover:scale-110 transition-all duration-300"
               >
                 <Mail size={28} />
               </a>
@@ -280,8 +221,8 @@ export default function Hero() {
         <span className="text-zinc-500 text-xs tracking-widest uppercase">
           Scroll
         </span>
-        <div className="w-5 h-8 border-2 border-zinc-600 rounded-full flex justify-center pt-1.5">
-          <div className="w-1 h-1.5 bg-amber-400 rounded-full" />
+        <div className="w-5 h-8 border-2 border-zinc-300 rounded-full flex justify-center pt-1.5">
+          <div className="w-1 h-1.5 bg-[#e34234] rounded-full" />
         </div>
       </div>
     </section>
