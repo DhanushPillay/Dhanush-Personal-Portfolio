@@ -30,7 +30,7 @@ export default function Hero() {
   useGSAP(() => {
     if (!sectionRef.current) return
 
-    const tl = gsap.timeline({ delay: 0.3 })
+    const tl = gsap.timeline({ delay: 0.6 })
 
     // Heading character stagger animation
     if (headingRef.current) {
