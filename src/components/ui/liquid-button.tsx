@@ -8,9 +8,9 @@ const liquidbuttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-[#1c1c1c] text-white border border-[#1c1c1c] hover:bg-[#e34234] hover:border-[#e34234] hover:shadow-[0_4px_20px_rgba(227,66,52,0.2)] hover:-translate-y-0.5",
+        default: "bg-[#1c1c1c] text-white border-2 border-[#1c1c1c] shadow-[4px_4px_0px_rgba(28,28,28,1)] hover:bg-[#e34234] hover:border-[#e34234] hover:shadow-[4px_4px_0px_rgba(227,66,52,1)] active:shadow-none active:translate-y-1 active:translate-x-1",
         destructive: "bg-destructive text-white hover:bg-destructive/90",
-        outline: "border border-[#e4e4e7] bg-white text-[#1c1c1c] hover:bg-[#f5f5f7] hover:border-[#d4d4d8]",
+        outline: "bg-white text-[#1c1c1c] border-2 border-[#1c1c1c] shadow-[4px_4px_0px_rgba(28,28,28,1)] hover:bg-[#1c1c1c] hover:text-white active:shadow-none active:translate-y-1 active:translate-x-1",
         secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "hover:bg-[#f5f5f7] hover:text-[#1c1c1c]",
         link: "text-[#e34234] underline-offset-4 hover:underline",
