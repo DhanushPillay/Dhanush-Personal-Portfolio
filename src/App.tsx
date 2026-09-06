@@ -14,7 +14,6 @@ import Projects from "@/components/Projects"
 import Resume from "@/components/Resume"
 import Contact from "@/components/Contact"
 import Footer from "@/components/Footer"
-import CustomCursor from "@/components/ui/custom-cursor"
 
 gsap.registerPlugin(ScrollTrigger, SplitText)
 
@@ -34,7 +33,6 @@ export default function App() {
 
   return (
     <ReactLenis root options={{ lerp: 0.08, duration: 1.2, smoothWheel: true, syncTouch: false }}>
-      <CustomCursor />
       
       {/* Interactive Scroll Progress Bar */}
       <motion.div
