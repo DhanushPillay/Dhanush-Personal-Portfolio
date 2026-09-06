@@ -2,8 +2,8 @@ import { useState } from "react"
 import { motion } from "framer-motion"
 import { Send, Mail, MapPin } from "lucide-react"
 import { GithubIcon, LinkedinIcon } from "@/components/ui/social-icons"
-import { LiquidButton } from "@/components/ui/liquid-button"
 import { SocialButton } from "@/components/ui/social-button"
+import { ToasterButton } from "@/components/ui/toaster-button"
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -65,149 +65,172 @@ export default function Contact() {
     }
   }
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  }
+
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: { type: "spring", stiffness: 100, damping: 12 },
+    },
+  }
+
   return (
     <section id="contact" className="py-24 md:py-32 bg-[#f5f5f7]">
-      <div className="max-w-5xl mx-auto px-6">
+      <div className="max-w-6xl mx-auto px-6">
 
-        {/* Heading */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6 }}
-          className="mb-12"
-        >
-          <h2 className="text-3xl md:text-4xl font-bold text-[#1c1c1c] mb-4">Let's Talk</h2>
-        </motion.div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
-          {/* Contact Info — consistent Framer Motion, no GSAP mix */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
+          {/* Left Column: Massive Typography & Info */}
           <motion.div
-            initial={{ opacity: 0, x: -40 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="space-y-8"
+            className="space-y-12"
           >
-            <p className="text-lg text-zinc-600 leading-relaxed">
-              Open to internships, collaborations, and interesting problems.
-              Drop a message or reach out directly.
-            </p>
-
-            <div className="space-y-5">
-              <a href="mailto:dhanushpillay28@gmail.com" className="flex items-center gap-4 group">
-                <div className="p-2.5 bg-white rounded-lg border border-[#e4e4e7] group-hover:border-[#d4d4d8] transition-colors duration-200">
-                  <Mail className="w-5 h-5 text-zinc-500 group-hover:text-[#1c1c1c] transition-colors duration-200" />
-                </div>
-                <span className="text-zinc-600 group-hover:text-[#1c1c1c] transition-colors duration-200">
-                  dhanushpillay28@gmail.com
-                </span>
-              </a>
-              <div className="flex items-center gap-4">
-                <div className="p-2.5 bg-white rounded-lg border border-[#e4e4e7]">
-                  <MapPin className="w-5 h-5 text-zinc-500" />
-                </div>
-                <span className="text-zinc-600">Pune, India</span>
-              </div>
-              <div className="flex items-center pt-2 -ml-2">
-                <SocialButton
-                  icon={<GithubIcon />}
-                  label="GitHub"
-                  href="https://github.com/DhanushPillay"
-                  brandColor="#24262a"
-                />
-                <SocialButton
-                  icon={<LinkedinIcon />}
-                  label="LinkedIn"
-                  href="https://linkedin.com/in/dhanush-pillay"
-                  brandColor="#0274b3"
-                />
-              </div>
+            <div className="space-y-4">
+              <motion.h2 
+                variants={itemVariants}
+                className="text-5xl md:text-7xl font-extrabold text-[#1c1c1c] tracking-tighter leading-[0.9]"
+              >
+                LET'S<br />WORK<br /><span className="text-[#e34234]">TOGETHER.</span>
+              </motion.h2>
+              <motion.p variants={itemVariants} className="text-lg md:text-xl text-[#1c1c1c]/70 leading-relaxed max-w-md pt-4">
+                Open to internships, collaborations, and interesting problems. Drop a message or reach out directly.
+              </motion.p>
             </div>
+
+            <motion.div variants={itemVariants} className="flex flex-col gap-6 pt-4">
+              <div className="flex flex-wrap gap-4">
+                <a href="mailto:dhanushpillay28@gmail.com" className="inline-flex items-center gap-3 p-4 bg-white border-2 border-[#1c1c1c] rounded-xl shadow-[4px_4px_0px_#1c1c1c] hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all duration-200">
+                  <Mail className="w-5 h-5 text-[#e34234]" />
+                  <span className="text-[#1c1c1c] font-semibold">
+                    dhanushpillay28@gmail.com
+                  </span>
+                </a>
+                <div className="inline-flex items-center gap-3 p-4 bg-white border-2 border-[#1c1c1c] rounded-xl shadow-[4px_4px_0px_#1c1c1c] hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all duration-200 cursor-default">
+                  <MapPin className="w-5 h-5 text-[#e34234]" />
+                  <span className="text-[#1c1c1c] font-semibold">Pune, India</span>
+                </div>
+              </div>
+              
+              <div className="flex items-center gap-4">
+                <a
+                  href="https://github.com/DhanushPillay"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group inline-flex items-center justify-center w-14 h-14 bg-white border-2 border-[#1c1c1c] rounded-xl shadow-[4px_4px_0px_#1c1c1c] hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all duration-200 hover:bg-[#24262a]"
+                  aria-label="GitHub"
+                >
+                  <span className="w-6 h-6 flex items-center justify-center text-[#1c1c1c] group-hover:text-white transition-colors duration-200 [&>svg]:w-full [&>svg]:h-full">
+                    <GithubIcon />
+                  </span>
+                </a>
+                <a
+                  href="https://linkedin.com/in/dhanush-pillay"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group inline-flex items-center justify-center w-14 h-14 bg-white border-2 border-[#1c1c1c] rounded-xl shadow-[4px_4px_0px_#1c1c1c] hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all duration-200 hover:bg-[#0274b3]"
+                  aria-label="LinkedIn"
+                >
+                  <span className="w-6 h-6 flex items-center justify-center text-[#1c1c1c] group-hover:text-white transition-colors duration-200 [&>svg]:w-full [&>svg]:h-full">
+                    <LinkedinIcon />
+                  </span>
+                </a>
+              </div>
+            </motion.div>
           </motion.div>
 
-          {/* Contact Form — consistent Framer Motion */}
-          <motion.form
-            initial={{ opacity: 0, x: 40 }}
-            whileInView={{ opacity: 1, x: 0 }}
+          {/* Right Column: Contact Form Card */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95, rotate: 2 }}
+            whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
             viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            onSubmit={handleSubmit}
-            className="space-y-6"
+            transition={{ duration: 0.6, type: "spring", bounce: 0.4 }}
           >
-            <div>
-              <label htmlFor="name" className="block text-sm font-medium text-zinc-600 mb-2">
-                Name
-              </label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                required
-                aria-invalid={!!errors.name}
-                aria-describedby={errors.name ? "name-error" : undefined}
-                className={`w-full px-4 py-3 bg-white border ${errors.name ? 'border-red-500/50' : 'border-[#e4e4e7]'} rounded-xl text-[#1c1c1c] placeholder-zinc-400 focus:outline-none focus:border-[#d4d4d8] transition-colors duration-300`}
-                placeholder="Your name"
-              />
-              {errors.name && <p id="name-error" className="text-red-400 text-xs mt-1" aria-live="polite">{errors.name}</p>}
-            </div>
-            <div>
-              <label htmlFor="email" className="block text-sm font-medium text-zinc-600 mb-2">
-                Email
-              </label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                required
-                aria-invalid={!!errors.email}
-                aria-describedby={errors.email ? "email-error" : undefined}
-                className={`w-full px-4 py-3 bg-white border ${errors.email ? 'border-red-500/50' : 'border-[#e4e4e7]'} rounded-xl text-[#1c1c1c] placeholder-zinc-400 focus:outline-none focus:border-[#d4d4d8] transition-colors duration-300`}
-                placeholder="your.email@example.com"
-              />
-              {errors.email && <p id="email-error" className="text-red-400 text-xs mt-1" aria-live="polite">{errors.email}</p>}
-            </div>
-            <div>
-              <label htmlFor="message" className="block text-sm font-medium text-zinc-600 mb-2">
-                Message
-              </label>
-              <textarea
-                id="message"
-                name="message"
-                value={formData.message}
-                onChange={handleChange}
-                required
-                aria-invalid={!!errors.message}
-                aria-describedby={errors.message ? "message-error" : undefined}
-                rows={5}
-                className={`w-full px-4 py-3 bg-white border ${errors.message ? 'border-red-500/50' : 'border-[#e4e4e7]'} rounded-xl text-[#1c1c1c] placeholder-zinc-400 focus:outline-none focus:border-[#d4d4d8] transition-colors duration-300 resize-none`}
-                placeholder="What do you have in mind?"
-              />
-              {errors.message && <p id="message-error" className="text-red-400 text-xs mt-1" aria-live="polite">{errors.message}</p>}
-            </div>
-            <LiquidButton
-              type="submit"
-              className="w-full flex items-center justify-center gap-2"
-              disabled={isSubmitting}
-              aria-disabled={isSubmitting}
-              aria-busy={isSubmitting}
+            <form
+              onSubmit={handleSubmit}
+              className="bg-white border-2 border-[#1c1c1c] p-8 md:p-12 rounded-2xl shadow-[8px_8px_0px_#1c1c1c] space-y-6"
             >
-              <Send size={18} />
-              {isSubmitting ? "Sending..." : "Send Message"}
-            </LiquidButton>
-            <div aria-live="polite" className="mt-4">
-              {submitStatus === "success" && (
-                <p className="text-emerald-400 text-sm text-center">Message sent. I'll get back to you soon.</p>
-              )}
-              {submitStatus === "error" && (
-                <p className="text-red-400 text-sm text-center">Failed to send. Try emailing me directly.</p>
-              )}
-            </div>
-          </motion.form>
+              <div>
+                <label htmlFor="name" className="block text-sm font-bold text-[#1c1c1c] mb-2 uppercase tracking-wider">
+                  Name
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
+                  aria-invalid={!!errors.name}
+                  aria-describedby={errors.name ? "name-error" : undefined}
+                  className={`w-full px-4 py-4 bg-[#f5f5f7] border-2 ${errors.name ? 'border-[#e34234]' : 'border-[#1c1c1c]'} rounded-xl text-[#1c1c1c] font-medium focus:outline-none focus:ring-0 focus:shadow-[4px_4px_0px_#1c1c1c] transition-all duration-200`}
+                  placeholder="John Doe"
+                />
+                {errors.name && <p id="name-error" className="text-[#e34234] text-xs mt-2 font-bold" aria-live="polite">{errors.name}</p>}
+              </div>
+              <div>
+                <label htmlFor="email" className="block text-sm font-bold text-[#1c1c1c] mb-2 uppercase tracking-wider">
+                  Email
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                  aria-invalid={!!errors.email}
+                  aria-describedby={errors.email ? "email-error" : undefined}
+                  className={`w-full px-4 py-4 bg-[#f5f5f7] border-2 ${errors.email ? 'border-[#e34234]' : 'border-[#1c1c1c]'} rounded-xl text-[#1c1c1c] font-medium focus:outline-none focus:ring-0 focus:shadow-[4px_4px_0px_#1c1c1c] transition-all duration-200`}
+                  placeholder="john@example.com"
+                />
+                {errors.email && <p id="email-error" className="text-[#e34234] text-xs mt-2 font-bold" aria-live="polite">{errors.email}</p>}
+              </div>
+              <div>
+                <label htmlFor="message" className="block text-sm font-bold text-[#1c1c1c] mb-2 uppercase tracking-wider">
+                  Message
+                </label>
+                <textarea
+                  id="message"
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  required
+                  aria-invalid={!!errors.message}
+                  aria-describedby={errors.message ? "message-error" : undefined}
+                  rows={4}
+                  className={`w-full px-4 py-4 bg-[#f5f5f7] border-2 ${errors.message ? 'border-[#e34234]' : 'border-[#1c1c1c]'} rounded-xl text-[#1c1c1c] font-medium focus:outline-none focus:ring-0 focus:shadow-[4px_4px_0px_#1c1c1c] transition-all duration-200 resize-none`}
+                  placeholder="What's on your mind?"
+                />
+                {errors.message && <p id="message-error" className="text-[#e34234] text-xs mt-2 font-bold" aria-live="polite">{errors.message}</p>}
+              </div>
+              
+              <div className="pt-4 flex items-center justify-between">
+                <div aria-live="polite" className="text-sm font-bold text-[#1c1c1c]">
+                  {isSubmitting && <span className="animate-pulse">Loading toaster...</span>}
+                  {submitStatus === "error" && (
+                    <span className="text-[#e34234]">Failed to send.</span>
+                  )}
+                </div>
+                
+                {/* The Uiverse Toaster Button */}
+                <div className="flex justify-end">
+                  <ToasterButton type="submit" status={isSubmitting ? "submitting" : submitStatus} />
+                </div>
+              </div>
+            </form>
+          </motion.div>
         </div>
       </div>
     </section>
