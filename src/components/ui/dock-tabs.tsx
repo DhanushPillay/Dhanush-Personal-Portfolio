@@ -25,8 +25,9 @@ const containerVariants = {
       type: "spring",
       stiffness: 150,
       damping: 15,
+      delay: 0.4,
       staggerChildren: 0.08,
-      delayChildren: 0.1,
+      delayChildren: 0.5,
     },
   },
 }
