@@ -1,141 +1,93 @@
 import { useRef } from "react"
 import { motion, useInView } from "framer-motion"
+import { Database, Cloud, Brain, Server } from "lucide-react"
 
-type SkillCategory = {
+type Domain = {
   title: string
-  skills: string[]
+  icon: React.ElementType
   color: string
+  skills: string[]
 }
 
-const skillCategories: SkillCategory[] = [
+const domains: Domain[] = [
   {
-    title: "Languages",
+    title: "Data Engineering",
+    icon: Database,
     color: "#e34234",
-    skills: ["Python", "SQL", "Rust", "TypeScript"],
+    skills: ["Python", "SQL", "Spark", "Iceberg", "Kafka", "Pandas", "NumPy"],
   },
   {
-    title: "AI & ML",
+    title: "Cloud & Infra",
+    icon: Cloud,
     color: "#0274b3",
-    skills: [
-      "PyTorch",
-      "Transformers",
-      "FAISS",
-      "Scikit-learn",
-      "Pandas",
-      "NumPy",
-      "OpenCV",
-      "Groq LLaMA"
-    ],
+    skills: ["Google Cloud", "AWS", "Docker", "Kubernetes", "CI/CD"],
   },
   {
-    title: "Data & Web",
-    color: "#fbbf24",
-    skills: [
-      "FastAPI",
-      "Flask",
-      "MongoDB",
-      "PostgreSQL",
-      "BeautifulSoup",
-    ],
-  },
-  {
-    title: "Cloud & DevOps",
-    color: "#22c55e",
-    skills: [
-      "Google Cloud",
-      "AWS",
-      "Docker",
-      "Kubernetes",
-      "GitHub Actions",
-    ],
-  },
-  {
-    title: "Core",
+    title: "ML & Analytics",
+    icon: Brain,
     color: "#a855f7",
-    skills: [
-      "Linux",
-      "Git",
-      "Bash",
-    ],
+    skills: ["PyTorch", "Transformers", "Scikit-learn", "OpenCV", "LLMs"],
+  },
+  {
+    title: "Backend & APIs",
+    icon: Server,
+    color: "#22c55e",
+    skills: ["FastAPI", "Flask", "PostgreSQL", "MongoDB", "Rust"],
   },
 ]
 
-// Flatten all skills into a single array for the sandbox
-const allSkills = skillCategories.flatMap(cat => 
-  cat.skills.map(skill => ({
-    name: skill,
-    category: cat.title,
-    color: cat.color
-  }))
-)
-
 export default function Skills() {
-  const constraintsRef = useRef<HTMLElement>(null)
-  const isInView = useInView(constraintsRef, { once: true, margin: "-20%" })
+  const ref = useRef<HTMLElement>(null)
+  const isInView = useInView(ref, { once: true, margin: "-100px" })
 
   return (
     <section 
-      ref={constraintsRef}
+      ref={ref}
       id="skills" 
-      className="py-24 md:py-32 bg-[#f5f5f7] relative min-h-[80vh] md:min-h-[100vh] overflow-hidden border-t-[8px] border-b-[8px] border-[#1c1c1c] flex flex-col"
-      style={{
-        backgroundImage: "radial-gradient(#1c1c1c 2px, transparent 2px)",
-        backgroundSize: "40px 40px",
-        backgroundPosition: "0 0"
-      }}
+      className="py-24 md:py-32 bg-[#f5f5f7] relative overflow-hidden"
     >
-      
-      {/* Massive Background Watermark */}
-      <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none opacity-5 leading-none">
-        <span className="text-[10rem] md:text-[20rem] font-black uppercase tracking-tighter whitespace-nowrap">
-          SKILLS
-        </span>
-      </div>
-
-      <div className="relative z-10 px-6 max-w-7xl mx-auto w-full mb-12">
-        <h2 className="text-5xl md:text-8xl font-black text-[#1c1c1c] tracking-tighter uppercase leading-none">
-          Tech Skills.
+      <div className="relative z-10 px-6 max-w-7xl mx-auto w-full mb-16">
+        <h2 className="text-4xl md:text-6xl font-bold text-[#1c1c1c] tracking-tight uppercase">
+          TECHNICAL DOMAINS
         </h2>
-        <p className="text-xl md:text-2xl text-[#1c1c1c] font-bold mt-4 uppercase tracking-wider">
-          Grab a block. Throw it around.
-        </p>
       </div>
 
-      {/* Physics Sandbox Container */}
-      <div className="flex-1 relative w-full h-full p-4 md:p-12 flex flex-wrap gap-4 md:gap-6 justify-center content-center z-20">
-        {allSkills.map((skill, idx) => (
-          <motion.div
-            key={`${skill.category}-${skill.name}`}
-            drag
-            dragConstraints={constraintsRef}
-            dragElastic={0.4}
-            dragTransition={{ bounceStiffness: 600, bounceDamping: 20 }}
-            initial={{ y: -500, opacity: 0, rotate: Math.random() * 40 - 20, scale: 0.8 }}
-            animate={isInView ? { y: 0, opacity: 1, rotate: 0, scale: 1 } : {}}
-            transition={{
-              type: "spring",
-              stiffness: 100,
-              damping: 12,
-              delay: idx * 0.02, // Stagger them so it looks like a pile falling
-            }}
-            whileHover={{ scale: 1.05 }}
-            whileDrag={{ scale: 1.1, zIndex: 50, rotate: Math.random() * 10 - 5 }}
-            className="cursor-grab active:cursor-grabbing px-5 py-3 md:px-8 md:py-5 bg-white border-[4px] border-[#1c1c1c] shadow-[6px_6px_0px_#1c1c1c] md:shadow-[8px_8px_0px_#1c1c1c] rounded-xl select-none flex flex-col items-center justify-center"
-            style={{
-              borderBottomColor: skill.color,
-              borderBottomWidth: "8px"
-            }}
-          >
-            <span className="text-xl md:text-3xl font-black text-[#1c1c1c] uppercase tracking-tight pointer-events-none">
-              {skill.name}
-            </span>
-            <span className="text-[10px] md:text-xs font-bold text-zinc-400 uppercase tracking-widest mt-1 pointer-events-none">
-              {skill.category}
-            </span>
-          </motion.div>
-        ))}
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {domains.map((domain, idx) => (
+            <motion.div
+              key={domain.title}
+              initial={{ opacity: 0, y: 30 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: idx * 0.15, ease: "easeOut" }}
+              className="bg-white border-2 border-[#1c1c1c] rounded-2xl p-8 shadow-[8px_8px_0px_#1c1c1c] hover:-translate-y-2 hover:shadow-[12px_12px_0px_#1c1c1c] transition-all duration-300 group"
+            >
+              <div className="flex items-center gap-6 mb-8">
+                <div 
+                  className="w-16 h-16 rounded-xl border-2 border-[#1c1c1c] flex items-center justify-center bg-[#f5f5f7] group-hover:rotate-6 transition-transform duration-300"
+                  style={{ color: domain.color }}
+                >
+                  <domain.icon size={32} strokeWidth={2.5} />
+                </div>
+                <h3 className="text-2xl md:text-3xl font-bold text-[#1c1c1c] uppercase tracking-wide">
+                  {domain.title}
+                </h3>
+              </div>
+              
+              <div className="flex flex-wrap gap-3">
+                {domain.skills.map(skill => (
+                  <span 
+                    key={skill}
+                    className="px-4 py-2 bg-[#f5f5f7] border-2 border-[#1c1c1c] text-[#1c1c1c] font-bold text-sm uppercase tracking-widest rounded-lg shadow-[2px_2px_0px_#1c1c1c]"
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </motion.div>
+          ))}
+        </div>
       </div>
-      
     </section>
   )
 }
