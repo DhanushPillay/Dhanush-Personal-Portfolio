@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -44,21 +44,33 @@ export default function Resume() {
   const scrollTween = useRef<gsap.core.Tween | null>(null);
 
   useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      if (containerRef.current) {
+        containerRef.current.style.height = "auto";
+        containerRef.current.style.overflow = "visible";
+      }
+      if (trackRef.current) {
+        trackRef.current.style.width = "auto";
+        trackRef.current.style.flexDirection = "column";
+        trackRef.current.style.alignItems = "stretch";
+      }
+      return
+    }
     let ctx = gsap.context(() => {
       const track = trackRef.current;
       if (!track) return;
 
-      const totalWidth = track.scrollWidth - window.innerWidth;
+      const getScrollAmount = () => window.innerWidth * (experienceData.length);
 
       scrollTween.current = gsap.to(track, {
-        x: -totalWidth,
+        x: () => -getScrollAmount(),
         ease: "none",
         scrollTrigger: {
           trigger: containerRef.current,
           pin: true,
           scrub: 1,
           start: "top top",
-          end: () => `+=${totalWidth}`,
+          end: () => `+=${getScrollAmount()}`,
           invalidateOnRefresh: true,
         },
       });
@@ -74,7 +86,7 @@ export default function Resume() {
           ease: "power3.out",
           scrollTrigger: {
             trigger: card,
-            containerAnimation: scrollTween.current,
+            containerAnimation: scrollTween.current ?? undefined,
             start: "left center",
             toggleActions: "play none none reverse",
           },
@@ -100,8 +112,8 @@ export default function Resume() {
         style={{ width: `${totalSlides * 100}vw` }}
       >
         {/* SLIDE 1: Title Slide */}
-        <div className="w-[100vw] h-full flex flex-col justify-center items-center shrink-0 border-r-4 border-[#1c1c1c]/10">
-           <h2 className="text-6xl md:text-[10rem] font-black uppercase tracking-tighter leading-none text-[#1c1c1c] text-center">
+        <div className="w-[100vw] h-full flex flex-col justify-center items-center shrink-0 border-r-4 border-[#1c1c1c]/10 overflow-hidden px-4">
+           <h2 className="text-6xl md:text-8xl lg:text-[9rem] font-black uppercase tracking-tighter leading-none text-[#1c1c1c] text-center max-w-[90vw]">
              Experience
              <br />
              <span className="text-[#e34234]">& Education</span>
