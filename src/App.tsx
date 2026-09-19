@@ -10,6 +10,7 @@ import Hero from "@/components/Hero"
 import About from "@/components/About"
 import Skills from "@/components/Skills"
 import Certifications from "@/components/Certifications"
+import OpenSource from "@/components/OpenSource"
 import Projects from "@/components/Projects"
 import Resume from "@/components/Resume"
 import Contact from "@/components/Contact"
@@ -50,6 +51,8 @@ export default function App() {
         <Skills />
         <div className="section-fade" />
         <Certifications />
+        <div className="section-divider" />
+        <OpenSource />
         <div className="section-divider" />
         <Projects />
         <div className="section-fade" />
