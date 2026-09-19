@@ -1,227 +1,233 @@
-import { useRef } from "react"
+import { useEffect, useRef } from "react"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
-import { MapPin, BrainCircuit, Globe } from "lucide-react"
+import { SplitText } from "gsap/SplitText"
+import { animate, motion, useInView, useMotionValue, useTransform } from "framer-motion"
+import { GraduationCap, Layers, MapPin, ArrowUpRight } from "lucide-react"
 
-gsap.registerPlugin(ScrollTrigger)
+gsap.registerPlugin(ScrollTrigger, SplitText)
 
-// Magnetic laptop sticker component
-const MagneticSticker = ({ 
-  children, 
-  className = "", 
-  rotation = "rotate-0",
-  bg = "bg-white",
-  text = "text-[#1c1c1c]"
-}: { 
-  children: React.ReactNode, 
-  className?: string, 
-  rotation?: string,
-  bg?: string,
-  text?: string
-}) => {
-  const stickerRef = useRef<HTMLDivElement>(null)
-  
-  useGSAP(() => {
-    const sticker = stickerRef.current
-    if (!sticker) return
-    
-    // Spring physics for magnetic pull
-    const xTo = gsap.quickTo(sticker, "x", { duration: 0.8, ease: "elastic.out(1, 0.4)" })
-    const yTo = gsap.quickTo(sticker, "y", { duration: 0.8, ease: "elastic.out(1, 0.4)" })
+const ACCENT_WORDS = new Set(["SCALE.", "CLEAN", "PRODUCTS."])
 
-    const onMouseMove = (e: MouseEvent) => {
-      const rect = sticker.getBoundingClientRect()
-      const relX = e.clientX - (rect.left + rect.width / 2)
-      const relY = e.clientY - (rect.top + rect.height / 2)
-      // Strong magnetic pull
-      xTo(relX * 0.4)
-      yTo(relY * 0.4)
+const TICKER_ITEMS = [
+  "Python",
+  "SQL",
+  "Apache Spark",
+  "Kafka",
+  "Apache Iceberg",
+  "Google Cloud",
+  "AWS",
+  "Docker",
+  "Kubernetes",
+  "PyTorch",
+  "FastAPI",
+  "PostgreSQL",
+  "Rust",
+  "LLMs",
+  "CI/CD",
+]
+
+const DOMAINS = ["Data Engineering", "Cloud & Infra", "ML & Analytics", "Backend & APIs"]
+
+const cardClass =
+  "about-card bg-white border-2 border-[#1c1c1c] rounded-2xl p-6 md:p-8 shadow-[6px_6px_0px_#1c1c1c] hover:-translate-y-1 hover:shadow-[10px_10px_0px_#1c1c1c] transition-all duration-300"
+
+function DomainCounter() {
+  const ref = useRef<HTMLSpanElement>(null)
+  const inView = useInView(ref, { once: true, margin: "-50px" })
+  const count = useMotionValue(0)
+  const rounded = useTransform(count, (v) => String(Math.round(v)))
+
+  useEffect(() => {
+    if (!inView) return
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      count.set(DOMAINS.length)
+      return
     }
+    const controls = animate(count, DOMAINS.length, {
+      duration: 1.2,
+      ease: "easeOut",
+    })
+    return () => controls.stop()
+  }, [inView, count])
 
-    const onMouseLeave = () => {
-      // Snap back
-      xTo(0)
-      yTo(0)
-    }
-
-    sticker.addEventListener("mousemove", onMouseMove)
-    sticker.addEventListener("mouseleave", onMouseLeave)
-    
-    return () => {
-      sticker.removeEventListener("mousemove", onMouseMove)
-      sticker.removeEventListener("mouseleave", onMouseLeave)
-    }
-  }, [])
-
-  return (
-    <div ref={stickerRef} className={`absolute z-30 cursor-pointer ${rotation} ${className}`}>
-      <div className={`flex items-center gap-2 ${bg} ${text} border-2 border-[#1c1c1c] px-4 md:px-6 py-2 md:py-3 font-black font-mono text-xs md:text-base uppercase tracking-widest shadow-[4px_4px_0px_0px_rgba(28,28,28,1)] hover:shadow-[8px_8px_0px_0px_rgba(28,28,28,1)] hover:-translate-y-1 transition-all duration-300 rounded-xl whitespace-nowrap`}>
-        {children}
-      </div>
-    </div>
-  )
+  return <motion.span ref={ref}>{rounded}</motion.span>
 }
 
 export default function About() {
-  const containerRef = useRef<HTMLDivElement>(null)
+  const containerRef = useRef<HTMLElement>(null)
 
-  useGSAP(() => {
-    if (!containerRef.current) return
+  useGSAP(
+    () => {
+      if (!containerRef.current) return
 
-    // 1. Line-by-Line Reveal for Bio (Deep black text)
-    gsap.from(".reveal-line", {
-      yPercent: 120,
-      opacity: 0,
-      rotateZ: 2,
-      duration: 1.2,
-      stagger: 0.1,
-      ease: "power4.out",
-      scrollTrigger: {
-        trigger: containerRef.current,
-        start: "top 75%",
-        once: true
-      },
-      clearProps: "all"
-    })
+      gsap.from(".about-card", {
+        y: 40,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.08,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top 75%",
+          once: true,
+        },
+        clearProps: "all",
+      })
 
-    // 2. Chaotic Sticker Entrances (pop in like stickers being slapped on)
-    gsap.from(".magnetic-sticker", {
-      scale: 0,
-      opacity: 0,
-      rotation: () => gsap.utils.random(-30, 30),
-      duration: 1,
-      stagger: 0.15,
-      ease: "elastic.out(1, 0.5)",
-      scrollTrigger: {
-        trigger: containerRef.current,
-        start: "top 60%",
-        once: true
-      },
-      clearProps: "scale,opacity"
-    })
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return
 
-    // 3. Background Marquee
-    gsap.to(".marquee-bg", {
-      xPercent: -50,
-      ease: "none",
-      duration: 20,
-      repeat: -1,
-    })
+      const statementSplit = new SplitText(".about-statement", {
+        type: "words",
+        wordsClass: "about-word",
+      })
+      statementSplit.words.forEach((word) => {
+        if (ACCENT_WORDS.has(word.textContent?.trim().toUpperCase() ?? "")) {
+          word.classList.add("text-[#e34234]")
+        }
+      })
+      gsap.fromTo(
+        statementSplit.words,
+        { opacity: 0.12 },
+        {
+          opacity: 1,
+          ease: "none",
+          stagger: 0.05,
+          scrollTrigger: {
+            trigger: ".about-statement",
+            start: "top 80%",
+            end: "bottom 45%",
+            scrub: true,
+          },
+        }
+      )
 
-  }, { scope: containerRef })
+      const manifestoSplit = new SplitText(".about-manifesto", {
+        type: "words,chars",
+        charsClass: "about-char",
+      })
+      gsap.fromTo(
+        manifestoSplit.chars,
+        { opacity: 0.15 },
+        {
+          opacity: 1,
+          ease: "none",
+          stagger: 0.04,
+          scrollTrigger: {
+            trigger: ".about-manifesto",
+            start: "top 85%",
+            end: "bottom 55%",
+            scrub: true,
+          },
+        }
+      )
 
-  const bioLines = [
-    "I’m a Data & Cloud Engineer",
-    "operating at the messy intersection",
-    "of big data pipelines, machine",
-    "learning, and scalable cloud infra.",
-    "",
-    "I don't just write scripts.",
-    "I architect robust systems that",
-    "turn raw data into actionable,",
-    "reliable intelligence."
-  ]
+      return () => {
+        statementSplit.revert()
+        manifestoSplit.revert()
+      }
+    },
+    { scope: containerRef }
+  )
 
   return (
-    <section 
-      id="about" 
-      className="relative min-h-screen py-24 md:py-32 bg-[#f5f5f7] text-[#1c1c1c] overflow-hidden flex items-center"
+    <section
+      id="about"
       ref={containerRef}
+      className="relative py-24 md:py-32 bg-[#f5f5f7] text-[#1c1c1c] overflow-hidden"
     >
-      {/* Gen-Z Marquee Background */}
-      <div className="absolute top-1/2 -translate-y-1/2 left-0 w-[200vw] overflow-hidden pointer-events-none select-none opacity-5">
-        <div className="marquee-bg flex whitespace-nowrap">
-          <h2 
-            className="text-[12rem] md:text-[20rem] font-black leading-none tracking-tighter text-transparent"
-            style={{ WebkitTextStroke: "4px #1c1c1c" }}
-          >
-            THE LORE ✺ THE LORE ✺ THE LORE ✺ THE LORE ✺&nbsp;
+      <div className="max-w-7xl mx-auto px-6 md:px-12">
+        <div className="mb-12 md:mb-16">
+          <p className="font-mono text-xs md:text-sm font-bold uppercase tracking-[0.3em] text-[#e34234] mb-4">
+            About me
+          </p>
+          <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tight leading-[1.02]">
+            The human
+            <br />
+            behind the pipelines
           </h2>
         </div>
-      </div>
 
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12 flex flex-col items-center justify-center min-h-[60vh]">
-        
-        {/* Floating Laptop Stickers (Pushed to the sides) */}
-        <div className="absolute inset-0 pointer-events-none hidden md:block">
-          
-          {/* Left Side */}
-          <MagneticSticker 
-            className="magnetic-sticker top-[15%] left-0 pointer-events-auto" 
-            rotation="-rotate-12"
-            bg="bg-[#e34234]"
-            text="text-white"
-          >
-            <MapPin className="w-5 h-5" /> Pune, IN
-          </MagneticSticker>
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-5 md:gap-6">
+          <div className={`${cardClass} md:col-span-2 md:row-span-2 flex flex-col justify-center`}>
+            <p className="about-statement text-2xl md:text-4xl font-black uppercase tracking-tight leading-[1.15]">
+              3rd-year B.Tech student building systems that scale. I focus on
+              writing clean code and shipping real products.
+            </p>
+          </div>
 
-          <MagneticSticker 
-            className="magnetic-sticker top-[45%] -left-8 pointer-events-auto" 
-            rotation="rotate-6"
-            bg="bg-[#1c1c1c]"
-            text="text-[#f5f5f7]"
-          >
-            ⚡ BIG DATA ENERGY
-          </MagneticSticker>
+          <div className="about-card md:col-span-2 bg-[#1c1c1c] text-[#f5f5f7] border-2 border-[#1c1c1c] rounded-2xl p-6 md:p-8 shadow-[6px_6px_0px_#e34234] flex items-center overflow-hidden">
+            <p className="about-manifesto text-4xl md:text-6xl font-black uppercase tracking-tight leading-[1.02]">
+              Learn. Build. Ship.
+            </p>
+          </div>
 
-          <MagneticSticker 
-            className="magnetic-sticker bottom-[20%] left-8 pointer-events-auto" 
-            rotation="-rotate-6"
-            bg="bg-white"
-            text="text-[#1c1c1c]"
-          >
-            <BrainCircuit className="w-5 h-5 text-[#e34234]" /> ML / AI
-          </MagneticSticker>
+          <a href="#skills" className={`${cardClass} group block`}>
+            <Layers className="w-7 h-7 text-[#e34234] mb-4" />
+            <p className="text-5xl md:text-6xl font-black tracking-tight leading-none">
+              <DomainCounter />
+            </p>
+            <p className="mt-2 text-sm font-bold uppercase tracking-widest text-zinc-500">
+              Engineering domains
+            </p>
+            <p className="mt-4 text-xs font-mono uppercase tracking-wider text-zinc-400 group-hover:text-[#e34234] transition-colors">
+              View skills <ArrowUpRight className="inline w-4 h-4" />
+            </p>
+          </a>
 
-          {/* Right Side */}
-          <MagneticSticker 
-            className="magnetic-sticker top-[25%] -right-8 pointer-events-auto" 
-            rotation="rotate-12"
-            bg="bg-white"
-            text="text-[#1c1c1c]"
-          >
-            🚀 SHIP IT
-          </MagneticSticker>
+          <div className={cardClass}>
+            <GraduationCap className="w-7 h-7 text-[#e34234] mb-4" />
+            <p className="text-2xl font-black uppercase tracking-tight">B.Tech</p>
+            <p className="mt-2 text-sm font-bold uppercase tracking-widest text-zinc-500">
+              MIT-ADT · Pune
+            </p>
+          </div>
 
-          <MagneticSticker 
-            className="magnetic-sticker top-[55%] right-8 pointer-events-auto" 
-            rotation="-rotate-6"
-            bg="bg-[#e34234]"
-            text="text-white"
-          >
-            <Globe className="w-5 h-5" /> MIT-ADT
-          </MagneticSticker>
+          <div className="about-card md:col-span-4 bg-white border-2 border-[#1c1c1c] rounded-2xl py-5 shadow-[6px_6px_0px_#1c1c1c] overflow-hidden">
+            <div
+              className="ticker-track flex w-max gap-6"
+            >
+              {[...TICKER_ITEMS, ...TICKER_ITEMS].map((item, index) => (
+                <span
+                  key={`${item}-${index}`}
+                  aria-hidden={index >= TICKER_ITEMS.length}
+                  className="flex items-center gap-6 font-mono text-sm font-bold uppercase tracking-[0.2em] whitespace-nowrap"
+                >
+                  {item}
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#e34234]" />
+                </span>
+              ))}
+            </div>
+          </div>
 
-          <MagneticSticker 
-            className="magnetic-sticker bottom-[15%] -right-4 pointer-events-auto" 
-            rotation="rotate-12"
-            bg="bg-[#1c1c1c]"
-            text="text-[#f5f5f7]"
+          <a href="#contact" aria-label="Get in touch — based in Pune, India" className={`${cardClass} group flex items-center gap-4`}>
+            <span className="relative flex w-3 h-3 shrink-0">
+              <span className="absolute inline-flex w-full h-full rounded-full bg-green-500 animate-ping" />
+              <span className="relative inline-flex w-3 h-3 rounded-full bg-green-600" />
+            </span>
+            <span>
+              <span className="flex items-center gap-1 font-mono text-sm font-bold uppercase tracking-[0.2em]">
+                <MapPin className="w-4 h-4 text-[#e34234]" /> Pune, IN
+              </span>
+              <span className="mt-1 block text-sm font-bold uppercase tracking-widest text-zinc-500 group-hover:text-[#e34234] transition-colors">
+                Let's talk <ArrowUpRight className="inline w-4 h-4" />
+              </span>
+            </span>
+          </a>
+
+          <a
+            href="#projects"
+            className="about-card group md:col-span-3 bg-[#e34234] text-white border-2 border-[#1c1c1c] rounded-2xl p-6 md:p-8 shadow-[6px_6px_0px_#1c1c1c] hover:-translate-y-1 hover:shadow-[10px_10px_0px_#1c1c1c] transition-all duration-300 flex items-center justify-between gap-4"
           >
-            BASED 💯
-          </MagneticSticker>
+            <span className="text-2xl md:text-3xl font-black uppercase tracking-tight">
+              See the work
+            </span>
+            <ArrowUpRight className="w-8 h-8 md:w-10 md:h-10 shrink-0 group-hover:rotate-45 transition-transform duration-300" />
+          </a>
         </div>
 
-        {/* Bio Text Centered */}
-        <div className="relative z-20 w-full max-w-3xl mx-auto space-y-2 text-center md:text-left mix-blend-difference pointer-events-none">
-          {/* We use mix-blend-difference so it contrasts with stickers if they overlap, 
-              but since bg is light and text is dark, let's just use normal rendering 
-              so it doesn't look washed out. Actually, dark text on light bg is fine. */}
-          {bioLines.map((line, index) => {
-            if (line === "") {
-              return <div key={index} className="h-6 md:h-8" /> 
-            }
-            return (
-              <div key={index} className="overflow-hidden">
-                <p className="reveal-line text-[1.75rem] md:text-4xl lg:text-[2.75rem] font-black tracking-tighter text-[#1c1c1c] leading-[1.1] uppercase pointer-events-auto">
-                  {line}
-                </p>
-              </div>
-            )
-          })}
-        </div>
-
+        <p className="sr-only">{DOMAINS.join(", ")}</p>
       </div>
     </section>
   )
