@@ -9,25 +9,33 @@ export default function Navbar() {
   const [activeSection, setActiveSection] = useState("home")
 
   useEffect(() => {
-    const handleScroll = () => {
+    const ids = dockItems.map((link) => link.id)
+    let ticking = false
+    const update = () => {
+      ticking = false
       setIsScrolled(window.scrollY > 20)
 
-      // Scroll spy logic
-      const sections = dockItems.map((link) => link.id)
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const section = document.getElementById(sections[i])
+      // Scroll spy logic (rAF-throttled, cached ids)
+      for (let i = ids.length - 1; i >= 0; i--) {
+        const section = document.getElementById(ids[i])
         if (section) {
           const rect = section.getBoundingClientRect()
           if (rect.top <= 150) {
-            setActiveSection(sections[i])
+            setActiveSection(ids[i])
             break
           }
         }
       }
     }
+    const handleScroll = () => {
+      if (!ticking) {
+        ticking = true
+        requestAnimationFrame(update)
+      }
+    }
     window.addEventListener("scroll", handleScroll, { passive: true })
     // Trigger once on mount
-    handleScroll()
+    update()
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
