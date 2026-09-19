@@ -1,60 +1,53 @@
-import { useRef, useState, lazy, Suspense, useEffect } from "react"
+import { useRef, useState, lazy, Suspense } from "react"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
 const Spline = lazy(() => import("@splinetool/react-spline"))
 import { Mail } from "lucide-react"
 import { GithubIcon, LinkedinIcon } from "@/components/ui/social-icons"
-import { LiquidButton } from "@/components/ui/liquid-button"
-import { Magnetic } from "@/components/ui/magnetic"
-import { SplitText } from "gsap/SplitText"
 import { useIsMobile } from "@/hooks/useIsMobile"
 
 export default function Hero() {
   const [isSplineLoaded, setIsSplineLoaded] = useState(false)
   const isMobile = useIsMobile()
 
-  useEffect(() => {
-    if (isMobile) {
-      setIsSplineLoaded(true)
-    }
-  }, [isMobile])
-
-
   const sectionRef = useRef<HTMLElement>(null)
   const subheadingRef = useRef<HTMLParagraphElement>(null)
+  const greetingRef = useRef<HTMLParagraphElement>(null)
   const iconsRef = useRef<HTMLDivElement>(null)
-  const buttonsRef = useRef<HTMLDivElement>(null)
   const scrollRef = useRef<HTMLDivElement>(null)
   const headingRef = useRef<HTMLHeadingElement>(null)
 
   useGSAP(() => {
     if (!sectionRef.current) return
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return
 
     const tl = gsap.timeline({ delay: 0.6 })
 
-    // Heading character stagger animation
-    if (headingRef.current) {
-      const split = SplitText.create(headingRef.current, { type: "lines,words,chars" })
-      
-      // Wrap lines in overflow-hidden divs for a clean mask effect
-      split.lines.forEach((line: HTMLElement) => {
-        const wrap = document.createElement("div")
-        wrap.style.overflow = "hidden"
-        // keep block display so lines stack correctly
-        line.parentNode?.insertBefore(wrap, line)
-        wrap.appendChild(line)
-      })
-
+    // Greeting fade in
+    if (greetingRef.current) {
       tl.from(
-        split.chars,
+        greetingRef.current,
         {
-          y: "120%",
-          rotateZ: 5,
-          duration: 1.2,
-          ease: "power4.out",
-          stagger: 0.02,
+          opacity: 0,
+          y: 20,
+          duration: 1,
+          ease: "power3.out",
         },
-        0.2 // Start early
+        0.1
+      )
+    }
+
+    // Heading fade and slide in
+    if (headingRef.current) {
+      tl.from(
+        headingRef.current,
+        {
+          opacity: 0,
+          y: 40,
+          duration: 1,
+          ease: "power3.out",
+        },
+        0.3
       )
     }
 
@@ -69,7 +62,7 @@ export default function Hero() {
           duration: 1,
           ease: "power3.out",
         },
-        1.0 // adjusted timing relative to heading
+        0.6
       )
     }
 
@@ -85,25 +78,10 @@ export default function Hero() {
           duration: 0.6,
           ease: "back.out(1.7)",
         },
-        2
+        1.5
       )
     }
 
-    // Buttons stagger in
-    if (buttonsRef.current) {
-      tl.from(
-        buttonsRef.current.children,
-        {
-          opacity: 0,
-          y: 40,
-          scale: 0.9,
-          stagger: 0.15,
-          duration: 0.8,
-          ease: "elastic.out(1, 0.5)",
-        },
-        2.3
-      )
-    }
 
     // Scroll indicator
     if (scrollRef.current) {
@@ -136,25 +114,25 @@ export default function Hero() {
     >
 
       {/* Spline as full background */}
-      <div className="absolute inset-0 md:left-1/3 lg:left-[40%] xl:left-1/2 z-0 flex items-center justify-center">
+      <div className="absolute inset-0 md:left-[25%] lg:left-[30%] xl:left-[35%] z-0 flex items-center justify-center">
 
         {isMobile ? (
           <div className="w-full h-full bg-gradient-to-br from-[#f5f5f7] via-[#e4e4e7]/80 to-[#f5f5f7]/30 opacity-60" />
         ) : (
           <Suspense fallback={null}>
-            <div className="absolute inset-0 pointer-events-auto">
+            <div className={`absolute inset-0 pointer-events-auto transition-opacity duration-1000 ${isSplineLoaded ? "opacity-100" : "opacity-0"}`}>
               <Spline
                 scene="https://prod.spline.design/K4qEdxKLque-YBJ7/scene.splinecode"
                 style={{ width: "100%", height: "100%", background: "transparent" }}
                 onLoad={(spline) => {
-                  spline.setZoom(1)
+                  spline.setZoom(1.4)
                   setIsSplineLoaded(true)
                 }}
               />
             </div>
           </Suspense>
         )}
-        
+
         {/* Solid block to perfectly hide the watermark without stretching the canvas */}
         <div className="absolute bottom-0 right-0 w-[180px] h-[60px] bg-[#f5f5f7] pointer-events-none" />
       </div>
@@ -165,38 +143,31 @@ export default function Hero() {
       {/* Content overlay */}
       <div className="relative z-10 h-full flex flex-col justify-center md:justify-end px-8 md:px-16 pb-32 md:pb-24 pointer-events-none">
         <div className="w-full md:w-[60%] lg:w-[55%] xl:w-1/2 pointer-events-auto mt-20 md:mt-0">
-          <p
-            ref={subheadingRef}
-            className="text-[#e34234] mb-6 font-mono text-xs md:text-sm uppercase tracking-[0.3em] font-medium"
-          >
-            Big Data & Cloud Engineer
-          </p>
-          <h1
-            ref={headingRef}
-            className="text-[14vw] md:text-[9vw] lg:text-[7vw] leading-[0.9] font-bold text-[#1c1c1c] mb-10 tracking-tighter"
-          >
-            <span className="block">Hi, I'm</span>
-            <span className="block pb-4">Dhanush Pillay</span>
-          </h1>
-          
-          <div className="flex flex-col md:flex-row items-start md:items-center gap-8 md:gap-12">
-            <div ref={buttonsRef} className="flex flex-wrap gap-4">
-              <Magnetic intensity={0.2}>
-                <a href="#projects" aria-label="View Projects">
-                  <LiquidButton size="lg" variant="default">
-                    View Projects
-                  </LiquidButton>
-                </a>
-              </Magnetic>
-              <Magnetic intensity={0.2}>
-                <a href="#contact" aria-label="Contact Me">
-                  <LiquidButton size="lg" variant="outline">
-                    Contact Me
-                  </LiquidButton>
-                </a>
-              </Magnetic>
-            </div>
+          <div className="text-center md:text-left w-full md:w-auto relative mb-24 md:mb-0">
+            <p
+              ref={greetingRef}
+              className="text-xl md:text-2xl text-zinc-500 font-sans font-medium mb-2 lowercase"
+            >
+              sup. i'm
+            </p>
+            <h1
+              ref={headingRef}
+              className="text-6xl md:text-7xl lg:text-[7.5rem] font-cursive italic leading-[1.05] tracking-tight mb-6"
+            >
+              <span className="block text-[#1c1c1c]">
+                Dhanush
+              </span>
+              <span className="block text-[#e34234]">Pillay</span>
+            </h1>
+            <p
+              ref={subheadingRef}
+              className="text-sm md:text-base lg:text-lg font-bold text-zinc-500 uppercase tracking-[0.25em] font-sans"
+            >
+              Data Engineer &middot; Cloud Architect
+            </p>
+          </div>
 
+          <div className="flex flex-col md:flex-row items-start md:items-center gap-8 md:gap-12 mt-8">
             <div
               ref={iconsRef}
               className="flex items-center gap-6"
