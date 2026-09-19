@@ -1,8 +1,8 @@
 "use client"
 
 import { useState, useRef } from "react"
-import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from "framer-motion"
-import { Home, Mail, FileText, Briefcase, Code, Wrench, GraduationCap } from 'lucide-react'
+import { motion, useMotionValue, useSpring, useTransform, AnimatePresence, type Variants } from "framer-motion"
+import { Home, Mail, FileText, Briefcase, Code, Wrench, GraduationCap, GitPullRequest } from 'lucide-react'
 
 // Map sections to icons
 export const dockItems = [
@@ -10,12 +10,13 @@ export const dockItems = [
   { id: "about", name: "About", href: "#about", icon: <FileText className="w-6 h-6" />, color: "#4f46e5" },
   { id: "skills", name: "Skills", href: "#skills", icon: <Wrench className="w-6 h-6" />, color: "#10b981" },
   { id: "certifications", name: "Certifications", href: "#certifications", icon: <GraduationCap className="w-6 h-6" />, color: "#f59e0b" },
+  { id: "opensource", name: "Open Source", href: "#opensource", icon: <GitPullRequest className="w-6 h-6" />, color: "#6e40c9" },
   { id: "projects", name: "Projects", href: "#projects", icon: <Code className="w-6 h-6" />, color: "#ec4899" },
   { id: "experience", name: "Experience", href: "#experience", icon: <Briefcase className="w-6 h-6" />, color: "#8b5cf6" },
   { id: "contact", name: "Contact", href: "#contact", icon: <Mail className="w-6 h-6" />, color: "#14b8a6" },
 ]
 
-const containerVariants = {
+const containerVariants: Variants = {
   hidden: { y: -80, opacity: 0, scale: 0.9 },
   visible: {
     y: 0,
@@ -32,7 +33,7 @@ const containerVariants = {
   },
 }
 
-const itemVariants = {
+const itemVariants: Variants = {
   hidden: { opacity: 0, y: -20, scale: 0.5 },
   visible: {
     opacity: 1,
@@ -51,7 +52,7 @@ export const DockTabs = ({ activeSection }: { activeSection: string }) => {
       initial="hidden"
       animate="visible"
       className="fixed top-6 left-1/2 -translate-x-1/2 z-50 flex items-end h-20 gap-3 px-6 pb-3 bg-[#f5f5f7]/90 backdrop-blur-xl border-4 border-[#1c1c1c] rounded-3xl shadow-[6px_6px_0px_0px_rgba(28,28,28,1)]"
-      onMouseMove={(e) => mouseX.set(e.pageX)}
+      onMouseMove={(e) => mouseX.set(e.clientX)}
       onMouseLeave={() => mouseX.set(Infinity)}
     >
       {dockItems.map((item) => (
