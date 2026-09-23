@@ -18,6 +18,8 @@ export function Magnetic({ children, className = "", intensity = 0.5 }: Magnetic
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!ref.current) return
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return
+    if (window.matchMedia("(pointer: coarse)").matches) return
 
     const { clientX, clientY } = e
     const { height, width, left, top } = ref.current.getBoundingClientRect()

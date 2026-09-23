@@ -5,10 +5,8 @@ export function useIsMobile() {
 
   useEffect(() => {
     const checkIsMobile = () => {
-      // Check screen width (standard Tailwind md breakpoint is 768px)
       const isNarrowScreen = window.innerWidth < 768
       
-      // Check for touch capability
       const isTouchDevice = 
         "ontouchstart" in window || 
         navigator.maxTouchPoints > 0 || 
@@ -17,10 +15,8 @@ export function useIsMobile() {
       setIsMobile(isNarrowScreen || isTouchDevice)
     }
 
-    // Initial check
     checkIsMobile()
 
-    // Add event listener for resize
     window.addEventListener("resize", checkIsMobile)
     
     return () => {

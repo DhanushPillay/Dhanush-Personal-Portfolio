@@ -1,74 +1,79 @@
-@import "tailwindcss";
+﻿@import "tailwindcss";
 
 @theme {
-  --color-background: #050505;
-  --color-foreground: #ffffff;
-  --color-primary: #f59e0b;
-  --color-primary-foreground: #000000;
-  --color-secondary: #18181b;
-  --color-secondary-foreground: #ffffff;
-  --color-muted: #18181b;
-  --color-muted-foreground: #a1a1aa;
-  --color-accent: #f59e0b;
-  --color-accent-foreground: #000000;
+  --color-background: #f5f5f7;
+  --color-foreground: #1c1c1c;
+  --color-primary: #e34234;
+  --color-primary-foreground: #ffffff;
+  --color-secondary: #e4e4e7;
+  --color-secondary-foreground: #1c1c1c;
+  --color-muted: #e4e4e7;
+  --color-muted-foreground: #5c5c5c;
+  --color-accent: #e34234;
+  --color-accent-foreground: #ffffff;
   --color-destructive: #ef4444;
   --color-destructive-foreground: #ffffff;
-  --color-border: #27272a;
-  --color-input: #27272a;
-  --color-ring: #f59e0b;
+  --color-border: #e4e4e7;
+  --color-input: #e4e4e7;
+  --color-ring: #e34234;
   --radius: 0.5rem;
+
+  --font-sans: "Space Grotesk", system-ui, sans-serif;
+  --font-display: "Clash Display", system-ui, sans-serif;
+  --font-cursive: "Playfair Display", serif;
 
   --animate-shimmer: shimmer 2s linear infinite;
   --animate-marquee: marquee var(--duration) linear infinite;
   --animate-marquee-vertical: marquee-vertical var(--duration) linear infinite;
-  
+
   @keyframes shimmer {
     from {
       background-position: 200% 0;
     }
+
     to {
       background-position: -200% 0;
     }
   }
 
   @keyframes marquee {
-    from { transform: translateX(0); }
-    to { transform: translateX(calc(-100% - var(--gap))); }
+    from {
+      transform: translateX(0);
+    }
+
+    to {
+      transform: translateX(calc(-100% - var(--gap)));
+    }
   }
 
   @keyframes marquee-vertical {
-    from { transform: translateY(0); }
-    to { transform: translateY(calc(-100% - var(--gap))); }
+    from {
+      transform: translateY(0);
+    }
+
+    to {
+      transform: translateY(calc(-100% - var(--gap)));
+    }
   }
 
   --animate-skills-marquee: skills-marquee 40s linear infinite;
-  
+
   @keyframes skills-marquee {
-    to { transform: translateX(-50%); }
+    to {
+      transform: translateX(-50%);
+    }
   }
 }
 
-body {
-  background-color: var(--color-background);
-  color: var(--color-foreground);
-  font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
-}
 
-@media (pointer: fine) {
-  *, *::before, *::after {
-    cursor: none !important;
-  }
-}
 
 * {
   border-color: var(--color-border);
 }
 
 /* Lenis overrides */
-html.lenis, html.lenis body {
+html.lenis,
+html.lenis body {
   height: auto;
 }
 
@@ -84,8 +89,8 @@ html.lenis, html.lenis body {
 
 /* Selection color */
 ::selection {
-  background: rgba(245, 158, 11, 0.3);
-  color: #ffffff;
+  background: rgba(227, 66, 52, 0.2);
+  color: #1c1c1c;
 }
 
 /* Noise texture overlay removed */
@@ -94,6 +99,7 @@ html.lenis, html.lenis body {
   0% {
     transform: translateY(-100%);
   }
+
   100% {
     transform: translateY(200%);
   }
@@ -104,196 +110,24 @@ html.lenis, html.lenis body {
 .section-divider {
   position: relative;
   height: 1px;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(245, 158, 11, 0.3) 20%,
-    rgba(245, 158, 11, 0.5) 50%,
-    rgba(245, 158, 11, 0.3) 80%,
-    transparent 100%
-  );
+  background: #e4e4e7;
 }
 
 .section-divider::before {
-  content: "";
-  position: absolute;
-  inset: -20px 0;
-  background: linear-gradient(
-    180deg,
-    transparent 0%,
-    rgba(245, 158, 11, 0.02) 50%,
-    transparent 100%
-  );
-  pointer-events: none;
+  display: none;
 }
 
 /* Soft gradient fades between sections */
 .section-fade {
-  position: relative;
-  height: 150px;
-  background: linear-gradient(
-    180deg,
-    transparent 0%,
-    rgba(245, 158, 11, 0.05) 50%,
-    transparent 100%
-  );
-  pointer-events: none;
-  margin-top: -75px;
-  margin-bottom: -75px;
-  z-index: 10;
+  display: none;
 }
 
-/* Glassmorphism card hover glow */
-.glass-card {
-  background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.glass-card:hover {
-  border-color: rgba(245, 158, 11, 0.3);
-  box-shadow: 0 0 30px rgba(245, 158, 11, 0.1);
-}
-
-/* Gradient text helper */
-.gradient-text {
-  background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 50%, #f59e0b 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* Section backgrounds */
-.section-dark {
-  background: linear-gradient(180deg, #050505 0%, #09090b 100%);
-}
-
-.section-darker {
-  background: linear-gradient(180deg, #09090b 0%, #050505 100%);
-}
-
-/* Custom premium scrollbar */
-.custom-scrollbar::-webkit-scrollbar {
-  height: 4px;
-}
-
-.custom-scrollbar::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.02);
-  border-radius: 10px;
-}
-
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  background: rgba(245, 158, 11, 0.3); /* amber-500 with opacity */
-  border-radius: 10px;
-  transition: all 0.3s ease;
-}
-
-.custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: rgba(245, 158, 11, 0.6);
-}
-
-.custom-scrollbar {
-  scrollbar-width: thin;
-  scrollbar-color: rgba(245, 158, 11, 0.3) transparent;
-}
-
-/* Snow Ball Loading Spinner */
-.pl {
-  width: 15em;
-  height: 15em;
-  position: relative;
-  font-size: 10px; /* Scale down slightly if needed, or leave to inherit */
-}
-.pl__outer-ring,
-.pl__inner-ring,
-.pl__track-cover {
-  position: absolute;
-  border-radius: 50%;
-}
-.pl__outer-ring {
-  inset: 0;
-  box-shadow: 0 0 0 2em #18181b inset; /* Single thick track exactly matching the ball size */
-}
-.pl__inner-ring {
-  display: none; /* Removed inner ring to avoid misalignment */
-}
-.pl__track-cover {
-  inset: 0;
-  background: conic-gradient(transparent 0deg, #000000 270deg); /* black background match */
-  animation: trackCover 2s linear infinite;
-}
-.pl__ball {
-  position: absolute;
-  width: 2em;
-  height: 2em;
-  top: 50%;
-  left: 50%;
-  margin: -1em 0 0 -1em;
-  border-radius: 50%;
-  background-color: #fbbf24; /* amber-400 */
-  animation: ball 2s linear infinite;
-  transform: rotate(0) translateY(-6.5em);
-  box-shadow: 0 0 20px rgba(245, 158, 11, 0.8), 0 0 40px rgba(245, 158, 11, 0.4);
-  overflow: hidden;
-}
-.pl__ball-texture {
-  width: 200%;
-  height: 100%;
-  background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%);
-  animation: ballTexture 1s linear infinite;
-}
-.pl__ball-outer-shadow,
-.pl__ball-inner-shadow,
-.pl__ball-side-shadows {
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-}
-.pl__ball-outer-shadow {
-  box-shadow: 0 0.3em 0.5em rgba(0,0,0,0.5);
-  animation: ballOuterShadow 2s linear infinite;
-}
-.pl__ball-inner-shadow {
-  box-shadow: 0 -0.3em 0.5em rgba(0,0,0,0.5) inset;
-  animation: ballInnerShadow 2s linear infinite;
-}
-
-@keyframes ball {
-  from {
-    transform: rotate(0) translateY(-6.5em);
-  }
-  50% {
-    transform: rotate(180deg) translateY(-6em);
-  }
-  to {
-    transform: rotate(360deg) translateY(-6.5em);
-  }
-}
-
-@keyframes ballInnerShadow {
-  from { transform: rotate(0); }
-  to { transform: rotate(-360deg); }
-}
-
-@keyframes ballOuterShadow {
-  from { transform: rotate(20deg); }
-  to { transform: rotate(-340deg); }
-}
-
-@keyframes ballTexture {
-  from { transform: translateX(0); }
-  to { transform: translateX(50%); }
-}
-
-@keyframes trackCover {
-  from { transform: rotate(0); }
-  to { transform: rotate(360deg); }
-}
 
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
+
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
@@ -303,13 +137,38 @@ html.lenis, html.lenis body {
     cursor: auto;
   }
 
-  a, button {
+  a,
+  button {
     cursor: auto;
   }
 }
 
 @media (hover: none) and (pointer: coarse) {
-  body, a, button {
+
+  body,
+  a,
+  button {
     cursor: auto;
   }
+}
+
+/* Tech ticker: plain CSS so motion doesn't depend on theme-var indirection.
+   The -1.5rem matches the track's gap-6 for a seamless loop. */
+@keyframes ticker-scroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(calc(-100% - 1.5rem));
+  }
+}
+
+.ticker-track {
+  animation: ticker-scroll 28s linear infinite;
+  will-change: transform;
+}
+
+.ticker-track:hover {
+  animation-play-state: paused;
 }

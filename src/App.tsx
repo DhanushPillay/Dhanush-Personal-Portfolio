@@ -10,11 +10,11 @@ import Hero from "@/components/Hero"
 import About from "@/components/About"
 import Skills from "@/components/Skills"
 import Certifications from "@/components/Certifications"
+import OpenSource from "@/components/OpenSource"
 import Projects from "@/components/Projects"
 import Resume from "@/components/Resume"
 import Contact from "@/components/Contact"
 import Footer from "@/components/Footer"
-import CustomCursor from "@/components/ui/custom-cursor"
 
 gsap.registerPlugin(ScrollTrigger, SplitText)
 
@@ -34,16 +34,15 @@ export default function App() {
 
   return (
     <ReactLenis root options={{ lerp: 0.08, duration: 1.2, smoothWheel: true, syncTouch: false }}>
-      <CustomCursor />
       
       {/* Interactive Scroll Progress Bar */}
       <motion.div
-        className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-amber-500 via-amber-400 to-amber-600 origin-left z-[100] shadow-[0_0_15px_rgba(245,158,11,0.8)]"
+        className="fixed top-0 left-0 right-0 h-1 bg-[#e34234] origin-left z-[100] shadow-[0_0_15px_rgba(227,66,52,0.4)]"
         style={{ scaleX }}
       />
       
       {/* Noise texture overlay removed */}
-      <div className="min-h-screen bg-black">
+      <div className="min-h-screen bg-[#f5f5f7]">
         <Navbar />
         <Hero />
         <div className="section-fade" />
@@ -52,6 +51,8 @@ export default function App() {
         <Skills />
         <div className="section-fade" />
         <Certifications />
+        <div className="section-divider" />
+        <OpenSource />
         <div className="section-divider" />
         <Projects />
         <div className="section-fade" />
