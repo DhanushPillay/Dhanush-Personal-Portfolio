@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import { Menu, X } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
-import { DockTabs, dockItems } from "./ui/dock-tabs"
+import { DockTabs, dockItems } from "@/components/ui/dock-tabs"
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
