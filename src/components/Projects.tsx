@@ -11,7 +11,7 @@ if (typeof window !== "undefined") {
 
 type Project = {
   title: string
-  description: string
+  description: string[]
   image: string
   imageSrcSet?: string
   tags: string[]
@@ -22,22 +22,28 @@ type Project = {
 const projects: Project[] = [
   {
     title: "Tx-Recon",
-    description:
-      "Engineered a transaction reconciliation pipeline capable of processing 162k rows/sec with 100% accuracy (0 false positives) by integrating Redpanda streaming, Apache Iceberg MERGE, and Pandera validation. Eliminated floating-point financial drift by implementing integer-only paise math for webhook and settlement comparisons.",
+    description: [
+      "Reconciles payment-gateway webhooks against settlement CSVs with an integer-only paise fee engine (MDR + GST), idempotent provider-aware Iceberg MERGE, and MT940 bank statements as a third leg.",
+      "Validated on 13.3M real transactions: 12.6M rows end to end in about 5 minutes with a 94.6% match gate.",
+      "Explored through a Trino + Metabase dashboard covering match rate, volume, and at-risk rupees.",
+    ],
     image: "/projects/tx-recon-dashboard.webp",
     imageSrcSet: "/projects/tx-recon-dashboard-800.webp 800w, /projects/tx-recon-dashboard.webp 1600w",
     tags: ["PYTHON", "SPARK", "ICEBERG", "KAFKA", "DOCKER"],
     githubUrl: "https://github.com/DhanushPillay/tx-recon",
   },
   {
-    title: "Tech News Aggregator",
-    description:
-      "Aggregated real-time tech news from 5 distinct sources by developing a concurrent scraping engine and integrating SQLite FTS5 for full-text search. Enhanced content discoverability by implementing automated NLP enrichment pipelines via APScheduler.",
+    title: "Sniffer",
+    description: [
+      "Flask app scraping 7 tech sources concurrently (asyncio + thread pools) with retries.",
+      "Full-text search plus VADER sentiment scoring, category and reading-time enrichment, and offline extractive summaries.",
+      "Refreshed hourly by GitHub Actions cron.",
+    ],
     image:
       "https://images.unsplash.com/photo-1504711434969-e33886168f5c?q=70&w=1200&auto=format&fit=crop",
     tags: ["PYTHON", "FLASK", "SQLITE", "NLP", "BS4"],
     liveUrl: "https://sniffer-vfru.onrender.com/",
-    githubUrl: "https://github.com/DhanushPillay",
+    githubUrl: "https://github.com/DhanushPillay/Web-scraper",
   },
 ]
 
@@ -125,9 +131,11 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
           {project.title}
         </h3>
 
-        <p className="text-zinc-600 text-lg leading-relaxed reveal-item">
-          {project.description}
-        </p>
+        <ul className="text-zinc-600 text-lg leading-relaxed space-y-2 list-disc pl-6 reveal-item">
+          {project.description.map((point) => (
+            <li key={point}>{point}</li>
+          ))}
+        </ul>
 
         <div className="flex flex-wrap gap-3 reveal-item">
           {project.tags.map((tag) => (
